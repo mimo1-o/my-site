@@ -191,14 +191,14 @@
   }
   .card:hover{box-shadow:0 16px 30px -18px rgba(0,0,0,.25);transform:translateY(-4px);}
   .card-media{
-    height:190px;display:flex;align-items:center;justify-content:center;
-    position:relative;overflow:hidden;
+    height:240px;display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;background:#f0f0f0;
   }
-  .card-media img{width:100%;height:100%;object-fit:cover;}
-  .card-media .swatch{width:70%;height:70%;border-radius:12px;}
+  .card-media img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease;}
+  .card:hover .card-media img{transform:scale(1.05);}
   
   .badge-container{
-    position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;
+    position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;z-index:2;
   }
   .badge{
     font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;
@@ -210,7 +210,7 @@
     position:absolute;top:10px;left:10px;width:32px;height:32px;
     border-radius:50%;background:var(--white);border:1px solid var(--line);
     display:flex;align-items:center;justify-content:center;cursor:pointer;
-    font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:.2s;
+    font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:.2s;z-index:2;
   }
   .fav-btn:hover{background:#FFEAEA;color:#E53935;border-color:#E53935;}
 
@@ -352,7 +352,7 @@
     <div>
       <div class="eyebrow">✦ سوق الملابس والأقمشة الموثوق</div>
       <h1>أدم وباهي للشيفون <em>أناقتك وجودتك</em> في مكان واحد</h1>
-      <p>منصّة راقية تجمع أرقى أقمشة الشيفون والملابس الجاهزة مع طلبات تواصل مباشرة والتوصيل لكافة الولايات.</p>
+      <p>منصّة راقية تجمع أرقى أقمشة الشيفون والملابس الجاهزة مع طلبات تواصل مباشرة والتوصيل لكافة الولايات الـ 58.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#products">تسوّق الآن</a>
         <button class="btn btn-outline" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
@@ -380,12 +380,8 @@
       <button class="btn btn-primary">بحث</button>
     </div>
     <div class="filters-grid">
-      <select class="filter-select">
-        <option value="">الولاية (الكل)</option>
-        <option value="16">الجزائر العاصمة</option>
-        <option value="31">وهران</option>
-        <option value="25">قسنطينة</option>
-        <option value="19">سطيف</option>
+      <select class="filter-select wilaya-select">
+        <option value="">الولاية (الكل - 58 ولاية)</option>
       </select>
       <select class="filter-select">
         <option value="">المقاس / الطول</option>
@@ -429,20 +425,20 @@
   <!-- ===== PRODUCTS ===== -->
   <section class="section" id="products">
     <div class="section-head">
-      <div><h2>قطع المعرض والمنتجات</h2><p>يمكنك التردد للطلب المباشر عبر حساب الانستغرام rahim._.abod</p></div>
+      <div><h2>قطع المعرض والمنتجات</h2><p>يمكنك التواصل للطلب المباشر عبر حساب الانستغرام rahim._.abod</p></div>
       <a class="btn btn-outline btn-sm" href="#">عرض الكل</a>
     </div>
     <div class="products" id="productsContainer">
 
-      <!-- المنتجات الجاهزة -->
+      <!-- المنتجات الجاهزة مع صور واقعية -->
       <div class="card">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
-          <span class="badge badge-wilaya">الجزائر</span>
+          <span class="badge badge-wilaya">16 - الجزائر</span>
           <span class="badge badge-condition">جديد</span>
         </div>
-        <div class="card-media" style="background:#EAF0E8;">
-          <div class="swatch" style="background:var(--green);"></div>
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80" alt="قماش شيفون راقي">
         </div>
         <div class="card-body">
           <b>قماش شيفون راقي مطرز</b>
@@ -457,11 +453,11 @@
       <div class="card">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
-          <span class="badge badge-wilaya">وهران</span>
+          <span class="badge badge-wilaya">31 - وهران</span>
           <span class="badge badge-condition">كالجديد</span>
         </div>
-        <div class="card-media" style="background:#E9EDF1;">
-          <div class="swatch" style="background:var(--indigo);"></div>
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80" alt="فستان شيفون كلاسيكي">
         </div>
         <div class="card-body">
           <b>فستان شيفون كلاسيكي</b>
@@ -476,11 +472,11 @@
       <div class="card">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
-          <span class="badge badge-wilaya">سطيف</span>
+          <span class="badge badge-wilaya">19 - سطيف</span>
           <span class="badge badge-condition">جديد</span>
         </div>
-        <div class="card-media" style="background:#F1E9DE;">
-          <div class="swatch" style="background:var(--thread);"></div>
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=600&q=80" alt="قميص شيفون ناعم">
         </div>
         <div class="card-body">
           <b>قميص شيفون ناعم</b>
@@ -495,11 +491,11 @@
       <div class="card">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
-          <span class="badge badge-wilaya">قسنطينة</span>
+          <span class="badge badge-wilaya">25 - قسنطينة</span>
           <span class="badge badge-condition">ممتاز</span>
         </div>
-        <div class="card-media" style="background:#EFE7EA;">
-          <div class="swatch" style="background:#8B6B72;"></div>
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80" alt="شال شيفون مميز">
         </div>
         <div class="card-body">
           <b>شال شيفون مميز</b>
@@ -526,7 +522,7 @@
     </div>
     <div class="pay-item">
       <span class="icon">🚚</span>
-      <div><b>توصيل لكافة الولايات</b><span>توصيل للمنزل أو المكتب</span></div>
+      <div><b>توصيل لكافة الـ 58 ولاية</b><span>توصيل للمنزل أو المكتب</span></div>
     </div>
   </section>
 
@@ -619,7 +615,9 @@
         <div class="form-grid">
           <div class="form-group">
             <label>الولاية</label>
-            <input type="text" id="pWilaya" class="form-control" placeholder="الجزائر، وهران..." required>
+            <select id="pWilaya" class="form-control wilaya-select" required>
+              <option value="">اختر الولاية</option>
+            </select>
           </div>
           <div class="form-group">
             <label>السعر (د.ج)</label>
@@ -628,7 +626,7 @@
         </div>
         <div class="form-group">
           <label>رابط أو مسار صورة القطعة</label>
-          <input type="text" id="pImg" class="form-control" placeholder="ضع رابط الصورة هنا" required>
+          <input type="text" id="pImg" class="form-control" placeholder="ضع رابط الصورة هنا (اختياري)">
         </div>
         <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;">إضافة القطعة للموقع</button>
       </form>
@@ -652,6 +650,35 @@
 </footer>
 
 <script>
+  // قائمة الـ 58 ولاية جزائرية كاملة
+  const wilayas = [
+    "01 - أدرار", "02 - الشلف", "03 - الأغواط", "04 - أم البواقي", "05 - باتنة",
+    "06 - بجاية", "07 - بسكرة", "08 - بشار", "09 - البليدة", "10 - البويرة",
+    "11 - تمنراست", "12 - تبسة", "13 - تلمسان", "14 - تيارت", "15 - تيزي وزو",
+    "16 - الجزائر العاصمة", "17 - الجلفة", "18 - جيجل", "19 - سطيف", "20 - سعيدة",
+    "21 - سكيكدة", "22 - سيدي بلعباس", "23 - عنابة", "24 - قالمة", "25 - قسنطينة",
+    "26 - المدية", "27 - مستغانم", "28 - المسيلة", "29 - معسكر", "30 - ورقلة",
+    "31 - وهران", "32 - البيض", "33 - إليزي", "34 - برج بوعريريج", "35 - بومرداس",
+    "36 - الطارف", "37 - تندوف", "38 - تسمسيلت", "39 - الوادي", "40 - خنشلة",
+    "41 - سوق أهراس", "42 - تيبازة", "43 - ميلة", "44 - عين الدفلى", "45 - النعامة",
+    "46 - عين تموشنت", "47 - غرداية", "48 - غليزان", "49 - تيميمون", "50 - برج باجي مختار",
+    "51 - أولاد جلال", "52 - بني عباس", "53 - إن صالح", "54 - إن قزام", "55 - توقرت",
+    "56 - جانيت", "57 - المغير", "58 - المنيعة"
+  ];
+
+  // ملء القوائم المنسدلة للولايات تلقائياً
+  document.addEventListener("DOMContentLoaded", function() {
+    const selects = document.querySelectorAll('.wilaya-select');
+    selects.forEach(select => {
+      wilayas.forEach(w => {
+        const opt = document.createElement('option');
+        opt.value = w;
+        opt.textContent = w;
+        select.appendChild(opt);
+      });
+    });
+  });
+
   let isSignUp = false;
 
   function openModal(id) {
@@ -683,7 +710,11 @@
     const price = document.getElementById('pPrice').value;
     const wilaya = document.getElementById('pWilaya').value;
     const size = document.getElementById('pSize').value;
-    const img = document.getElementById('pImg').value;
+    let img = document.getElementById('pImg').value;
+
+    if (!img) {
+      img = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80';
+    }
 
     const container = document.getElementById('productsContainer');
     const newCard = document.createElement('div');
@@ -695,7 +726,7 @@
         <span class="badge badge-condition">جديد</span>
       </div>
       <div class="card-media">
-        <img src="${img}" alt="${title}" onerror="this.src='https://via.placeholder.com/200?text=صورة+الملابس'">
+        <img src="${img}" alt="${title}" onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80'">
       </div>
       <div class="card-body">
         <b>${title}</b>
