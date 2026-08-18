@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>رحيم | سوق الملابس والأقمشة</title>
+<title>رحيم | أدم وباهي للشيفون</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -34,7 +34,6 @@
   img{max-width:100%;display:block;}
   .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
 
-  /* stitch divider */
   .stitch{
     height:0;border-top:2px dashed var(--thread);
     opacity:.55; margin:0;
@@ -65,6 +64,8 @@
   .btn-primary:hover{background:var(--green-deep);}
   .btn-outline{border-color:var(--ink);color:var(--ink);background:transparent;}
   .btn-outline:hover{background:var(--ink);color:var(--white);}
+  .btn-insta{background:#E1306C;color:var(--white);}
+  .btn-insta:hover{background:#C13584;}
   .btn-sm{padding:8px 16px;font-size:13px;}
 
   /* ===== hero ===== */
@@ -191,8 +192,9 @@
   .card:hover{box-shadow:0 16px 30px -18px rgba(0,0,0,.25);transform:translateY(-4px);}
   .card-media{
     height:190px;display:flex;align-items:center;justify-content:center;
-    position:relative;
+    position:relative;overflow:hidden;
   }
+  .card-media img{width:100%;height:100%;object-fit:cover;}
   .card-media .swatch{width:70%;height:70%;border-radius:12px;}
   
   .badge-container{
@@ -260,7 +262,7 @@
   .trust-card b{display:block;font-family:'Cairo',sans-serif;font-weight:700;font-size:15px;margin-bottom:6px;}
   .trust-card span{color:var(--ink-soft);font-size:13px;}
 
-  /* ===== sticky mobile button ===== */
+  /* ===== mobile sticky ===== */
   .mobile-sticky-btn{
     display:none;
     position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
@@ -278,7 +280,7 @@
   .modal-overlay.active { display: flex; }
   .modal-card {
     background: var(--white);border-radius: var(--radius);
-    width: 100%;max-width: 520px;max-height: 90vh;overflow-y: auto;
+    width: 100%;max-width: 480px;max-height: 90vh;overflow-y: auto;
     border: 1px solid var(--line);box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     animation: modalSlide 0.3s ease;
   }
@@ -322,7 +324,6 @@
     .filters-grid{grid-template-columns:1fr;}
     .form-grid { grid-template-columns: 1fr; }
   }
-  :focus-visible{outline:2px solid var(--green-deep);outline-offset:3px;}
 </style>
 </head>
 <body>
@@ -338,7 +339,7 @@
       <a href="#trust">الأمان</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-outline btn-sm" href="#">تسجيل الدخول</a>
+      <button class="btn btn-outline btn-sm" onclick="openModal('loginModal')">تسجيل الدخول</button>
       <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">ابدأ البيع</button>
     </div>
   </div>
@@ -351,7 +352,7 @@
     <div>
       <div class="eyebrow">✦ سوق الملابس والأقمشة الموثوق</div>
       <h1>أدم وباهي للشيفون <em>أناقتك وجودتك</em> في مكان واحد</h1>
-      <p>منصّة راقية تجمع أرقى أقمشة الشيفون والملابس الجاهزة مع حماية كاملة للمدفوعات وتوصيل سريع لكافة الولايات.</p>
+      <p>منصّة راقية تجمع أرقى أقمشة الشيفون والملابس الجاهزة مع طلبات تواصل مباشرة والتوصيل لكافة الولايات.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#products">تسوّق الآن</a>
         <button class="btn btn-outline" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
@@ -428,11 +429,12 @@
   <!-- ===== PRODUCTS ===== -->
   <section class="section" id="products">
     <div class="section-head">
-      <div><h2>مضاف حديثاً</h2><p>قطع منتقاة من بائعين موثّقين لدى أدم وباهي</p></div>
+      <div><h2>قطع المعرض والمنتجات</h2><p>يمكنك التردد للطلب المباشر عبر حساب الانستغرام rahim_baba_</p></div>
       <a class="btn btn-outline btn-sm" href="#">عرض الكل</a>
     </div>
-    <div class="products">
+    <div class="products" id="productsContainer">
 
+      <!-- المنتجات الجاهزة -->
       <div class="card">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
@@ -447,7 +449,7 @@
           <div class="seller">من: أدم وباهي • مقاس بالتر</div>
           <div class="card-foot">
             <span class="price">1,800 د.ج</span>
-            <button class="btn btn-outline btn-sm" onclick="openOrderModal('قماش شيفون راقي مطرز', '1,800 د.ج')">طلب الشراء</button>
+            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim_baba_" target="_blank">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
       </div>
@@ -466,7 +468,7 @@
           <div class="seller">من: متجر الأناقة • مقاس L</div>
           <div class="card-foot">
             <span class="price">3,200 د.ج</span>
-            <button class="btn btn-outline btn-sm" onclick="openOrderModal('فستان شيفون كلاسيكي', '3,200 د.ج')">طلب الشراء</button>
+            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim_baba_" target="_blank">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
       </div>
@@ -485,7 +487,7 @@
           <div class="seller">من: أدم وباهي • مقاس S</div>
           <div class="card-foot">
             <span class="price">950 د.ج</span>
-            <button class="btn btn-outline btn-sm" onclick="openOrderModal('قميص شيفون ناعم', '950 د.ج')">طلب الشراء</button>
+            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim_baba_" target="_blank">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
       </div>
@@ -504,7 +506,7 @@
           <div class="seller">من: لمسة باهي • قياس موحد</div>
           <div class="card-foot">
             <span class="price">2,400 د.ج</span>
-            <button class="btn btn-outline btn-sm" onclick="openOrderModal('شال شيفون مميز', '2,400 د.ج')">طلب الشراء</button>
+            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim_baba_" target="_blank">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
       </div>
@@ -515,8 +517,8 @@
   <!-- ===== LOCAL PAYMENT & SHIPPING ===== -->
   <section class="payments-section">
     <div class="pay-item">
-      <span class="icon">💳</span>
-      <div><b>دفع إلكتروني آمن</b><span>الذهبية / CIB</span></div>
+      <span class="icon">📸</span>
+      <div><b>تواصل مباشر</b><span>عبر Instagram: rahim_baba_</span></div>
     </div>
     <div class="pay-item">
       <span class="icon">🤝</span>
@@ -535,42 +537,13 @@
     <div class="sell">
       <div>
         <h2>عوّض وتسوّق مع أدم وباهي</h2>
-        <p>ارفع صور القطعة، حدّد السعر، وسنتكفّل نحن بربطك بمشترٍ موثوق ونقل المبلغ بأمان بعد تأكيد الاستلام.</p>
+        <p>ارفع صور القطعة، حدّد السعر، وسنتكفّل نحن بربطك بمشترٍ موثوق ونقل المبلغ بأمان.</p>
         <button class="btn btn-primary" onclick="openModal('uploadModal')">أضف قطعتك الأولى</button>
       </div>
       <div class="steps">
         <div class="step"><b>1</b><span>صوّر القطعة وأضف المقاس والحالة والولاية</span></div>
-        <div class="step"><b>2</b><span>حدّد السعر أو اقبل اقتراحنا الذكي</span></div>
-        <div class="step"><b>3</b><span>استلم الدفع بعد تأكيد المشتري</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== TRUST / SECURITY ===== -->
-  <section class="section" id="trust">
-    <div class="section-head">
-      <div><h2>أمانك أولويتنا في أدم وباهي</h2><p>إجراءات حماية فعلية، لا مجرد شعارات</p></div>
-    </div>
-    <div class="trust">
-      <div class="trust-card">
-        <div class="ic">🔒</div>
-        <b>اتصال مشفّر بالكامل</b>
-        <span>كل البيانات تُنقل عبر HTTPS/TLS من والى المتصفح.</span>
-      </div>
-      <div class="trust-card">
-        <div class="ic">🧾</div>
-        <b>دفع محتجز حتى التأكيد</b>
-        <span>المبلغ يُحفظ لدينا ولا يُحوَّل للبائع إلا بعد رضا المشتري.</span>
-      </div>
-      <div class="trust-card">
-        <div class="ic">🪪</div>
-        <b>توثيق هوية البائعين</b>
-        <span>كل بائع يمرّ بتحقق قبل السماح له بعرض منتجات.</span>
-      </div>
-      <div class="trust-card">
-        <div class="ic">🚩</div>
-        <b>إبلاغ فوري عن الاحتيال</b>
-        <span>زر إبلاغ في كل صفحة، ومراجعة يدوية خلال 24 ساعة.</span>
+        <div class="step"><b>2</b><span>حدّد السعر المطلوبة</span></div>
+        <div class="step"><b>3</b><span>سيتم التواصل معك عبر الانستغرام بعد المراجعة</span></div>
       </div>
     </div>
   </section>
@@ -580,32 +553,62 @@
 <!-- Floating Button for Mobile -->
 <button onclick="openModal('uploadModal')" class="btn btn-primary mobile-sticky-btn">➕ أضف قطعة للبيع الآن</button>
 
-<!-- ===== MODAL 1: UPLOAD PRODUCT ===== -->
+<!-- ===== MODAL 1: LOGIN / REGISTER ===== -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="authTitle">تسجيل الدخول</h3>
+      <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="authForm" onsubmit="handleAuth(event)">
+        <div class="form-group" id="nameGroup" style="display:none;">
+          <label>الاسم الكامل</label>
+          <input type="text" id="authName" class="form-control" placeholder="أدخل اسمك الكامل">
+        </div>
+        <div class="form-group">
+          <label>اسم المستخدم أو البريد الإلكتروني</label>
+          <input type="text" id="authEmail" class="form-control" placeholder="مثال: rahim_baba" required>
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور</label>
+          <input type="password" id="authPassword" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;" id="authBtn">دخول</button>
+      </form>
+      <div style="text-align:center; margin-top:15px; font-size:13px; color:var(--ink-soft);">
+        <span id="authToggleText">ليس لديك حساب؟</span>
+        <a href="#" onclick="toggleAuthMode(event)" style="color:var(--green-deep); font-weight:bold; text-decoration:underline;">إنشاء حساب جديد</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 2: UPLOAD PRODUCT ===== -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal-card">
     <div class="modal-head">
-      <h3>إضافة قطعة جديدة للبيع</h3>
+      <h3>إضافة قطعة جديدة للموقع</h3>
       <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
     </div>
     <div class="modal-body">
-      <form action="upload_product.php" method="POST" enctype="multipart/form-data">
+      <form onsubmit="handleProductUpload(event)">
         <div class="form-group">
           <label>عنوان القطعة</label>
-          <input type="text" name="title" class="form-control" placeholder="مثال: فستان شيفون راقي" required>
+          <input type="text" id="pTitle" class="form-control" placeholder="مثال: فستان شيفون مطرز" required>
         </div>
         <div class="form-grid">
           <div class="form-group">
             <label>القسم</label>
-            <select name="category" class="form-control" required>
-              <option value="chiffon">أقمشة شيفون</option>
-              <option value="dresses">فساتين وموديلات</option>
-              <option value="kids">أطفال وشابات</option>
-              <option value="accessories">إكسسوارات وحجاب</option>
+            <select id="pCat" class="form-control" required>
+              <option value="أقمشة شيفون">أقمشة شيفون</option>
+              <option value="فساتين وموديلات">فساتين وموديلات</option>
+              <option value="أطفال وشابات">أطفال وشابات</option>
             </select>
           </div>
           <div class="form-group">
             <label>المقاس</label>
-            <select name="size" class="form-control" required>
+            <select id="pSize" class="form-control" required>
               <option value="S">Small (S)</option>
               <option value="M">Medium (M)</option>
               <option value="L">Large (L)</option>
@@ -615,89 +618,19 @@
         </div>
         <div class="form-grid">
           <div class="form-group">
-            <label>الحالة</label>
-            <select name="condition" class="form-control" required>
-              <option value="new">جديد بالبطاقة</option>
-              <option value="like-new">مستعمل كالجديد</option>
-              <option value="good">حالة جيدة</option>
-            </select>
+            <label>الولاية</label>
+            <input type="text" id="pWilaya" class="form-control" placeholder="الجزائر، وهران..." required>
           </div>
           <div class="form-group">
             <label>السعر (د.ج)</label>
-            <input type="number" name="price" class="form-control" placeholder="1800" required>
+            <input type="number" id="pPrice" class="form-control" placeholder="1800" required>
           </div>
         </div>
         <div class="form-group">
-          <label>الولاية المقيم بها</label>
-          <select name="seller_wilaya" class="form-control" required>
-            <option value="16">16 - الجزائر العاصمة</option>
-            <option value="31">31 - وهران</option>
-            <option value="25">25 - قسنطينة</option>
-            <option value="19">19 - سطيف</option>
-            <!-- يمكنك إضافة باقي الولايات بنفس النسق -->
-          </select>
+          <label>رابط أو مسار صورة القطعة</label>
+          <input type="text" id="pImg" class="form-control" placeholder="ضع رابط الصورة هنا" required>
         </div>
-        <div class="form-group">
-          <label>صور القطعة</label>
-          <input type="file" name="product_image" class="form-control" accept="image/*" required>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;">نشر القطعة الآن</button>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- ===== MODAL 2: ORDER & CHECKOUT ===== -->
-<div class="modal-overlay" id="orderModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3>تأكيد طلب الشراء والتوصيل</h3>
-      <button class="modal-close" onclick="closeModal('orderModal')">&times;</button>
-    </div>
-    <div class="modal-body">
-      <form action="process_order.php" method="POST">
-        <div class="form-group">
-          <label>المنتج المحدد</label>
-          <input type="text" id="orderProductName" class="form-control" readonly style="font-weight:bold;">
-        </div>
-        <div class="form-group">
-          <label>الاسم الكامل</label>
-          <input type="text" name="customer_name" class="form-control" placeholder="أدخل اسمك الكامل" required>
-        </div>
-        <div class="form-group">
-          <label>رقم الهاتف</label>
-          <input type="tel" name="phone" class="form-control" placeholder="06XXXXXXXX" required>
-        </div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>ولاية التوصيل</label>
-            <select name="wilaya" class="form-control" required>
-              <option value="16">16 - الجزائر العاصمة</option>
-              <option value="31">31 - وهران</option>
-              <option value="25">25 - قسنطينة</option>
-              <option value="19">19 - سطيف</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>نوع التوصيل</label>
-            <select name="delivery_type" class="form-control" required>
-              <option value="home">توصيل للمنزل</option>
-              <option value="desk">توصيل للمكتب (Stop Desk)</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>العنوان التفصيلي / البلدية</label>
-          <input type="text" name="address" class="form-control" placeholder="اسم البلدية أو الشارع" required>
-        </div>
-        <div class="form-group">
-          <label>طريقة الدفع</label>
-          <select name="payment_method" class="form-control" required>
-            <option value="cod">الدفع عند الاستلام (COD)</option>
-            <option value="cib">البطاقة الذهبية / CIB</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;">إرسال الطلب والتوصيل</button>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;">إضافة القطعة للموقع</button>
       </form>
     </div>
   </div>
@@ -709,9 +642,8 @@
     <div class="foot-top">
       <div class="logo" style="font-size:18px;">👗 <span>أدم وباهي للشيفون</span></div>
       <div class="foot-links">
-        <a href="#">عن المنصّة</a>
+        <a href="https://instagram.com/rahim_baba_" target="_blank">Instagram: @rahim_baba_</a>
         <a href="#">الشروط والأحكام</a>
-        <a href="#">سياسة الخصوصية</a>
         <a href="#">تواصل معنا</a>
       </div>
     </div>
@@ -720,18 +652,65 @@
 </footer>
 
 <script>
+  let isSignUp = false;
+
   function openModal(id) {
     document.getElementById(id).classList.add('active');
   }
   function closeModal(id) {
     document.getElementById(id).classList.remove('active');
   }
-  function openOrderModal(productName, price) {
-    document.getElementById('orderProductName').value = productName + ' - ' + price;
-    openModal('orderModal');
+
+  function toggleAuthMode(e) {
+    e.preventDefault();
+    isSignUp = !isSignUp;
+    document.getElementById('authTitle').innerText = isSignUp ? 'إنشاء حساب جديد' : 'تسجيل الدخول';
+    document.getElementById('authBtn').innerText = isSignUp ? 'تسجيل' : 'دخول';
+    document.getElementById('nameGroup').style.display = isSignUp ? 'block' : 'none';
+    document.getElementById('authToggleText').innerText = isSignUp ? 'لديك حساب بالفعل؟' : 'ليس لديك حساب؟';
   }
-  
-  // إغلاق النافذة عند الضغط خارج المربع
+
+  function handleAuth(e) {
+    e.preventDefault();
+    const email = document.getElementById('authEmail').value;
+    alert((isSignUp ? 'تم إنشاء الحساب بنجاح! مرحباً بك ' : 'تم تسجيل الدخول بنجاح! مرحباً ') + email);
+    closeModal('loginModal');
+  }
+
+  function handleProductUpload(e) {
+    e.preventDefault();
+    const title = document.getElementById('pTitle').value;
+    const price = document.getElementById('pPrice').value;
+    const wilaya = document.getElementById('pWilaya').value;
+    const size = document.getElementById('pSize').value;
+    const img = document.getElementById('pImg').value;
+
+    const container = document.getElementById('productsContainer');
+    const newCard = document.createElement('div');
+    newCard.className = 'card';
+    newCard.innerHTML = `
+      <div class="fav-btn" title="حفظ للمفضلة">♡</div>
+      <div class="badge-container">
+        <span class="badge badge-wilaya">${wilaya}</span>
+        <span class="badge badge-condition">جديد</span>
+      </div>
+      <div class="card-media">
+        <img src="${img}" alt="${title}" onerror="this.src='https://via.placeholder.com/200?text=صورة+الملابس'">
+      </div>
+      <div class="card-body">
+        <b>${title}</b>
+        <div class="seller">مقاس ${size}</div>
+        <div class="card-foot">
+          <span class="price">${price} د.ج</span>
+          <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim_baba_" target="_blank">طلب عبر الانستغرام 📩</a>
+        </div>
+      </div>
+    `;
+    container.prepend(newCard);
+    alert('تمت إضافة القطعة بنجاح إلى المعرض!');
+    closeModal('uploadModal');
+  }
+
   window.onclick = function(e) {
     if (e.target.classList.contains('modal-overlay')) {
       e.target.classList.remove('active');
