@@ -268,6 +268,40 @@
     box-shadow:0 10px 25px rgba(0,0,0,.2);
   }
 
+  /* ===== MODAL STYLES ===== */
+  .modal-overlay {
+    position: fixed;top: 0;left: 0;right: 0;bottom: 0;
+    background: rgba(0,0,0,0.5);backdrop-filter: blur(4px);
+    display: none;align-items: center;justify-content: center;
+    z-index: 1000;padding: 20px;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-card {
+    background: var(--white);border-radius: var(--radius);
+    width: 100%;max-width: 520px;max-height: 90vh;overflow-y: auto;
+    border: 1px solid var(--line);box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    animation: modalSlide 0.3s ease;
+  }
+  @keyframes modalSlide { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-head {
+    padding: 20px;border-bottom: 1px solid var(--line);
+    display: flex;justify-content: space-between;align-items: center;
+  }
+  .modal-head h3 { font-size: 20px; font-weight: 800; color: var(--green-deep); }
+  .modal-close {
+    background: none;border: none;font-size: 24px;cursor: pointer;color: var(--ink-soft);
+  }
+  .modal-body { padding: 20px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+  .form-control {
+    width: 100%; padding: 10px 14px; border-radius: 10px;
+    border: 1px solid var(--line); background: var(--bg);
+    font-family: inherit; font-size: 14px; color: var(--ink);
+  }
+  .form-control:focus { outline: none; border-color: var(--green); background: var(--white); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
   footer{padding:44px 0 30px;color:var(--ink-soft);font-size:13px;}
   .foot-top{
     display:flex;justify-content:space-between;align-items:center;padding-bottom:22px;
@@ -286,6 +320,7 @@
   @media(max-width:480px){
     .products{grid-template-columns:1fr;}
     .filters-grid{grid-template-columns:1fr;}
+    .form-grid { grid-template-columns: 1fr; }
   }
   :focus-visible{outline:2px solid var(--green-deep);outline-offset:3px;}
 </style>
@@ -294,7 +329,7 @@
 
 <header>
   <div class="wrap nav">
-    <div class="logo">👗 <span>أدم وباهي للشيفون</span></div>
+    <div class="logo">👗 <span>رحيم</span></div>
     <nav class="nav-links">
       <a href="#">الرئيسية</a>
       <a href="#cats">الأقسام</a>
@@ -304,7 +339,7 @@
     </nav>
     <div class="nav-actions">
       <a class="btn btn-outline btn-sm" href="#">تسجيل الدخول</a>
-      <a class="btn btn-primary btn-sm" href="#sell">ابدأ البيع</a>
+      <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">ابدأ البيع</button>
     </div>
   </div>
 </header>
@@ -319,7 +354,7 @@
       <p>منصّة راقية تجمع أرقى أقمشة الشيفون والملابس الجاهزة مع حماية كاملة للمدفوعات وتوصيل سريع لكافة الولايات.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#products">تسوّق الآن</a>
-        <a class="btn btn-outline" href="#sell">أضف قطعة للبيع</a>
+        <button class="btn btn-outline" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
       </div>
       <div class="hero-stats">
         <div><b>+12,000</b><span>قطعة معروضة</span></div>
@@ -412,7 +447,7 @@
           <div class="seller">من: أدم وباهي • مقاس بالتر</div>
           <div class="card-foot">
             <span class="price">1,800 د.ج</span>
-            <a class="btn btn-outline btn-sm" href="#">طلب الشراء</a>
+            <button class="btn btn-outline btn-sm" onclick="openOrderModal('قماش شيفون راقي مطرز', '1,800 د.ج')">طلب الشراء</button>
           </div>
         </div>
       </div>
@@ -431,7 +466,7 @@
           <div class="seller">من: متجر الأناقة • مقاس L</div>
           <div class="card-foot">
             <span class="price">3,200 د.ج</span>
-            <a class="btn btn-outline btn-sm" href="#">طلب الشراء</a>
+            <button class="btn btn-outline btn-sm" onclick="openOrderModal('فستان شيفون كلاسيكي', '3,200 د.ج')">طلب الشراء</button>
           </div>
         </div>
       </div>
@@ -450,7 +485,7 @@
           <div class="seller">من: أدم وباهي • مقاس S</div>
           <div class="card-foot">
             <span class="price">950 د.ج</span>
-            <a class="btn btn-outline btn-sm" href="#">طلب الشراء</a>
+            <button class="btn btn-outline btn-sm" onclick="openOrderModal('قميص شيفون ناعم', '950 د.ج')">طلب الشراء</button>
           </div>
         </div>
       </div>
@@ -469,7 +504,7 @@
           <div class="seller">من: لمسة باهي • قياس موحد</div>
           <div class="card-foot">
             <span class="price">2,400 د.ج</span>
-            <a class="btn btn-outline btn-sm" href="#">طلب الشراء</a>
+            <button class="btn btn-outline btn-sm" onclick="openOrderModal('شال شيفون مميز', '2,400 د.ج')">طلب الشراء</button>
           </div>
         </div>
       </div>
@@ -501,7 +536,7 @@
       <div>
         <h2>عوّض وتسوّق مع أدم وباهي</h2>
         <p>ارفع صور القطعة، حدّد السعر، وسنتكفّل نحن بربطك بمشترٍ موثوق ونقل المبلغ بأمان بعد تأكيد الاستلام.</p>
-        <a class="btn btn-primary" href="#">أضف قطعتك الأولى</a>
+        <button class="btn btn-primary" onclick="openModal('uploadModal')">أضف قطعتك الأولى</button>
       </div>
       <div class="steps">
         <div class="step"><b>1</b><span>صوّر القطعة وأضف المقاس والحالة والولاية</span></div>
@@ -543,7 +578,130 @@
 </main>
 
 <!-- Floating Button for Mobile -->
-<a href="#sell" class="btn btn-primary mobile-sticky-btn">➕ أضف قطعة للبيع الآن</a>
+<button onclick="openModal('uploadModal')" class="btn btn-primary mobile-sticky-btn">➕ أضف قطعة للبيع الآن</button>
+
+<!-- ===== MODAL 1: UPLOAD PRODUCT ===== -->
+<div class="modal-overlay" id="uploadModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>إضافة قطعة جديدة للبيع</h3>
+      <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form action="upload_product.php" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>عنوان القطعة</label>
+          <input type="text" name="title" class="form-control" placeholder="مثال: فستان شيفون راقي" required>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>القسم</label>
+            <select name="category" class="form-control" required>
+              <option value="chiffon">أقمشة شيفون</option>
+              <option value="dresses">فساتين وموديلات</option>
+              <option value="kids">أطفال وشابات</option>
+              <option value="accessories">إكسسوارات وحجاب</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>المقاس</label>
+            <select name="size" class="form-control" required>
+              <option value="S">Small (S)</option>
+              <option value="M">Medium (M)</option>
+              <option value="L">Large (L)</option>
+              <option value="XL">X-Large (XL)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>الحالة</label>
+            <select name="condition" class="form-control" required>
+              <option value="new">جديد بالبطاقة</option>
+              <option value="like-new">مستعمل كالجديد</option>
+              <option value="good">حالة جيدة</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>السعر (د.ج)</label>
+            <input type="number" name="price" class="form-control" placeholder="1800" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>الولاية المقيم بها</label>
+          <select name="seller_wilaya" class="form-control" required>
+            <option value="16">16 - الجزائر العاصمة</option>
+            <option value="31">31 - وهران</option>
+            <option value="25">25 - قسنطينة</option>
+            <option value="19">19 - سطيف</option>
+            <!-- يمكنك إضافة باقي الولايات بنفس النسق -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label>صور القطعة</label>
+          <input type="file" name="product_image" class="form-control" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;">نشر القطعة الآن</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 2: ORDER & CHECKOUT ===== -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>تأكيد طلب الشراء والتوصيل</h3>
+      <button class="modal-close" onclick="closeModal('orderModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form action="process_order.php" method="POST">
+        <div class="form-group">
+          <label>المنتج المحدد</label>
+          <input type="text" id="orderProductName" class="form-control" readonly style="font-weight:bold;">
+        </div>
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" name="customer_name" class="form-control" placeholder="أدخل اسمك الكامل" required>
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف</label>
+          <input type="tel" name="phone" class="form-control" placeholder="06XXXXXXXX" required>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>ولاية التوصيل</label>
+            <select name="wilaya" class="form-control" required>
+              <option value="16">16 - الجزائر العاصمة</option>
+              <option value="31">31 - وهران</option>
+              <option value="25">25 - قسنطينة</option>
+              <option value="19">19 - سطيف</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>نوع التوصيل</label>
+            <select name="delivery_type" class="form-control" required>
+              <option value="home">توصيل للمنزل</option>
+              <option value="desk">توصيل للمكتب (Stop Desk)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>العنوان التفصيلي / البلدية</label>
+          <input type="text" name="address" class="form-control" placeholder="اسم البلدية أو الشارع" required>
+        </div>
+        <div class="form-group">
+          <label>طريقة الدفع</label>
+          <select name="payment_method" class="form-control" required>
+            <option value="cod">الدفع عند الاستلام (COD)</option>
+            <option value="cib">البطاقة الذهبية / CIB</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;">إرسال الطلب والتوصيل</button>
+      </form>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="wrap">
@@ -560,6 +718,26 @@
     <div>© 2026 أدم وباهي للشيفون. جميع الحقوق محفوظة.</div>
   </div>
 </footer>
+
+<script>
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+  function openOrderModal(productName, price) {
+    document.getElementById('orderProductName').value = productName + ' - ' + price;
+    openModal('orderModal');
+  }
+  
+  // إغلاق النافذة عند الضغط خارج المربع
+  window.onclick = function(e) {
+    if (e.target.classList.contains('modal-overlay')) {
+      e.target.classList.remove('active');
+    }
+  }
+</script>
 
 </body>
 </html>
