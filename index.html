@@ -183,7 +183,7 @@
 
   /* ===== products ===== */
   .products{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
   }
   .card{
     background:var(--white);border-radius:var(--radius);overflow:hidden;
@@ -191,10 +191,10 @@
   }
   .card:hover{box-shadow:0 16px 30px -18px rgba(0,0,0,.25);transform:translateY(-4px);}
   .card-media{
-    height:250px;display:flex;align-items:center;justify-content:center;
+    height:340px;display:flex;align-items:center;justify-content:center;
     position:relative;overflow:hidden;background:#f9f9f9;
   }
-  .card-media img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease;}
+  .card-media img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 0.3s ease;}
   .card:hover .card-media img{transform:scale(1.05);}
   
   .badge-container{
@@ -223,7 +223,7 @@
   /* ===== payment & shipping badge ===== */
   .payments-section{
     background:var(--bg-card);border-radius:var(--radius);
-    padding:24px;margin:30px 0;display:flex;justify-space-around;align-items:center;
+    padding:24px;margin:30px 0;display:flex;justify-content:space-around;align-items:center;
     flex-wrap:wrap;gap:20px;border:1px dashed var(--thread);
   }
   .pay-item{display:flex;align-items:center;gap:12px;}
@@ -361,7 +361,7 @@
   <section class="search-section">
     <div class="search-bar">
       <div class="search-input-wrap">
-        <input type="text" class="search-input" placeholder="عن ماذا تبحث؟ (تيشرت قطني، Oversize، تيشرت صيفي...)">
+        <input type="text" class="search-input" placeholder="عن ماذا تبحث؟ (تيشرت قطني، Oversize، قميص مخطط...)">
       </div>
       <button class="btn btn-primary">بحث</button>
     </div>
@@ -399,15 +399,15 @@
     </div>
     <div class="cats">
       <div class="cat"><div class="ic">👕</div><b>تيشرتات Oversize</b><span>+4,200 قطعة</span></div>
-      <div class="cat"><div class="ic">🎨</div><b>تيشرتات مطبوعة</b><span>+3,800 قطعة</span></div>
-      <div class="cat"><div class="ic">🏃‍♂️</div><b>تيشرتات رياضية</b><span>+2,500 قطعة</span></div>
+      <div class="cat"><div class="ic">👔</div><b>قُمصان كاجوال</b><span>+3,800 قطعة</span></div>
+      <div class="cat"><div class="ic">🏃‍♂️</div><b>تيشرتات بولو</b><span>+2,500 قطعة</span></div>
       <div class="cat"><div class="ic">✨</div><b>تيشرتات كلاسيك</b><span>+1,800 قطعة</span></div>
     </div>
   </section>
 
   <div class="stitch"></div>
 
-  <!-- ===== PRODUCTS WITH T-SHIRT IMAGES ===== -->
+  <!-- ===== PRODUCTS WITH UPDATED IMAGES ===== -->
   <section class="section" id="products">
     <div class="section-head">
       <div><h2>قطع المعرض والمنتجات</h2><p>يمكنك التواصل للطلب المباشر عبر حساب الانستغرام rahim._.abod</p></div>
@@ -415,7 +415,7 @@
     </div>
     <div class="products" id="productsContainer">
 
-      <!-- منتج 1: تيشرت أسود -->
+      <!-- منتج 1: قميص مقلم أزرق وأبيض مع بنطال أبيض -->
       <div class="card">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
@@ -423,19 +423,19 @@
           <span class="badge badge-condition">جديد</span>
         </div>
         <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80" alt="تيشرت أسود عصري">
+          <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80" alt="قميص مخطط أزرق كاجوال">
         </div>
         <div class="card-body">
-          <b>تيشرت أسود قطني 100%</b>
+          <b>قميص مخطط أزرق كاجوال Oversize</b>
           <div class="seller">من: أدم وباهي • مقاس L</div>
           <div class="card-foot">
-            <span class="price">1,800 د.ج</span>
+            <span class="price">2,800 د.ج</span>
             <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
       </div>
 
-      <!-- منتج 2: تيشرت أبيض -->
+      <!-- منتج 2: تيشرت بولو محبوك بني داكن -->
       <div class="card">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
@@ -443,19 +443,19 @@
           <span class="badge badge-condition">جديد</span>
         </div>
         <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80" alt="تيشرت أبيض Oversize">
+          <img src="https://images.unsplash.com/photo-1625910513413-4ec35e01f547?auto=format&fit=crop&w=800&q=80" alt="تيشرت بولو بني داكن">
         </div>
         <div class="card-body">
-          <b>تيشرت أبيض Oversize مريح</b>
+          <b>تيشرت بولو محبوك عصري (بني داكن)</b>
           <div class="seller">من: متجر الأناقة • مقاس XL</div>
           <div class="card-foot">
-            <span class="price">2,200 د.ج</span>
+            <span class="price">2,400 د.ج</span>
             <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
       </div>
 
-      <!-- منتج 3: تيشرت زيتي / رمادي -->
+      <!-- منتج 3: قميص أزرق فاتح بسيط -->
       <div class="card">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
@@ -463,33 +463,13 @@
           <span class="badge badge-condition">كالجديد</span>
         </div>
         <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80" alt="تيشرت كاجوال">
+          <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80" alt="قميص صيفي أزرق فاتح">
         </div>
         <div class="card-body">
-          <b>تيشرت كاجوال أنيق</b>
+          <b>قميص صيفي مخطط أزرق فاتح</b>
           <div class="seller">من: أدم وباهي • مقاس M</div>
           <div class="card-foot">
-            <span class="price">1,950 د.ج</span>
-            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank">طلب عبر الانستغرام 📩</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- منتج 4: تيشرت شبابي -->
-      <div class="card">
-        <div class="fav-btn" title="حفظ للمفضلة">♡</div>
-        <div class="badge-container">
-          <span class="badge badge-wilaya">25 - قسنطينة</span>
-          <span class="badge badge-condition">جديد</span>
-        </div>
-        <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80" alt="تيشرت أسود مطبوع">
-        </div>
-        <div class="card-body">
-          <b>تيشرت مطبوع تصميم عصري</b>
-          <div class="seller">من: لمسة باهي • مقاس S</div>
-          <div class="card-foot">
-            <span class="price">1,600 د.ج</span>
+            <span class="price">2,600 د.ج</span>
             <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
@@ -521,8 +501,8 @@
     <div class="sell">
       <div>
         <h2>عوّض وتسوّق مع أدم وباهي</h2>
-        <p>ارفع صور التيشرت، حدّد السعر، وسنتكفّل نحن بربطك بمشترٍ موثوق ونقل المبلغ بأمان.</p>
-        <button class="btn btn-primary" onclick="openModal('uploadModal')">أضف تيشرت للبيع</button>
+        <p>ارفع صور القطعة، حدّد السعر، وسنتكفّل نحن بربطك بمشترٍ موثوق ونقل المبلغ بأمان.</p>
+        <button class="btn btn-primary" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
       </div>
       <div class="steps">
         <div class="step"><b>1</b><span>صوّر القطعة وأضف المقاس والحالة والولاية</span></div>
@@ -572,22 +552,22 @@
 <div class="modal-overlay" id="uploadModal">
   <div class="modal-card">
     <div class="modal-head">
-      <h3>إضافة تيشرت جديد للموقع</h3>
+      <h3>إضافة قطعة جديدة للموقع</h3>
       <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
     </div>
     <div class="modal-body">
       <form onsubmit="handleProductUpload(event)">
         <div class="form-group">
           <label>عنوان القطعة</label>
-          <input type="text" id="pTitle" class="form-control" placeholder="مثال: تيشرت قطني أسود Oversize" required>
+          <input type="text" id="pTitle" class="form-control" placeholder="مثال: قميص مخطط أزرق Oversize" required>
         </div>
         <div class="form-grid">
           <div class="form-group">
             <label>القسم</label>
             <select id="pCat" class="form-control" required>
               <option value="تيشرتات Oversize">تيشرتات Oversize</option>
-              <option value="تيشرتات مطبوعة">تيشرتات مطبوعة</option>
-              <option value="تيشرتات رياضية">تيشرتات رياضية</option>
+              <option value="قُمصان كاجوال">قُمصان كاجوال</option>
+              <option value="تيشرتات بولو">تيشرتات بولو</option>
               <option value="تيشرتات كلاسيك">تيشرتات كلاسيك</option>
             </select>
           </div>
@@ -610,7 +590,7 @@
           </div>
           <div class="form-group">
             <label>السعر (د.ج)</label>
-            <input type="number" id="pPrice" class="form-control" placeholder="1800" required>
+            <input type="number" id="pPrice" class="form-control" placeholder="2500" required>
           </div>
         </div>
         <div class="form-group">
@@ -701,7 +681,7 @@
     let img = document.getElementById('pImg').value;
 
     if (!img) {
-      img = 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80';
+      img = 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80';
     }
 
     const container = document.getElementById('productsContainer');
@@ -714,7 +694,7 @@
         <span class="badge badge-condition">جديد</span>
       </div>
       <div class="card-media">
-        <img src="${img}" alt="${title}" onerror="this.src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80'">
+        <img src="${img}" alt="${title}" onerror="this.src='https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80'">
       </div>
       <div class="card-body">
         <b>${title}</b>
