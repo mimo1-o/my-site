@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>رحيم | أدم وباهي للتيشرتات والأقمشة</title>
+<title>رحيم | أدم وباهي للتيشرتات والأقمشة - تفاصيل المنتج</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet" />
 
-<script>
+<script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
     theme: {
@@ -135,8 +135,14 @@
     height:0;border-top:2px dashed var(--thread);
     opacity:.55; margin:0;
   }
-  .stitch-border { border: 1.5px dashed #B5875A; }
-  .stitch-border-bottom { border-bottom: 1.5px dashed #B5875A; }
+  .stitch-border { border-bottom: 1.5px dashed #B5875A; }
+
+  .tactile-outline {
+    border: 1px solid rgba(46, 44, 41, 0.1);
+  }
+  .tactile-outline-sage {
+    border: 1px solid rgba(107, 127, 106, 0.1);
+  }
 
   /* ===== header ===== */
   header{
@@ -287,6 +293,7 @@
   .card{
     background:var(--white);border-radius:var(--radius);overflow:hidden;
     border:1px solid var(--line);transition:.25s;position:relative;
+    cursor: pointer;
   }
   .card:hover{box-shadow:0 16px 30px -18px rgba(0,0,0,.25);transform:translateY(-4px);}
   .card-media{
@@ -412,11 +419,11 @@
   }
 </style>
 </head>
-<body class="bg-background text-on-background font-body-md">
+<body class="bg-background text-on-background font-body-md antialiased">
 
 <header>
   <div class="wrap nav">
-    <div class="logo">👕 <span>رحيم</span></div>
+    <div class="logo">👕 <span>رحيم | EL-ASIL</span></div>
     <nav class="nav-links">
       <a href="#">الرئيسية</a>
       <a href="#cats">الأقسام</a>
@@ -490,7 +497,7 @@
     </div>
   </section>
 
-  <div class="stitch"></div>
+  <div class="stitch my-6"></div>
 
   <!-- ===== CATEGORIES ===== -->
   <section class="section" id="cats">
@@ -505,9 +512,86 @@
     </div>
   </section>
 
-  <div class="stitch"></div>
+  <div class="stitch my-6"></div>
 
-  <!-- ===== PRODUCTS WITH UPDATED IMAGES ===== -->
+  <!-- ===== PRODUCT DETAILS SECTION (مدمج بناءً على طلبك) ===== -->
+  <section id="product-details" class="py-10 my-6 bg-surface rounded-2xl border border-outline-variant/20 p-6 relative">
+    <button onclick="document.getElementById('product-details').scrollIntoView({behavior: 'smooth'})" title="إغلاق التفاصيل" class="absolute top-4 left-4 text-outline hover:text-error transition-colors flex items-center gap-1 font-label-md text-label-md bg-surface-container px-3 py-1.5 rounded-full">
+      <span class="material-symbols-outlined text-sm">close</span> إغلاق
+    </button>
+    <div class="max-w-[1200px] mx-auto md:grid md:grid-cols-12 md:gap-gutter items-start">
+      <!-- Image Gallery -->
+      <div class="md:col-span-7 space-y-stack-md">
+        <div class="relative rounded-xl overflow-hidden tactile-outline-sage aspect-[3/4] md:aspect-square bg-surface-container-low group">
+          <img id="detail-main-img" alt="Premium Cotton T-Shirt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"/>
+          <div class="absolute top-4 right-4 bg-secondary text-on-secondary px-3 py-1 rounded-full font-label-md text-label-md flex items-center gap-1 shadow-sm">
+            <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+            صنع في الجزائر
+          </div>
+        </div>
+        <div class="grid grid-cols-4 gap-stack-sm">
+          <div class="aspect-square rounded-lg overflow-hidden tactile-outline cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+            <img class="w-full h-full object-cover" alt="Detail 1" src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"/>
+          </div>
+          <div class="aspect-square rounded-lg overflow-hidden tactile-outline cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+            <img class="w-full h-full object-cover" alt="Detail 2" src="https://images.unsplash.com/photo-1625910513413-4ec35e01f547?auto=format&fit=crop&w=800&q=80"/>
+          </div>
+          <div class="aspect-square rounded-lg overflow-hidden tactile-outline cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+            <img class="w-full h-full object-cover" alt="Detail 3" src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"/>
+          </div>
+        </div>
+      </div>
+      <!-- Product Info -->
+      <div class="md:col-span-5 mt-stack-lg md:mt-0 flex flex-col">
+        <h2 id="detail-title" class="font-headline-md text-headline-md text-primary mb-stack-sm">تيشرت قطني فاخر - Premium Cotton T-Shirt</h2>
+        <p id="detail-price" class="font-title-lg text-title-lg text-on-tertiary-container mb-stack-lg">2,800 د.ج</p>
+        <div class="stitch-border mb-stack-lg w-full"></div>
+        <!-- Size Selection -->
+        <div class="mb-stack-lg">
+          <div class="flex justify-between items-center mb-stack-md">
+            <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">اختر المقاس</span>
+            <button class="font-label-md text-label-md text-on-tertiary-container underline underline-offset-4 decoration-on-tertiary-container/30 hover:decoration-on-tertiary-container transition-colors">دليل المقاسات</button>
+          </div>
+          <div class="flex flex-wrap gap-stack-sm">
+            <button class="w-12 h-12 rounded-lg border border-outline-variant/30 flex items-center justify-center font-body-md text-body-md hover:border-outline transition-colors bg-surface text-on-surface">S</button>
+            <button class="w-12 h-12 rounded-lg border border-outline-variant/30 flex items-center justify-center font-body-md text-body-md hover:border-outline transition-colors bg-surface text-on-surface">M</button>
+            <button class="w-12 h-12 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-body-md text-body-md shadow-inner">L</button>
+            <button class="w-12 h-12 rounded-lg border border-outline-variant/30 flex items-center justify-center font-body-md text-body-md hover:border-outline transition-colors bg-surface text-on-surface">XL</button>
+            <button class="w-12 h-12 rounded-lg border border-outline-variant/30 flex items-center justify-center font-body-md text-body-md hover:border-outline transition-colors bg-surface text-on-surface">XXL</button>
+          </div>
+        </div>
+        <!-- Actions -->
+        <div class="flex flex-col gap-stack-md mb-stack-lg">
+          <button class="w-full bg-primary-container text-on-primary rounded-[14px] py-4 font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary transition-colors active:scale-98">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            إضافة إلى السلة
+          </button>
+          <a href="https://ig.me/m/rahim._.abod" target="_blank" class="w-full bg-transparent text-primary-container border-[1.5px] border-primary-container rounded-[14px] py-4 font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors active:scale-98">
+            تواصل معنا عبر الانستغرام
+          </a>
+        </div>
+        <!-- Description -->
+        <div class="mb-stack-lg">
+          <h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-stack-sm">الجودة والتصنيع</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            تجربة الراحة العالية مع تيشرت القطن الفاخر من تشكيلة "أدم وباهي". مصنع بعناية من أجود أنواع القطن الناعم مع حياكة متقنة وقصة مريحة وعصرية. صُمم في الجزائر لأولئك الذين يقدرون الفخامة البسيطة والجودة المستدامة في خزانة ملابسهم اليومية.
+          </p>
+        </div>
+        <!-- Shipping Info -->
+        <div class="bg-surface-container-low rounded-xl p-stack-md tactile-outline-sage flex items-start gap-stack-md">
+          <span class="material-symbols-outlined text-secondary mt-1">local_shipping</span>
+          <div>
+            <h4 class="font-label-md text-label-md text-primary mb-1">التوصيل متوفر لـ 58 ولاية</h4>
+            <p class="font-body-md text-body-md text-on-surface-variant text-sm">شحن سريع وموثوق إلى جميع أنحاء الجزائر. التوصيل القياسي يتم خلال 2 إلى 5 أيام عمل.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stitch my-6"></div>
+
+  <!-- ===== PRODUCTS LIST ===== -->
   <section class="section" id="products">
     <div class="section-head">
       <div><h2>قطع المعرض والمنتجات</h2><p>يمكنك التواصل للطلب المباشر عبر حساب الانستغرام rahim._.abod</p></div>
@@ -515,8 +599,8 @@
     </div>
     <div class="products" id="productsContainer">
 
-      <!-- منتج 1: قميص مقلم أزرق وأبيض مع بنطال أبيض -->
-      <div class="card">
+      <!-- منتج 1 -->
+      <div class="card" onclick="showProductDetails('قميص مخطط أزرق كاجوال Oversize', '2,800 د.ج', 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80')">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
           <span class="badge badge-wilaya">16 - الجزائر</span>
@@ -530,13 +614,13 @@
           <div class="seller">من: أدم وباهي • مقاس L</div>
           <div class="card-foot">
             <span class="price">2,800 د.ج</span>
-            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank">طلب عبر الانستغرام 📩</a>
+            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank" onclick="event.stopPropagation();">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
       </div>
 
-      <!-- منتج 2: تيشرت بولو محبوك بني داكن -->
-      <div class="card">
+      <!-- منتج 2 -->
+      <div class="card" onclick="showProductDetails('تيشرت بولو محبوك عصري (بني داكن)', '2,400 د.ج', 'https://images.unsplash.com/photo-1625910513413-4ec35e01f547?auto=format&fit=crop&w=800&q=80')">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
           <span class="badge badge-wilaya">31 - وهران</span>
@@ -550,13 +634,13 @@
           <div class="seller">من: متجر الأناقة • مقاس XL</div>
           <div class="card-foot">
             <span class="price">2,400 د.ج</span>
-            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank">طلب عبر الانستغرام 📩</a>
+            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank" onclick="event.stopPropagation();">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
       </div>
 
-      <!-- منتج 3: قميص أزرق فاتح بسيط -->
-      <div class="card">
+      <!-- منتج 3 -->
+      <div class="card" onclick="showProductDetails('قميص صيفي مخطط أزرق فاتح', '2,600 د.ج', 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80')">
         <div class="fav-btn" title="حفظ للمفضلة">♡</div>
         <div class="badge-container">
           <span class="badge badge-wilaya">19 - سطيف</span>
@@ -570,7 +654,7 @@
           <div class="seller">من: أدم وباهي • مقاس M</div>
           <div class="card-foot">
             <span class="price">2,600 د.ج</span>
-            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank">طلب عبر الانستغرام 📩</a>
+            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank" onclick="event.stopPropagation();">طلب عبر الانستغرام 📩</a>
           </div>
         </div>
       </div>
@@ -578,7 +662,7 @@
     </div>
   </section>
 
-  <div class="stitch"></div>
+  <div class="stitch my-6"></div>
 
   <!-- ===== CART SECTION ===== -->
   <section class="section" id="cart">
@@ -592,11 +676,11 @@
         <!-- Item 1 -->
         <article class="bg-surface border border-outline-variant/20 rounded-lg p-4 flex gap-4 items-start relative">
           <div class="w-24 h-24 rounded shrink-0 overflow-hidden border border-outline-variant/10 bg-surface-container">
-            <img class="w-full h-full object-cover" alt="Premium Cotton T-Shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqEfJfcvRbeXPys_xMTw0hU-T3XutFqRWwl65uWkku-sOdenkMCXOgtUTe_ZMTaGNWHFNNpPT-tjQaGbk2jZuL-wsvuGBSTMEdc6dp0ZiKmW51e2JOEZTT724Sbjj4nZSACzEDkJ5VICWz9nEWyicAtYvNNOSSQUySw9pvtQ1Z6x9m3fnPa12ivQLcDTu3QDQ-h5iKoCRXFcjG0asmEoCytNtFhQFcbpUgQXNw97Zony_g2ti70a_TVQ"/>
+            <img class="w-full h-full object-cover" alt="Premium Cotton T-Shirt" src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"/>
           </div>
           <div class="flex-grow flex flex-col gap-1">
-            <h2 class="font-title-lg text-title-lg text-on-surface">Premium Cotton T-Shirt</h2>
-            <p class="font-body-md text-body-md text-on-surface-variant">اللون: بيج | المقاس: L</p>
+            <h2 class="font-title-lg text-title-lg text-on-surface">تيشرت قطني فاخر</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">اللون: أزرق مخطط | المقاس: L</p>
             <p class="font-title-lg text-title-lg text-on-tertiary-container mt-1">2,800 د.ج</p>
             <div class="flex items-center gap-3 mt-2">
               <button aria-label="Decrease quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
@@ -616,12 +700,12 @@
         <!-- Item 2 -->
         <article class="bg-surface border border-outline-variant/20 rounded-lg p-4 flex gap-4 items-start relative">
           <div class="w-24 h-24 rounded shrink-0 overflow-hidden border border-outline-variant/10 bg-surface-container">
-            <img class="w-full h-full object-cover" alt="Artisanal Linen Shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACZFA8LF3Q_P46aJA7ElqHFr78KwxFtxlfHc05ATZpLQXOEjE6clJ5j8t3e4oBU5k575yYQMLTFREKSwMPc15KexhltLlPcP2XUSEpVh_jpgpT00clzivJgU4T9RmvMMSaQa-G_kT7LTuo9Ir50Sn4dx98MBa9up01jGTB2KQz16ovJsEx7BvuNHDBKPgsceYBIvOZLruuj4usMxGWxD6iZITEWJppiNFPR7i6IT8pkF-fiLQwM4CtAg"/>
+            <img class="w-full h-full object-cover" alt="Artisanal Linen Shirt" src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"/>
           </div>
           <div class="flex-grow flex flex-col gap-1">
-            <h2 class="font-title-lg text-title-lg text-on-surface">Artisanal Linen Shirt</h2>
-            <p class="font-body-md text-body-md text-on-surface-variant">اللون: فحمي | المقاس: M</p>
-            <p class="font-title-lg text-title-lg text-on-tertiary-container mt-1">4,500 د.ج</p>
+            <h2 class="font-title-lg text-title-lg text-on-surface">قميص صيفي كلاسيكي</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">اللون: أزرق فاتح | المقاس: M</p>
+            <p class="font-title-lg text-title-lg text-on-tertiary-container mt-1">2,600 د.ج</p>
             <div class="flex items-center gap-3 mt-2">
               <button aria-label="Decrease quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
                 <span class="material-symbols-outlined text-[16px]">remove</span>
@@ -640,25 +724,25 @@
 
       <!-- Order Summary -->
       <section class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10 flex flex-col gap-4 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1 stitch-border-bottom opacity-50"></div>
+        <div class="absolute top-0 left-0 w-full h-1 stitch-border opacity-50"></div>
         <h3 class="font-title-lg text-title-lg text-on-surface mb-2">ملخص الطلب</h3>
         <div class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
           <div class="flex justify-between items-center">
             <span>المجموع الفرعي</span>
-            <span class="font-label-md text-label-md">11,800 د.ج</span>
+            <span class="font-label-md text-label-md">8,000 د.ج</span>
           </div>
           <div class="flex justify-between items-center">
             <span>توصيل (58 ولاية)</span>
             <span class="font-label-md text-label-md text-secondary">يتم تحديده لاحقاً</span>
           </div>
         </div>
-        <div class="stitch-border-bottom my-2 opacity-50"></div>
+        <div class="stitch-border my-2 opacity-50"></div>
         <div class="flex justify-between items-center font-title-lg text-title-lg text-on-surface">
           <span>المجموع الكلي</span>
-          <span class="text-on-tertiary-container">11,800 د.ج</span>
+          <span class="text-on-tertiary-container">8,000 د.ج</span>
         </div>
         <a href="https://ig.me/m/rahim._.abod" target="_blank" class="mt-4 w-full bg-primary-container text-on-primary rounded-[14px] py-4 font-label-md text-label-md flex justify-center items-center gap-2 hover:opacity-90 active:scale-98 transition-all">
-          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+          <span class="material-symbols-outlined">send</span>
           تأكيد الطلب عبر إنستغرام
         </a>
         <p class="text-center font-label-sm text-label-sm text-outline mt-2">سيتم تحويلك إلى إنستغرام لإكمال عملية الدفع والتوصيل.</p>
@@ -682,7 +766,7 @@
     </div>
   </section>
 
-  <div class="stitch"></div>
+  <div class="stitch my-6"></div>
 
   <!-- ===== SELL CTA ===== -->
   <section class="section" id="sell">
@@ -705,23 +789,23 @@
 <!-- Floating Button for Mobile -->
 <button onclick="openModal('uploadModal')" class="btn btn-primary mobile-sticky-btn">➕ أضف قطعة للبيع الآن</button>
 
-<!-- BottomNavBar (Mobile) -->
-<nav class="fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant/10 flat no shadows bg-surface md:hidden flex justify-around items-center pt-2 pb-safe px-4 h-[72px]">
-  <a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-98 transition-all" href="#">
-    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
-    <span class="font-label-sm text-label-sm mt-1">Shop</span>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant/10 bg-surface flex justify-around items-center pt-2 pb-safe px-4 h-20 shadow-[0_-4px_20px_rgba(0,0,0,0.02)]">
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors w-16 h-full rounded-xl" href="#">
+    <span class="material-symbols-outlined mb-1">storefront</span>
+    <span class="font-label-sm text-label-sm">Shop</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-lg p-2 transition-colors" href="#cats">
-    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">grid_view</span>
-    <span class="font-label-sm text-label-sm mt-1">Categories</span>
+  <a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-2 hover:bg-surface-container-high active:scale-98 transition-all" href="#cats">
+    <span class="material-symbols-outlined mb-1">grid_view</span>
+    <span class="font-label-sm text-label-sm">Categories</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-lg p-2 transition-colors" href="#cart">
-    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_bag</span>
-    <span class="font-label-sm text-label-sm mt-1">Cart</span>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors w-16 h-full rounded-xl" href="#cart">
+    <span class="material-symbols-outlined mb-1">shopping_bag</span>
+    <span class="font-label-sm text-label-sm">Cart</span>
   </a>
-  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-lg p-2 transition-colors" href="#" onclick="openModal('loginModal')">
-    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
-    <span class="font-label-sm text-label-sm mt-1">Profile</span>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors w-16 h-full rounded-xl" href="#" onclick="openModal('loginModal')">
+    <span class="material-symbols-outlined mb-1">person</span>
+    <span class="font-label-sm text-label-sm">Profile</span>
   </a>
 </nav>
 
@@ -815,7 +899,7 @@
   <div class="wrap">
     <div class="stitch" style="margin-bottom:24px;"></div>
     <div class="foot-top">
-      <div class="logo" style="font-size:18px;">👕 <span>أدم وباهي للتيشرتات</span></div>
+      <div class="logo" style="font-size:18px;">👕 <span>أدم وباهي للتيشرتات | EL-ASIL</span></div>
       <div class="foot-links">
         <a href="https://instagram.com/rahim._.abod" target="_blank">Instagram: @rahim._.abod</a>
         <a href="#">الشروط والأحكام</a>
@@ -854,6 +938,13 @@
     });
   });
 
+  function showProductDetails(title, price, img) {
+    document.getElementById('detail-title').innerText = title;
+    document.getElementById('detail-price').innerText = price;
+    document.getElementById('detail-main-img').src = img;
+    document.getElementById('product-details').scrollIntoView({ behavior: 'smooth' });
+  }
+
   let isSignUp = false;
 
   function openModal(id) {
@@ -882,7 +973,7 @@
   function handleProductUpload(e) {
     e.preventDefault();
     const title = document.getElementById('pTitle').value;
-    const price = document.getElementById('pPrice').value;
+    const price = document.getElementById('pPrice').value + ' د.ج';
     const wilaya = document.getElementById('pWilaya').value;
     const size = document.getElementById('pSize').value;
     let img = document.getElementById('pImg').value;
@@ -894,6 +985,7 @@
     const container = document.getElementById('productsContainer');
     const newCard = document.createElement('div');
     newCard.className = 'card';
+    newCard.onclick = function() { showProductDetails(title, price, img); };
     newCard.innerHTML = `
       <div class="fav-btn" title="حفظ للمفضلة">♡</div>
       <div class="badge-container">
@@ -907,8 +999,8 @@
         <b>${title}</b>
         <div class="seller">مقاس ${size}</div>
         <div class="card-foot">
-          <span class="price">${price} د.ج</span>
-          <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank">طلب عبر الانستغرام 📩</a>
+          <span class="price">${price}</span>
+          <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank" onclick="event.stopPropagation();">طلب عبر الانستغرام 📩</a>
         </div>
       </div>
     `;
