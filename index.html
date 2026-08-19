@@ -4,8 +4,105 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>رحيم | أدم وباهي للتيشرتات والأقمشة</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet" />
+
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-surface": "#1b1c1a",
+          "inverse-on-surface": "#f2f0ec",
+          "surface-variant": "#e4e2de",
+          "outline": "#7b766f",
+          "error-container": "#ffdad6",
+          "on-primary-container": "#97938f",
+          "on-tertiary-container": "#b98a5d",
+          "tertiary-fixed-dim": "#f1bd8b",
+          "surface-container": "#efeeea",
+          "primary-fixed-dim": "#cbc6c1",
+          "secondary-fixed-dim": "#b7ccb4",
+          "secondary": "#506350",
+          "on-secondary": "#ffffff",
+          "on-tertiary-fixed": "#2c1600",
+          "surface-container-highest": "#e4e2de",
+          "on-error": "#ffffff",
+          "on-primary-fixed": "#1d1b19",
+          "primary-container": "#2e2c29",
+          "tertiary-container": "#432502",
+          "surface": "#fbf9f5",
+          "surface-tint": "#615e5a",
+          "on-tertiary": "#ffffff",
+          "surface-container-lowest": "#ffffff",
+          "inverse-primary": "#cbc6c1",
+          "on-background": "#1b1c1a",
+          "on-primary-fixed-variant": "#494643",
+          "on-secondary-fixed-variant": "#394b39",
+          "surface-container-high": "#eae8e4",
+          "tertiary": "#271300",
+          "on-tertiary-fixed-variant": "#623f18",
+          "surface-container-low": "#f5f3ef",
+          "on-secondary-container": "#546854",
+          "primary-fixed": "#e7e1dd",
+          "surface-bright": "#fbf9f5",
+          "on-surface-variant": "#4a463f",
+          "secondary-fixed": "#d3e8cf",
+          "error": "#ba1a1a",
+          "primary": "#191815",
+          "background": "#fbf9f5",
+          "surface-dim": "#dbdad6",
+          "on-primary": "#ffffff",
+          "tertiary-fixed": "#ffdcbe",
+          "on-error-container": "#93000a",
+          "inverse-surface": "#30312e",
+          "secondary-container": "#d0e6cd",
+          "on-secondary-fixed": "#0e1f10",
+          "outline-variant": "#ccc6bc"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "gutter": "24px",
+          "margin-mobile": "16px",
+          "unit": "4px",
+          "stack-md": "16px",
+          "stack-lg": "32px",
+          "margin-desktop": "64px",
+          "stack-sm": "8px"
+        },
+        fontFamily: {
+          "headline-md": ["Cairo"],
+          "title-lg": ["Cairo"],
+          "body-md": ["Tajawal"],
+          "label-md": ["Tajawal"],
+          "label-sm": ["Tajawal"],
+          "display-lg": ["Cairo"],
+          "body-lg": ["Tajawal"],
+          "display-lg-mobile": ["Cairo"]
+        },
+        fontSize: {
+          "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+          "title-lg": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+          "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+          "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+          "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+          "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+          "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }]
+        }
+      }
+    }
+  }
+</script>
+
 <style>
   :root{
     --bg:#F7F5F1;
@@ -38,6 +135,8 @@
     height:0;border-top:2px dashed var(--thread);
     opacity:.55; margin:0;
   }
+  .stitch-border { border: 1.5px dashed #B5875A; }
+  .stitch-border-bottom { border-bottom: 1.5px dashed #B5875A; }
 
   /* ===== header ===== */
   header{
@@ -313,7 +412,7 @@
   }
 </style>
 </head>
-<body>
+<body class="bg-background text-on-background font-body-md">
 
 <header>
   <div class="wrap nav">
@@ -322,6 +421,7 @@
       <a href="#">الرئيسية</a>
       <a href="#cats">الأقسام</a>
       <a href="#products">تصفّح</a>
+      <a href="#cart">سلة التسوق</a>
       <a href="#sell">بيع ملابسك</a>
     </nav>
     <div class="nav-actions">
@@ -478,6 +578,94 @@
     </div>
   </section>
 
+  <div class="stitch"></div>
+
+  <!-- ===== CART SECTION ===== -->
+  <section class="section" id="cart">
+    <div class="section-head">
+      <div><h2>سلة التسوق</h2><p>مراجعة المنتجات المختارة وتأكيد الطلب</p></div>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <!-- Cart Items List -->
+      <div class="lg:col-span-2 flex flex-col gap-4">
+        <!-- Item 1 -->
+        <article class="bg-surface border border-outline-variant/20 rounded-lg p-4 flex gap-4 items-start relative">
+          <div class="w-24 h-24 rounded shrink-0 overflow-hidden border border-outline-variant/10 bg-surface-container">
+            <img class="w-full h-full object-cover" alt="Premium Cotton T-Shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqEfJfcvRbeXPys_xMTw0hU-T3XutFqRWwl65uWkku-sOdenkMCXOgtUTe_ZMTaGNWHFNNpPT-tjQaGbk2jZuL-wsvuGBSTMEdc6dp0ZiKmW51e2JOEZTT724Sbjj4nZSACzEDkJ5VICWz9nEWyicAtYvNNOSSQUySw9pvtQ1Z6x9m3fnPa12ivQLcDTu3QDQ-h5iKoCRXFcjG0asmEoCytNtFhQFcbpUgQXNw97Zony_g2ti70a_TVQ"/>
+          </div>
+          <div class="flex-grow flex flex-col gap-1">
+            <h2 class="font-title-lg text-title-lg text-on-surface">Premium Cotton T-Shirt</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">اللون: بيج | المقاس: L</p>
+            <p class="font-title-lg text-title-lg text-on-tertiary-container mt-1">2,800 د.ج</p>
+            <div class="flex items-center gap-3 mt-2">
+              <button aria-label="Decrease quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+                <span class="material-symbols-outlined text-[16px]">remove</span>
+              </button>
+              <span class="font-label-md text-label-md w-4 text-center">1</span>
+              <button aria-label="Increase quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+                <span class="material-symbols-outlined text-[16px]">add</span>
+              </button>
+            </div>
+          </div>
+          <button aria-label="Remove item" class="absolute top-4 left-4 text-outline hover:text-error transition-colors">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </article>
+
+        <!-- Item 2 -->
+        <article class="bg-surface border border-outline-variant/20 rounded-lg p-4 flex gap-4 items-start relative">
+          <div class="w-24 h-24 rounded shrink-0 overflow-hidden border border-outline-variant/10 bg-surface-container">
+            <img class="w-full h-full object-cover" alt="Artisanal Linen Shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACZFA8LF3Q_P46aJA7ElqHFr78KwxFtxlfHc05ATZpLQXOEjE6clJ5j8t3e4oBU5k575yYQMLTFREKSwMPc15KexhltLlPcP2XUSEpVh_jpgpT00clzivJgU4T9RmvMMSaQa-G_kT7LTuo9Ir50Sn4dx98MBa9up01jGTB2KQz16ovJsEx7BvuNHDBKPgsceYBIvOZLruuj4usMxGWxD6iZITEWJppiNFPR7i6IT8pkF-fiLQwM4CtAg"/>
+          </div>
+          <div class="flex-grow flex flex-col gap-1">
+            <h2 class="font-title-lg text-title-lg text-on-surface">Artisanal Linen Shirt</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">اللون: فحمي | المقاس: M</p>
+            <p class="font-title-lg text-title-lg text-on-tertiary-container mt-1">4,500 د.ج</p>
+            <div class="flex items-center gap-3 mt-2">
+              <button aria-label="Decrease quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+                <span class="material-symbols-outlined text-[16px]">remove</span>
+              </button>
+              <span class="font-label-md text-label-md w-4 text-center">2</span>
+              <button aria-label="Increase quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+                <span class="material-symbols-outlined text-[16px]">add</span>
+              </button>
+            </div>
+          </div>
+          <button aria-label="Remove item" class="absolute top-4 left-4 text-outline hover:text-error transition-colors">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </article>
+      </div>
+
+      <!-- Order Summary -->
+      <section class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10 flex flex-col gap-4 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 stitch-border-bottom opacity-50"></div>
+        <h3 class="font-title-lg text-title-lg text-on-surface mb-2">ملخص الطلب</h3>
+        <div class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
+          <div class="flex justify-between items-center">
+            <span>المجموع الفرعي</span>
+            <span class="font-label-md text-label-md">11,800 د.ج</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span>توصيل (58 ولاية)</span>
+            <span class="font-label-md text-label-md text-secondary">يتم تحديده لاحقاً</span>
+          </div>
+        </div>
+        <div class="stitch-border-bottom my-2 opacity-50"></div>
+        <div class="flex justify-between items-center font-title-lg text-title-lg text-on-surface">
+          <span>المجموع الكلي</span>
+          <span class="text-on-tertiary-container">11,800 د.ج</span>
+        </div>
+        <a href="https://ig.me/m/rahim._.abod" target="_blank" class="mt-4 w-full bg-primary-container text-on-primary rounded-[14px] py-4 font-label-md text-label-md flex justify-center items-center gap-2 hover:opacity-90 active:scale-98 transition-all">
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+          تأكيد الطلب عبر إنستغرام
+        </a>
+        <p class="text-center font-label-sm text-label-sm text-outline mt-2">سيتم تحويلك إلى إنستغرام لإكمال عملية الدفع والتوصيل.</p>
+      </section>
+    </div>
+  </section>
+
   <!-- ===== LOCAL PAYMENT & SHIPPING ===== -->
   <section class="payments-section">
     <div class="pay-item">
@@ -516,6 +704,26 @@
 
 <!-- Floating Button for Mobile -->
 <button onclick="openModal('uploadModal')" class="btn btn-primary mobile-sticky-btn">➕ أضف قطعة للبيع الآن</button>
+
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant/10 flat no shadows bg-surface md:hidden flex justify-around items-center pt-2 pb-safe px-4 h-[72px]">
+  <a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-98 transition-all" href="#">
+    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+    <span class="font-label-sm text-label-sm mt-1">Shop</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-lg p-2 transition-colors" href="#cats">
+    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">grid_view</span>
+    <span class="font-label-sm text-label-sm mt-1">Categories</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-lg p-2 transition-colors" href="#cart">
+    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_bag</span>
+    <span class="font-label-sm text-label-sm mt-1">Cart</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-lg p-2 transition-colors" href="#" onclick="openModal('loginModal')">
+    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+    <span class="font-label-sm text-label-sm mt-1">Profile</span>
+  </a>
+</nav>
 
 <!-- ===== MODAL 1: LOGIN / REGISTER ===== -->
 <div class="modal-overlay" id="loginModal">
@@ -619,7 +827,6 @@
 </footer>
 
 <script>
-  // قائمة الـ 58 ولاية جزائرية كاملة
   const wilayas = [
     "01 - أدرار", "02 - الشلف", "03 - الأغواط", "04 - أم البواقي", "05 - باتنة",
     "06 - بجاية", "07 - بسكرة", "08 - بشار", "09 - البليدة", "10 - البويرة",
