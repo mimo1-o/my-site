@@ -800,29 +800,33 @@
       });
   }
 
-  // تسجيل الدخول العادي بالبريد
-  function handleFirebaseLogin(e) {
+  // تسجيل الدخول العادي بالبريد والكلمة (معدلة لإنشاء حساب تلقائياً إذا لم يكن موجوداً)
+  async function handleFirebaseLogin(e) {
     e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
+    const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
 
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        alert("تم تسجيل الدخول بنجاح!");
-        closeModal('loginModal');
-      })
-      .catch((error) => {
-        if (error.code === 'auth/user-not-found') {
-          auth.createUserWithEmailAndPassword(email, password)
-            .then(() => {
-              alert("تم إنشاء حساب جديد وتسجيل الدخول بنجاح!");
-              closeModal('loginModal');
-            })
-            .catch(err => alert("خطأ في إنشاء الحساب: " + err.message));
-        } else {
-          alert("خطأ: " + error.message);
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      alert("تم تسجيل الدخول بنجاح!");
+      closeModal('loginModal');
+    } catch (error) {
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+        try {
+          await auth.createUserWithEmailAndPassword(email, password);
+          alert("تم إنشاء حساب جديد وتسجيل الدخول بنجاح!");
+          closeModal('loginModal');
+        } catch (createError) {
+          if (createError.code === 'auth/email-already-in-use') {
+            alert("كلمة المرور غير صحيحة لهذا البريد الإلكتروني.");
+          } else {
+            alert("خطأ: " + createError.message);
+          }
         }
-      });
+      } else {
+        alert("خطأ: " + error.message);
+      }
+    }
   }
 
   // التحديث اللحظي للـ Header عند تسجيل الدخول أو الخروج
