@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>رحيم | أدم وباهي للتيشرتات والأقمشة - تفاصيل المنتج</title>
+<title>رحيم | أدم وباهي للتيشرتات والأقمشة - المتجر التفاعلي</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
@@ -16,51 +16,21 @@
       extend: {
         colors: {
           "on-surface": "#1b1c1a",
-          "inverse-on-surface": "#f2f0ec",
           "surface-variant": "#e4e2de",
           "outline": "#7b766f",
-          "error-container": "#ffdad6",
-          "on-primary-container": "#97938f",
-          "on-tertiary-container": "#b98a5d",
-          "tertiary-fixed-dim": "#f1bd8b",
-          "surface-container": "#efeeea",
-          "primary-fixed-dim": "#cbc6c1",
-          "secondary-fixed-dim": "#b7ccb4",
           "secondary": "#506350",
           "on-secondary": "#ffffff",
-          "on-tertiary-fixed": "#2c1600",
-          "surface-container-highest": "#e4e2de",
-          "on-error": "#ffffff",
-          "on-primary-fixed": "#1d1b19",
-          "primary-container": "#2e2c29",
-          "tertiary-container": "#432502",
-          "surface": "#fbf9f5",
-          "surface-tint": "#615e5a",
-          "on-tertiary": "#ffffff",
-          "surface-container-lowest": "#ffffff",
-          "inverse-primary": "#cbc6c1",
-          "on-background": "#1b1c1a",
-          "on-primary-fixed-variant": "#494643",
-          "on-secondary-fixed-variant": "#394b39",
-          "surface-container-high": "#eae8e4",
+          "surface-container": "#efeeea",
           "tertiary": "#271300",
-          "on-tertiary-fixed-variant": "#623f18",
+          "surface": "#fbf9f5",
+          "on-background": "#1b1c1a",
+          "surface-container-high": "#eae8e4",
           "surface-container-low": "#f5f3ef",
-          "on-secondary-container": "#546854",
           "primary-fixed": "#e7e1dd",
-          "surface-bright": "#fbf9f5",
           "on-surface-variant": "#4a463f",
-          "secondary-fixed": "#d3e8cf",
           "error": "#ba1a1a",
           "primary": "#191815",
           "background": "#fbf9f5",
-          "surface-dim": "#dbdad6",
-          "on-primary": "#ffffff",
-          "tertiary-fixed": "#ffdcbe",
-          "on-error-container": "#93000a",
-          "inverse-surface": "#30312e",
-          "secondary-container": "#d0e6cd",
-          "on-secondary-fixed": "#0e1f10",
           "outline-variant": "#ccc6bc"
         },
         borderRadius: {
@@ -71,32 +41,15 @@
         },
         spacing: {
           "gutter": "24px",
-          "margin-mobile": "16px",
-          "unit": "4px",
           "stack-md": "16px",
           "stack-lg": "32px",
-          "margin-desktop": "64px",
           "stack-sm": "8px"
         },
         fontFamily: {
           "headline-md": ["Cairo"],
           "title-lg": ["Cairo"],
           "body-md": ["Tajawal"],
-          "label-md": ["Tajawal"],
-          "label-sm": ["Tajawal"],
-          "display-lg": ["Cairo"],
-          "body-lg": ["Tajawal"],
-          "display-lg-mobile": ["Cairo"]
-        },
-        fontSize: {
-          "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
-          "title-lg": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
-          "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
-          "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
-          "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
-          "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-          "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-          "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }]
+          "label-md": ["Tajawal"]
         }
       }
     }
@@ -136,15 +89,10 @@
     opacity:.55; margin:0;
   }
   .stitch-border { border-bottom: 1.5px dashed #B5875A; }
+  .tactile-outline { border: 1px solid rgba(46, 44, 41, 0.1); }
+  .tactile-outline-sage { border: 1px solid rgba(107, 127, 106, 0.1); }
 
-  .tactile-outline {
-    border: 1px solid rgba(46, 44, 41, 0.1);
-  }
-  .tactile-outline-sage {
-    border: 1px solid rgba(107, 127, 106, 0.1);
-  }
-
-  /* ===== header ===== */
+  /* Header */
   header{
     position:sticky;top:0;z-index:50;
     background:rgba(247,245,241,.92);
@@ -173,7 +121,7 @@
   .btn-insta:hover{background:#C13584;}
   .btn-sm{padding:8px 16px;font-size:13px;}
 
-  /* ===== hero ===== */
+  /* Hero */
   .hero{
     padding:48px 0 32px;
     display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;
@@ -183,9 +131,7 @@
     color:var(--thread);font-weight:700;font-size:13.5px;letter-spacing:.03em;
     background:#F1E6D8;padding:6px 14px;border-radius:999px;margin-bottom:18px;
   }
-  .hero h1{
-    font-size:40px;line-height:1.28;font-weight:800;margin-bottom:18px;
-  }
+  .hero h1{font-size:40px;line-height:1.28;font-weight:800;margin-bottom:18px;}
   .hero h1 em{font-style:normal;color:var(--green-deep);}
   .hero p{color:var(--ink-soft);font-size:17px;max-width:480px;margin-bottom:26px;}
   .hero-actions{display:flex;gap:14px;margin-bottom:34px;}
@@ -214,22 +160,11 @@
     box-shadow:0 14px 24px -12px rgba(0,0,0,.25);
     position:relative;
   }
-  .shirt::before{
-    content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-    width:34px;height:24px;background:var(--bg);
-    clip-path:polygon(50% 100%,0 0,100% 0);
-  }
   .g1{right:0;} .g1 .shirt{background:var(--green);}
   .g2{right:150px;top:60px;} .g2 .shirt{background:var(--indigo);width:110px;height:120px;}
   .g3{right:300px;} .g3 .shirt{background:var(--thread);}
-  .tag-hang{
-    position:absolute;top:96px;left:-6px;background:var(--white);
-    border:1px solid var(--line);border-radius:0 6px 6px 0;
-    padding:4px 10px 4px 6px;font-size:11.5px;font-weight:700;
-    box-shadow:0 4px 10px rgba(0,0,0,.08);
-  }
 
-  /* ===== search & filter section ===== */
+  /* Search Section */
   .search-section{
     background:var(--white);
     border:1px solid var(--line);
@@ -238,12 +173,8 @@
     margin:30px 0 10px;
     box-shadow:0 8px 20px -10px rgba(0,0,0,.05);
   }
-  .search-bar{
-    display:flex;gap:12px;margin-bottom:16px;
-  }
-  .search-input-wrap{
-    position:relative;flex:1;
-  }
+  .search-bar{display:flex;gap:12px;margin-bottom:16px;}
+  .search-input-wrap{position:relative;flex:1;}
   .search-input{
     width:100%;padding:12px 16px;border-radius:999px;
     border:1.5px solid var(--line);background:var(--bg);
@@ -251,45 +182,20 @@
     transition:.2s;
   }
   .search-input:focus{outline:none;border-color:var(--green);background:var(--white);}
-  .filters-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
-  }
+  .filters-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
   .filter-select{
     width:100%;padding:10px 14px;border-radius:10px;
     border:1px solid var(--line);background:var(--bg);
     font-family:inherit;font-size:13.5px;color:var(--ink);
     cursor:pointer;
   }
-  .filter-select:focus{outline:none;border-color:var(--green);}
 
-  /* ===== categories ===== */
+  /* Products */
   .section{padding:48px 0;}
-  .section-head{
-    display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;
-  }
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;}
   .section-head h2{font-size:26px;font-weight:800;}
   .section-head p{color:var(--ink-soft);font-size:14px;margin-top:4px;}
-  .cats{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
-  }
-  .cat{
-    background:var(--bg-card);border-radius:var(--radius);
-    padding:20px;text-align:center;transition:.2s;cursor:pointer;
-    border:1px solid transparent;
-  }
-  .cat:hover{border-color:var(--green);transform:translateY(-3px);}
-  .cat .ic{
-    width:48px;height:48px;border-radius:50%;background:var(--white);
-    display:flex;align-items:center;justify-content:center;margin:0 auto 10px;
-    font-size:20px;
-  }
-  .cat b{display:block;font-family:'Cairo',sans-serif;font-weight:700;font-size:15px;}
-  .cat span{color:var(--ink-soft);font-size:12px;}
-
-  /* ===== products ===== */
-  .products{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
-  }
+  .products{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   .card{
     background:var(--white);border-radius:var(--radius);overflow:hidden;
     border:1px solid var(--line);transition:.25s;position:relative;
@@ -302,13 +208,10 @@
   }
   .card-media img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 0.3s ease;}
   .card:hover .card-media img{transform:scale(1.05);}
-
   .badge-container{
     position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;z-index:2;
   }
-  .badge{
-    font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;
-  }
+  .badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;}
   .badge-condition{background:rgba(255,255,255,.9);color:var(--ink);border:1px solid var(--line);}
   .badge-wilaya{background:var(--green-deep);color:var(--white);}
 
@@ -318,7 +221,7 @@
     display:flex;align-items:center;justify-content:center;cursor:pointer;
     font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:.2s;z-index:2;
   }
-  .fav-btn:hover{background:#FFEAEA;color:#E53935;border-color:#E53935;}
+  .fav-btn.active{background:#FFEAEA;color:#E53935;border-color:#E53935;}
 
   .card-body{padding:16px;}
   .card-body b{display:block;font-family:'Cairo',sans-serif;font-size:15px;margin-bottom:4px;}
@@ -326,44 +229,7 @@
   .card-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);padding-top:10px;}
   .price{font-family:'Cairo',sans-serif;font-weight:800;color:var(--green-deep);font-size:16px;}
 
-  /* ===== payment & shipping badge ===== */
-  .payments-section{
-    background:var(--bg-card);border-radius:var(--radius);
-    padding:24px;margin:30px 0;display:flex;justify-content:space-around;align-items:center;
-    flex-wrap:wrap;gap:20px;border:1px dashed var(--thread);
-  }
-  .pay-item{display:flex;align-items:center;gap:12px;}
-  .pay-item .icon{font-size:24px;}
-  .pay-item div b{display:block;font-size:14px;}
-  .pay-item div span{font-size:12px;color:var(--ink-soft);}
-
-  /* ===== sell CTA ===== */
-  .sell{
-    background:var(--green-deep);color:var(--white);border-radius:24px;
-    padding:44px 40px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;
-    margin:20px 0;
-  }
-  .sell h2{font-size:28px;margin-bottom:12px;}
-  .sell p{opacity:.85;font-size:15px;max-width:440px;}
-  .sell .btn-primary{background:var(--white);color:var(--green-deep);margin-top:22px;}
-  .sell .btn-primary:hover{background:var(--bg-card);}
-  .steps{display:flex;flex-direction:column;gap:14px;}
-  .step{display:flex;gap:12px;align-items:flex-start;}
-  .step b{
-    width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.15);
-    display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;
-  }
-  .step span{font-size:13.5px;opacity:.9;}
-
-  /* ===== mobile sticky ===== */
-  .mobile-sticky-btn{
-    display:none;
-    position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
-    z-index:99;width:calc(100% - 32px);max-width:400px;
-    box-shadow:0 10px 25px rgba(0,0,0,.2);
-  }
-
-  /* ===== MODAL STYLES ===== */
+  /* Modals */
   .modal-overlay {
     position: fixed;top: 0;left: 0;right: 0;bottom: 0;
     background: rgba(0,0,0,0.5);backdrop-filter: blur(4px);
@@ -375,17 +241,13 @@
     background: var(--white);border-radius: var(--radius);
     width: 100%;max-width: 480px;max-height: 90vh;overflow-y: auto;
     border: 1px solid var(--line);box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    animation: modalSlide 0.3s ease;
   }
-  @keyframes modalSlide { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   .modal-head {
     padding: 20px;border-bottom: 1px solid var(--line);
     display: flex;justify-content: space-between;align-items: center;
   }
   .modal-head h3 { font-size: 20px; font-weight: 800; color: var(--green-deep); }
-  .modal-close {
-    background: none;border: none;font-size: 24px;cursor: pointer;color: var(--ink-soft);
-  }
+  .modal-close { background: none;border: none;font-size: 24px;cursor: pointer;color: var(--ink-soft); }
   .modal-body { padding: 20px; }
   .form-group { margin-bottom: 16px; }
   .form-group label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 14px; }
@@ -394,21 +256,18 @@
     border: 1px solid var(--line); background: var(--bg);
     font-family: inherit; font-size: 14px; color: var(--ink);
   }
-  .form-control:focus { outline: none; border-color: var(--green); background: var(--white); }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-  footer{padding:44px 0 30px;color:var(--ink-soft);font-size:13px;}
-  .foot-top{
-    display:flex;justify-content:space-between;align-items:center;padding-bottom:22px;
+  .mobile-sticky-btn{
+    display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+    z-index:99;width:calc(100% - 32px);max-width:400px;
   }
-  .foot-links{display:flex;gap:24px;}
 
   @media(max-width:900px){
     .hero{grid-template-columns:1fr;}
     .rail{display:none;}
-    .cats,.products{grid-template-columns:repeat(2,1fr);}
+    .products{grid-template-columns:repeat(2,1fr);}
     .filters-grid{grid-template-columns:repeat(2,1fr);}
-    .sell{grid-template-columns:1fr;padding:32px 24px;}
     .nav-links{display:none;}
     .mobile-sticky-btn{display:flex;}
   }
@@ -419,348 +278,141 @@
   }
 </style>
 </head>
-<body class="bg-background text-on-background font-body-md antialiased">
+<body>
 
 <header>
   <div class="wrap nav">
     <div class="logo">👕 <span>رحيم | EL-ASIL</span></div>
     <nav class="nav-links">
       <a href="#">الرئيسية</a>
-      <a href="#cats">الأقسام</a>
-      <a href="#products">تصفّح</a>
-      <a href="#cart">سلة التسوق</a>
-      <a href="#sell">بيع ملابسك</a>
+      <a href="#products">المنتجات المعروضة</a>
+      <a href="#cart">سلة التسوق (<span id="cart-count">0</span>)</a>
     </nav>
     <div class="nav-actions">
       <button class="btn btn-outline btn-sm" onclick="openModal('loginModal')">تسجيل الدخول</button>
-      <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">ابدأ البيع</button>
+      <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
     </div>
   </div>
 </header>
 
 <main class="wrap">
 
-  <!-- ===== HERO ===== -->
+  <!-- HERO -->
   <section class="hero">
     <div>
-      <div class="eyebrow">✦ سوق التيشرتات والملابس الموثوق</div>
+      <div class="eyebrow">✦ منصتك التفاعلية للأناقة والملابس</div>
       <h1>أدم وباهي للتيشرتات <em>أناقتك وجودتك</em> في مكان واحد</h1>
-      <p>منصّة راقية تجمع أرقى التيشرتات والملابس الجاهزة مع طلبات تواصل مباشرة والتوصيل لكافة الولايات الـ 58.</p>
+      <p>منصّة راقية تجمع أرقى التيشرتات والملابس الجاهزة مع خيارات تواصل وإضافة قطعة تفاعلية بسيطة.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#products">تسوّق الآن</a>
-        <button class="btn btn-outline" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
-      </div>
-      <div class="hero-stats">
-        <div><b>+12,000</b><span>قطعة معروضة</span></div>
-        <div><b>+3,400</b><span>بائع موثّق</span></div>
-        <div><b>98%</b><span>رضا المشترين</span></div>
+        <button class="btn btn-outline" onclick="openModal('uploadModal')">أضف قطعة جديدة</button>
       </div>
     </div>
     <div class="rail">
       <div class="rail-bar"></div>
       <div class="garment g3"><div class="hook"></div><div class="shirt"></div></div>
-      <div class="garment g2"><div class="hook"></div><div class="shirt"></div><div class="tag-hang">120 د.ج</div></div>
+      <div class="garment g2"><div class="hook"></div><div class="shirt"></div></div>
       <div class="garment g1"><div class="hook"></div><div class="shirt"></div></div>
     </div>
   </section>
 
-  <!-- ===== SEARCH & FILTERS BAR ===== -->
+  <!-- SEARCH & FILTERS -->
   <section class="search-section">
     <div class="search-bar">
       <div class="search-input-wrap">
-        <input type="text" class="search-input" placeholder="عن ماذا تبحث؟ (تيشرت قطني، Oversize، قميص مخطط...)">
+        <input type="text" id="searchInput" class="search-input" placeholder="ابحث باسم القطعة، نوع القماش..." oninput="filterProducts()">
       </div>
-      <button class="btn btn-primary">بحث</button>
     </div>
     <div class="filters-grid">
-      <select class="filter-select wilaya-select">
-        <option value="">الولاية (الكل - 58 ولاية)</option>
+      <select id="filterWilaya" class="filter-select wilaya-select" onchange="filterProducts()">
+        <option value="">كل الولايات</option>
       </select>
-      <select class="filter-select">
-        <option value="">المقاس</option>
-        <option value="s">Small (S)</option>
-        <option value="m">Medium (M)</option>
-        <option value="l">Large (L)</option>
-        <option value="xl">X-Large (XL)</option>
+      <select id="filterSize" class="filter-select" onchange="filterProducts()">
+        <option value="">كل المقاسات</option>
+        <option value="S">Small (S)</option>
+        <option value="M">Medium (M)</option>
+        <option value="L">Large (L)</option>
+        <option value="XL">X-Large (XL)</option>
       </select>
-      <select class="filter-select">
-        <option value="">حالة القطعة</option>
-        <option value="new">جديد بالبطاقة</option>
-        <option value="like-new">مستعمل كالجديد</option>
-      </select>
-      <select class="filter-select">
-        <option value="">السعر</option>
-        <option value="0-1000">أقل من 1,000 د.ج</option>
-        <option value="1000-3000">1,000 - 3,000 د.ج</option>
-        <option value="3000+">أكثر من 3,000 د.ج</option>
+      <select id="filterCondition" class="filter-select" onchange="filterProducts()">
+        <option value="">كل الحالات</option>
+        <option value="جديد">جديد بالبطاقة</option>
+        <option value="كالجديد">مستعمل كالجديد</option>
       </select>
     </div>
   </section>
 
   <div class="stitch my-6"></div>
 
-  <!-- ===== CATEGORIES ===== -->
-  <section class="section" id="cats">
-    <div class="section-head">
-      <div><h2>تسوّق حسب القسم</h2><p>تشكيلة واسعة من التيشرتات والملابس العصرية</p></div>
-    </div>
-    <div class="cats">
-      <div class="cat"><div class="ic">👕</div><b>تيشرتات Oversize</b><span>+4,200 قطعة</span></div>
-      <div class="cat"><div class="ic">👔</div><b>قُمصان كاجوال</b><span>+3,800 قطعة</span></div>
-      <div class="cat"><div class="ic">🏃‍♂️</div><b>تيشرتات بولو</b><span>+2,500 قطعة</span></div>
-      <div class="cat"><div class="ic">✨</div><b>تيشرتات كلاسيك</b><span>+1,800 قطعة</span></div>
-    </div>
-  </section>
-
-  <div class="stitch my-6"></div>
-
-  <!-- ===== PRODUCT DETAILS SECTION ===== -->
-  <section id="product-details" class="py-10 my-6 bg-surface rounded-2xl border border-outline-variant/20 p-6 relative">
-    <button onclick="document.getElementById('product-details').scrollIntoView({behavior: 'smooth'})" title="إغلاق التفاصيل" class="absolute top-4 left-4 text-outline hover:text-error transition-colors flex items-center gap-1 font-label-md text-label-md bg-surface-container px-3 py-1.5 rounded-full">
+  <!-- PRODUCT DETAILS DISPLAY -->
+  <section id="product-details" class="py-10 my-6 bg-surface rounded-2xl border border-outline-variant/20 p-6 relative hidden">
+    <button onclick="closeDetails()" class="absolute top-4 left-4 text-outline hover:text-error flex items-center gap-1 font-label-md bg-surface-container px-3 py-1.5 rounded-full">
       <span class="material-symbols-outlined text-sm">close</span> إغلاق
     </button>
     <div class="max-w-[1200px] mx-auto md:grid md:grid-cols-12 md:gap-gutter items-start">
-      <!-- Image Gallery -->
-      <div class="md:col-span-7 space-y-stack-md">
-        <div class="relative rounded-xl overflow-hidden tactile-outline-sage aspect-[3/4] md:aspect-square bg-surface-container-low group">
-          <img id="detail-main-img" alt="Premium Cotton T-Shirt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"/>
-          <div class="absolute top-4 right-4 bg-secondary text-on-secondary px-3 py-1 rounded-full font-label-md text-label-md flex items-center gap-1 shadow-sm">
-            <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
-            صنع في الجزائر
-          </div>
-        </div>
-        <div class="grid grid-cols-4 gap-stack-sm">
-          <div class="aspect-square rounded-lg overflow-hidden tactile-outline cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
-            <img class="w-full h-full object-cover" alt="Detail 1" src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"/>
-          </div>
-          <div class="aspect-square rounded-lg overflow-hidden tactile-outline cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
-            <img class="w-full h-full object-cover" alt="Detail 2" src="https://images.unsplash.com/photo-1625910513413-4ec35e01f547?auto=format&fit=crop&w=800&q=80"/>
-          </div>
-          <div class="aspect-square rounded-lg overflow-hidden tactile-outline cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
-            <img class="w-full h-full object-cover" alt="Detail 3" src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"/>
-          </div>
+      <div class="md:col-span-6">
+        <div class="rounded-xl overflow-hidden aspect-[3/4] bg-surface-container-low">
+          <img id="detail-img" class="w-full h-full object-cover" src="" alt="Detail Image">
         </div>
       </div>
-      <!-- Product Info -->
-      <div class="md:col-span-5 mt-stack-lg md:mt-0 flex flex-col">
-        <h2 id="detail-title" class="font-headline-md text-headline-md text-primary mb-stack-sm">تيشرت قطني فاخر - Premium Cotton T-Shirt</h2>
-        <p id="detail-price" class="font-title-lg text-title-lg text-on-tertiary-container mb-stack-lg">2,800 د.ج</p>
-        <div class="stitch-border mb-stack-lg w-full"></div>
-        <!-- Size Selection -->
-        <div class="mb-stack-lg">
-          <div class="flex justify-between items-center mb-stack-md">
-            <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">اختر المقاس</span>
-            <button class="font-label-md text-label-md text-on-tertiary-container underline underline-offset-4 decoration-on-tertiary-container/30 hover:decoration-on-tertiary-container transition-colors">دليل المقاسات</button>
-          </div>
-          <div class="flex flex-wrap gap-stack-sm">
-            <button class="w-12 h-12 rounded-lg border border-outline-variant/30 flex items-center justify-center font-body-md text-body-md hover:border-outline transition-colors bg-surface text-on-surface">S</button>
-            <button class="w-12 h-12 rounded-lg border border-outline-variant/30 flex items-center justify-center font-body-md text-body-md hover:border-outline transition-colors bg-surface text-on-surface">M</button>
-            <button class="w-12 h-12 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-body-md text-body-md shadow-inner">L</button>
-            <button class="w-12 h-12 rounded-lg border border-outline-variant/30 flex items-center justify-center font-body-md text-body-md hover:border-outline transition-colors bg-surface text-on-surface">XL</button>
-            <button class="w-12 h-12 rounded-lg border border-outline-variant/30 flex items-center justify-center font-body-md text-body-md hover:border-outline transition-colors bg-surface text-on-surface">XXL</button>
-          </div>
+      <div class="md:col-span-6 flex flex-col gap-4 mt-4 md:mt-0">
+        <h2 id="detail-title" class="text-2xl font-bold text-primary"></h2>
+        <p id="detail-price" class="text-xl font-bold text-green-700"></p>
+        <p id="detail-seller" class="text-sm text-gray-500"></p>
+        <div class="flex gap-2">
+          <span id="detail-size" class="px-3 py-1 bg-gray-200 rounded-md text-sm font-bold"></span>
+          <span id="detail-wilaya" class="px-3 py-1 bg-green-100 text-green-800 rounded-md text-sm font-bold"></span>
         </div>
-        <!-- Actions -->
-        <div class="flex flex-col gap-stack-md mb-stack-lg">
-          <button class="w-full bg-primary-container text-on-primary rounded-[14px] py-4 font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary transition-colors active:scale-98">
-            <span class="material-symbols-outlined">shopping_bag</span>
-            إضافة إلى السلة
-          </button>
-          <a href="https://ig.me/m/rahim._.abod" target="_blank" class="w-full bg-transparent text-primary-container border-[1.5px] border-primary-container rounded-[14px] py-4 font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors active:scale-98">
-            تواصل معنا عبر الانستغرام
-          </a>
-        </div>
-        <!-- Description -->
-        <div class="mb-stack-lg">
-          <h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-stack-sm">الجودة والتصنيع</h3>
-          <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-            تجربة الراحة العالية مع تيشرت القطن الفاخر من تشكيلة "أدم وباهي". مصنع بعناية من أجود أنواع القطن الناعم مع حياكة متقنة وقصة مريحة وعصرية. صُمم في الجزائر لأولئك الذين يقدرون الفخامة البسيطة والجودة المستدامة في خزانة ملابسهم اليومية.
-          </p>
-        </div>
-        <!-- Shipping Info -->
-        <div class="bg-surface-container-low rounded-xl p-stack-md tactile-outline-sage flex items-start gap-stack-md">
-          <span class="material-symbols-outlined text-secondary mt-1">local_shipping</span>
-          <div>
-            <h4 class="font-label-md text-label-md text-primary mb-1">التوصيل متوفر لـ 58 ولاية</h4>
-            <p class="font-body-md text-body-md text-on-surface-variant text-sm">شحن سريع وموثوق إلى جميع أنحاء الجزائر. التوصيل القياسي يتم خلال 2 إلى 5 أيام عمل.</p>
-          </div>
-        </div>
+        <button id="detail-add-btn" class="w-full bg-green-800 text-white py-3 rounded-xl font-bold hover:bg-green-900 transition">إضافة إلى السلة</button>
       </div>
     </div>
   </section>
 
-  <div class="stitch my-6"></div>
-
-  <!-- ===== PRODUCTS LIST ===== -->
+  <!-- PRODUCTS GRID -->
   <section class="section" id="products">
     <div class="section-head">
-      <div><h2>قطع المعرض والمنتجات</h2><p>يمكنك التواصل للطلب المباشر عبر حساب الانستغرام rahim._.abod</p></div>
-      <a class="btn btn-outline btn-sm" href="#">عرض الكل</a>
+      <div><h2>القطع المعروضة</h2><p>تصفح وحمّل أو أضف قطعك الخاصة فوراً</p></div>
     </div>
     <div class="products" id="productsContainer">
-
-      <!-- منتج 1 -->
-      <div class="card" onclick="showProductDetails('قميص مخطط أزرق كاجوال Oversize', '2,800 د.ج', 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80')">
-        <div class="fav-btn" title="حفظ للمفضلة">♡</div>
-        <div class="badge-container">
-          <span class="badge badge-wilaya">16 - الجزائر</span>
-          <span class="badge badge-condition">جديد</span>
-        </div>
-        <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80" alt="قميص مخطط أزرق كاجوال">
-        </div>
-        <div class="card-body">
-          <b>قميص مخطط أزرق كاجوال Oversize</b>
-          <div class="seller">من: أدم وباهي • مقاس L</div>
-          <div class="card-foot">
-            <span class="price">2,800 د.ج</span>
-            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank" onclick="event.stopPropagation();">طلب عبر الانستغرام 📩</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- منتج 2 -->
-      <div class="card" onclick="showProductDetails('تيشرت بولو محبوك عصري (بني داكن)', '2,400 د.ج', 'https://images.unsplash.com/photo-1625910513413-4ec35e01f547?auto=format&fit=crop&w=800&q=80')">
-        <div class="fav-btn" title="حفظ للمفضلة">♡</div>
-        <div class="badge-container">
-          <span class="badge badge-wilaya">31 - وهران</span>
-          <span class="badge badge-condition">جديد</span>
-        </div>
-        <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1625910513413-4ec35e01f547?auto=format&fit=crop&w=800&q=80" alt="تيشرت بولو بني داكن">
-        </div>
-        <div class="card-body">
-          <b>تيشرت بولو محبوك عصري (بني داكن)</b>
-          <div class="seller">من: متجر الأناقة • مقاس XL</div>
-          <div class="card-foot">
-            <span class="price">2,400 د.ج</span>
-            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank" onclick="event.stopPropagation();">طلب عبر الانستغرام 📩</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- منتج 3 -->
-      <div class="card" onclick="showProductDetails('قميص صيفي مخطط أزرق فاتح', '2,600 د.ج', 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80')">
-        <div class="fav-btn" title="حفظ للمفضلة">♡</div>
-        <div class="badge-container">
-          <span class="badge badge-wilaya">19 - سطيف</span>
-          <span class="badge badge-condition">كالجديد</span>
-        </div>
-        <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80" alt="قميص صيفي أزرق فاتح">
-        </div>
-        <div class="card-body">
-          <b>قميص صيفي مخطط أزرق فاتح</b>
-          <div class="seller">من: أدم وباهي • مقاس M</div>
-          <div class="card-foot">
-            <span class="price">2,600 د.ج</span>
-            <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank" onclick="event.stopPropagation();">طلب عبر الانستغرام 📩</a>
-          </div>
-        </div>
-      </div>
-
+      <!-- يتم تحميل وتوليد المنتجات ديناميكياً هنا -->
     </div>
   </section>
 
   <div class="stitch my-6"></div>
 
-  <!-- ===== CART SECTION ===== -->
+  <!-- CART SECTION -->
   <section class="section" id="cart">
     <div class="section-head">
-      <div><h2>سلة التسوق</h2><p>مراجعة المنتجات المختارة وتأكيد الطلب</p></div>
+      <div><h2>سلة التسوق</h2><p>القطع الجاهزة للشراء والتوصيل</p></div>
     </div>
-    
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-      <!-- Cart Items List -->
-      <div class="lg:col-span-2 flex flex-col gap-4">
-        <!-- Item 1 -->
-        <article class="bg-surface border border-outline-variant/20 rounded-lg p-4 flex gap-4 items-start relative">
-          <div class="w-24 h-24 rounded shrink-0 overflow-hidden border border-outline-variant/10 bg-surface-container">
-            <img class="w-full h-full object-cover" alt="Premium Cotton T-Shirt" src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"/>
-          </div>
-          <div class="flex-grow flex flex-col gap-1">
-            <h2 class="font-title-lg text-title-lg text-on-surface">تيشرت قطني فاخر</h2>
-            <p class="font-body-md text-body-md text-on-surface-variant">اللون: أزرق مخطط | المقاس: L</p>
-            <p class="font-title-lg text-title-lg text-on-tertiary-container mt-1">2,800 د.ج</p>
-            <div class="flex items-center gap-3 mt-2">
-              <button aria-label="Decrease quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
-                <span class="material-symbols-outlined text-[16px]">remove</span>
-              </button>
-              <span class="font-label-md text-label-md w-4 text-center">1</span>
-              <button aria-label="Increase quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
-                <span class="material-symbols-outlined text-[16px]">add</span>
-              </button>
-            </div>
-          </div>
-          <button class="text-outline hover:text-error transition-colors p-1" title="حذف">
-            <span class="material-symbols-outlined text-lg">delete</span>
-          </button>
-        </article>
+      <div class="lg:col-span-2 flex flex-col gap-4" id="cartItemsContainer">
+        <!-- عناصر السلة تُضاف هنا تلقائياً -->
       </div>
-
-      <!-- Cart Summary -->
       <div class="bg-surface border border-outline-variant/20 rounded-xl p-6 space-y-4">
         <h3 class="font-headline-md text-headline-md text-primary">ملخص الطلب</h3>
         <div class="space-y-2 border-b border-outline-variant/20 pb-4">
           <div class="flex justify-between font-body-md">
             <span class="text-on-surface-variant">المجموع الفرعي</span>
-            <span>2,800 د.ج</span>
+            <span id="subtotal-price">0 د.ج</span>
           </div>
           <div class="flex justify-between font-body-md">
-            <span class="text-on-surface-variant">الشحن (تقديري)</span>
-            <span>600 د.ج</span>
+            <span class="text-on-surface-variant">مصاريف الشحن</span>
+            <span id="shipping-price">600 د.ج</span>
           </div>
         </div>
         <div class="flex justify-between font-title-lg font-bold text-primary">
-          <span>الإجمالي</span>
-          <span>3,400 د.ج</span>
+          <span>الإجمالي الكلي</span>
+          <span id="total-price">0 د.ج</span>
         </div>
-        <button class="w-full bg-secondary text-on-secondary py-3.5 rounded-lg font-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
-          متابعة الشراء
-        </button>
+        <button onclick="checkout()" class="w-full bg-secondary text-on-secondary py-3.5 rounded-lg font-label-md hover:bg-secondary-container transition">تأكيد ومتابعة الشراء</button>
       </div>
-    </div>
-  </section>
-
-  <!-- ===== PAYMENT & SHIPPING BADGE ===== -->
-  <section class="payments-section">
-    <div class="pay-item">
-      <span class="icon">🚚</span>
-      <div><b>توصيل لكافة 58 ولاية</b><span>سريع وموثوق حتى باب المنزل</span></div>
-    </div>
-    <div class="pay-item">
-      <span class="icon">💵</span>
-      <div><b>الدفع عند الاستلام</b><span>ادفع بعد معاينة واستلام القطعة</span></div>
-    </div>
-    <div class="pay-item">
-      <span class="icon">🛡️</span>
-      <div><b>ضمان المعاينة</b><span>حق الفحص والتأكد قبل الدفع</span></div>
-    </div>
-  </section>
-
-  <!-- ===== SELL CTA ===== -->
-  <section class="sell" id="sell">
-    <div>
-      <h2>تريد بيع ملابسك أو تيشرتاتك الخاصة؟</h2>
-      <p>انضم لآلاف البائعين عبر منصة أدم وباهي. اعرض قطعتك بسهولة وتواصل المشتري معك مباشرة.</p>
-      <button class="btn btn-primary" onclick="openModal('uploadModal')">اعرض قطعة جديدة الآن</button>
-    </div>
-    <div class="steps">
-      <div class="step"><b>1</b><span>صوّر القطعة بوضوح وحدد سعرها ومقاسها.</span></div>
-      <div class="step"><b>2</b><span>اضغط "أضف قطعة" واملأ تفاصيل التواصل.</span></div>
-      <div class="step"><b>3</b><span>تلقَّ الطلبات مباشرة وبِعْ بكل سهولة!</span></div>
     </div>
   </section>
 
 </main>
 
-<button class="btn btn-primary mobile-sticky-btn" onclick="openModal('uploadModal')">
-  ➕ إضافة قطعة للبيع
-</button>
-
-<!-- ===== MODALS ===== -->
-
-<!-- Upload Modal -->
+<!-- UPLOAD MODAL -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -768,56 +420,50 @@
       <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
     </div>
     <div class="modal-body">
-      <form onsubmit="event.preventDefault(); alert('تم إرسال القطعة للمراجعة بنجاح!'); closeModal('uploadModal');">
+      <form id="addProductForm" onsubmit="handleAddNewProduct(event)">
         <div class="form-group">
-          <label>عنوان القطعة</label>
-          <input type="text" class="form-control" placeholder="مثال: تيشرت قطني أسود Oversize" required>
+          <label>اسم القطعة / العنوان</label>
+          <input type="text" id="newTitle" class="form-control" placeholder="مثال: تيشرت قطني أسود" required>
         </div>
         <div class="form-grid">
           <div class="form-group">
             <label>السعر (د.ج)</label>
-            <input type="number" class="form-control" placeholder="2500" required>
+            <input type="number" id="newPrice" class="form-control" placeholder="2500" required>
           </div>
           <div class="form-group">
             <label>المقاس</label>
-
-            <select class="form-control" required>
-              <option value="">اختر المقاس</option>
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-              <option>XL</option>
-              <option>XXL</option>
+            <select id="newSize" class="form-control" required>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
             </select>
           </div>
         </div>
         <div class="form-grid">
           <div class="form-group">
             <label>الولاية</label>
-            <select class="form-control wilaya-select" required>
-              <option value="">اختر الولاية</option>
-            </select>
+            <select id="newWilaya" class="form-control wilaya-select" required></select>
           </div>
           <div class="form-group">
-            <label>حالة القطعة</label>
-            <select class="form-control" required>
-              <option>جديد بالبطاقة</option>
-              <option>مستعمل كالجديد</option>
-              <option>مستعمل بحالة جيدة</option>
+            <label>الحالة</label>
+            <select id="newCondition" class="form-control" required>
+              <option value="جديد">جديد بالبطاقة</option>
+              <option value="كالجديد">مستعمل كالجديد</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label>رابط حساب الانستغرام أو الهاتف</label>
-          <input type="text" class="form-control" placeholder="rahim._.abod" required>
+          <label>رابط الصورة (Image URL)</label>
+          <input type="url" id="newImg" class="form-control" placeholder="ضع رابط الصورة هنا" required>
         </div>
-        <button class="btn btn-primary w-full mt-4" style="width:100%">نشر القطعة الآن</button>
+        <button class="btn btn-primary w-full mt-4" style="width:100%">نشر القطعة في المعرض فوراً</button>
       </form>
     </div>
   </div>
 </div>
 
-<!-- Login Modal -->
+<!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -825,54 +471,69 @@
       <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
     </div>
     <div class="modal-body">
-      <form onsubmit="event.preventDefault(); alert('تم تسجيل الدخول بنجاح!'); closeModal('loginModal');">
+      <form onsubmit="event.preventDefault(); alert('تم تسجيل الدخول!'); closeModal('loginModal');">
         <div class="form-group">
-          <label>رقم الهاتف أو البريد الإلكتروني</label>
+          <label>الهاتف أو البريد</label>
           <input type="text" class="form-control" required>
         </div>
         <div class="form-group">
           <label>كلمة المرور</label>
           <input type="password" class="form-control" required>
         </div>
-        <button class="btn btn-primary w-full mt-2" style="width:100%">دخول</button>
+        <button class="btn btn-primary w-full" style="width:100%">دخول</button>
       </form>
     </div>
   </div>
 </div>
 
-<footer>
-  <div class="wrap">
-    <div class="foot-top">
-      <div class="logo">👕 <span>رحيم | EL-ASIL</span></div>
-      <div class="foot-links">
-        <a href="#">الرئيسية</a>
-        <a href="#products">المنتجات</a>
-        <a href="https://ig.me/m/rahim._.abod" target="_blank">الانستغرام</a>
-      </div>
-    </div>
-    <div class="text-center pt-4 border-t border-outline-variant/20" style="border-top: 1px solid var(--line); text-align: center; padding-top: 16px;">
-      جميع الحقوق محفوظة © 2026 متجر رحيم - أدم وباهي للتيشرتات والأقمشة.
-    </div>
-  </div>
-</footer>
+<button class="btn btn-primary mobile-sticky-btn" onclick="openModal('uploadModal')">➕ إضافة قطعة للبيع</button>
 
 <script>
-  // Populate Wilayas dropdowns
+  // قائمة الولايات الـ 58
   const wilayas = [
     "01 - أدرار", "02 - الشلف", "03 - الأغواط", "04 - أم البواقي", "05 - باتنة",
     "06 - بجاية", "07 - بسكرة", "08 - بشار", "09 - البليدة", "10 - البويرة",
-    "11 - تمنراست", "12 - تبسة", "13 - تلمسان", "14 - تيارت", "15 - تيزي وزو",
-    "16 - الجزائر", "17 - الجلفة", "18 - جيجل", "19 - سطيف", "20 - سعيدة",
-    "21 - سكيكدة", "22 - سيدي بلعباس", "23 - عنابة", "24 - قالمة", "25 - قسنطينة",
-    "26 - المدية", "27 - مستغانم", "28 - المسيلة", "29 - معسكر", "30 - ورقلة",
-    "31 - وهران", "32 - البيض", "33 - إليزي", "34 - برج بوعريريج", "35 - بومرداس",
-    "36 - الطارف", "37 - تندوف", "38 - تسمسيلت", "39 - الوادي", "40 - خنشلة",
-    "41 - سوق أهراس", "42 - تيبازة", "43 - ميلة", "44 - عين الدفلى", "45 - النعامة",
-    "46 - عين تموشنت", "47 - غرداية", "48 - غليزان", "49 - تيميمون", "50 - برج باجي مختار",
-    "51 - أولاد جلال", "52 - بني عباس", "53 - عين صالح", "54 - عين قزام", "55 - تقرت",
-    "56 - المغير", "57 - المنيعة", "58 - أولاد يعيش"
+    "16 - الجزائر", "19 - سطيف", "31 - وهران", "58 - أولاد يعيش"
   ];
 
+  // قاعدة بيانات القطع في الصفحة (يمكن الإضافة عليها)
+  let productsData = [
+    {
+      id: 1,
+      title: "قميص مخطط أزرق كاجوال Oversize",
+      price: 2800,
+      seller: "أدم وباهي",
+      size: "L",
+      wilaya: "16 - الجزائر",
+      condition: "جديد",
+      img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 2,
+      title: "تيشرت بولو محبوك عصري (بني)",
+      price: 2400,
+      seller: "متجر الأناقة",
+      size: "XL",
+      wilaya: "31 - وهران",
+      condition: "جديد",
+      img: "https://images.unsplash.com/photo-1625910513413-4ec35e01f547?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 3,
+      title: "قميص صيفي مخطط أزرق فاتح",
+      price: 2600,
+      seller: "أدم وباهي",
+      size: "M",
+      wilaya: "19 - سطيف",
+      condition: "كالجديد",
+      img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"
+    }
+  ];
+
+  // سلة التسوق
+  let cart = [];
+
+  // ملء القوائم المنسدلة للولايات
   document.querySelectorAll('.wilaya-select').forEach(select => {
     wilayas.forEach(w => {
       const opt = document.createElement('option');
@@ -882,21 +543,190 @@
     });
   });
 
-  // Modal Functions
-  function openModal(id) {
-    document.getElementById(id).classList.add('active');
-  }
-  function closeModal(id) {
-    document.getElementById(id).classList.remove('active');
+  // عرض المنتجات في الواجهة
+  function renderProducts(items) {
+    const container = document.getElementById('productsContainer');
+    container.innerHTML = '';
+
+    if(items.length === 0) {
+      container.innerHTML = '<p class="col-span-3 text-center py-8 text-gray-500">لا توجد قطع تطابق خيارات البحث.</p>';
+      return;
+    }
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.onclick = () => showProductDetails(item);
+
+      card.innerHTML = `
+        <div class="fav-btn" onclick="toggleFav(event, this)">♡</div>
+        <div class="badge-container">
+          <span class="badge badge-wilaya">${item.wilaya}</span>
+          <span class="badge badge-condition">${item.condition}</span>
+        </div>
+        <div class="card-media">
+          <img src="${item.img}" alt="${item.title}">
+        </div>
+        <div class="card-body">
+          <b>${item.title}</b>
+          <div class="seller">من: ${item.seller} • مقاس ${item.size}</div>
+          <div class="card-foot">
+            <span class="price">${item.price.toLocaleString()} د.ج</span>
+            <button class="btn btn-primary btn-sm" onclick="addToCart(event, ${item.id})">إضافة للسلة 🛒</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
   }
 
-  // Dynamic Product Details Loader
-  function showProductDetails(title, price, img) {
-    document.getElementById('detail-title').innerText = title;
-    document.getElementById('detail-price').innerText = price;
-    document.getElementById('detail-main-img').src = img;
+  // فلترة وتصفية المنتجات
+  function filterProducts() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const wilaya = document.getElementById('filterWilaya').value;
+    const size = document.getElementById('filterSize').value;
+    const condition = document.getElementById('filterCondition').value;
+
+    const filtered = productsData.filter(item => {
+      const matchesSearch = item.title.toLowerCase().includes(query);
+      const matchesWilaya = !wilaya || item.wilaya === wilaya;
+      const matchesSize = !size || item.size === size;
+      const matchesCondition = !condition || item.condition === condition;
+      return matchesSearch && matchesWilaya && matchesSize && matchesCondition;
+    });
+
+    renderProducts(filtered);
+  }
+
+  // إضافة قطعة جديدة من قبل المستخدم
+  function handleAddNewProduct(e) {
+    e.preventDefault();
+    const newProduct = {
+      id: Date.now(),
+      title: document.getElementById('newTitle').value,
+      price: parseFloat(document.getElementById('newPrice').value),
+      seller: "أنت (بائع محلي)",
+      size: document.getElementById('newSize').value,
+      wilaya: document.getElementById('newWilaya').value,
+      condition: document.getElementById('newCondition').value,
+      img: document.getElementById('newImg').value || "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80"
+    };
+
+    productsData.unshift(newProduct);
+    renderProducts(productsData);
+    closeModal('uploadModal');
+    document.getElementById('addProductForm').reset();
+    alert('تم إضافة قطعتك بنجاح للبيع والمعرض!');
+  }
+
+  // تفاصيل المنتج
+  function showProductDetails(item) {
+    document.getElementById('detail-title').innerText = item.title;
+    document.getElementById('detail-price').innerText = item.price.toLocaleString() + ' د.ج';
+    document.getElementById('detail-seller').innerText = 'البائع: ' + item.seller;
+    document.getElementById('detail-size').innerText = 'المقاس: ' + item.size;
+    document.getElementById('detail-wilaya').innerText = item.wilaya;
+    document.getElementById('detail-img').src = item.img;
+    document.getElementById('detail-add-btn').onclick = (e) => addToCart(e, item.id);
+    
+    document.getElementById('product-details').classList.remove('hidden');
     document.getElementById('product-details').scrollIntoView({ behavior: 'smooth' });
   }
+
+  function closeDetails() {
+    document.getElementById('product-details').classList.add('hidden');
+  }
+
+  // السلة والمفضلة
+  function toggleFav(e, btn) {
+    e.stopPropagation();
+    btn.classList.toggle('active');
+    btn.innerText = btn.classList.contains('active') ? '♥' : '♡';
+  }
+
+  function addToCart(e, id) {
+    if(e) e.stopPropagation();
+    const product = productsData.find(p => p.id === id);
+    const existing = cart.find(c => c.id === id);
+    if(existing) {
+      existing.qty++;
+    } else {
+      cart.push({ ...product, qty: 1 });
+    }
+    updateCartUI();
+  }
+
+  function updateQty(id, delta) {
+    const item = cart.find(c => c.id === id);
+    if(item) {
+      item.qty += delta;
+      if(item.qty <= 0) {
+        cart = cart.filter(c => c.id !== id);
+      }
+    }
+    updateCartUI();
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(c => c.id !== id);
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    const container = document.getElementById('cartItemsContainer');
+    container.innerHTML = '';
+    let subtotal = 0;
+    let totalItems = 0;
+
+    if(cart.length === 0) {
+      container.innerHTML = '<p class="text-center text-gray-500 py-6">سلة التسوق فارغة حالياً.</p>';
+    } else {
+      cart.forEach(item => {
+        subtotal += item.price * item.qty;
+        totalItems += item.qty;
+        const div = document.createElement('div');
+        div.className = "bg-surface border border-outline-variant/20 rounded-lg p-4 flex gap-4 items-center";
+        div.innerHTML = `
+          <img class="w-20 h-20 rounded object-cover" src="${item.img}" alt="${item.title}"/>
+          <div class="flex-grow">
+            <h4 class="font-bold text-base">${item.title}</h4>
+            <p class="text-sm text-gray-500">المقاس: ${item.size} | ${item.price} د.ج</p>
+            <div class="flex items-center gap-2 mt-2">
+              <button onclick="updateQty(${item.id}, -1)" class="w-6 h-6 rounded border font-bold flex items-center justify-center">-</button>
+              <span>${item.qty}</span>
+              <button onclick="updateQty(${item.id}, 1)" class="w-6 h-6 rounded border font-bold flex items-center justify-center">+</button>
+            </div>
+          </div>
+          <button onclick="removeFromCart(${item.id})" class="text-red-600 hover:text-red-800">حذف</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    const shipping = cart.length > 0 ? 600 : 0;
+    document.getElementById('cart-count').innerText = totalItems;
+    document.getElementById('subtotal-price').innerText = subtotal.toLocaleString() + ' د.ج';
+    document.getElementById('shipping-price').innerText = shipping.toLocaleString() + ' د.ج';
+    document.getElementById('total-price').innerText = (subtotal + shipping).toLocaleString() + ' د.ج';
+  }
+
+  function checkout() {
+    if(cart.length === 0) {
+      alert('سلة التسوق فارغة!');
+      return;
+    }
+    alert('تم استلام طلبك بنجاح! سيتم التواصل معك عبر الرمز الخاص للولاية والدفع عند الاستلام.');
+    cart = [];
+    updateCartUI();
+  }
+
+  // Modals Control
+  function openModal(id) { document.getElementById(id).classList.add('active'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+  // Initial Render
+  renderProducts(productsData);
+  updateCartUI();
 </script>
 
 </body>
