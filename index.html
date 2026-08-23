@@ -302,7 +302,7 @@
   }
   .card-media img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 0.3s ease;}
   .card:hover .card-media img{transform:scale(1.05);}
-  
+
   .badge-container{
     position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;z-index:2;
   }
@@ -514,7 +514,7 @@
 
   <div class="stitch my-6"></div>
 
-  <!-- ===== PRODUCT DETAILS SECTION (مدمج بناءً على طلبك) ===== -->
+  <!-- ===== PRODUCT DETAILS SECTION ===== -->
   <section id="product-details" class="py-10 my-6 bg-surface rounded-2xl border border-outline-variant/20 p-6 relative">
     <button onclick="document.getElementById('product-details').scrollIntoView({behavior: 'smooth'})" title="إغلاق التفاصيل" class="absolute top-4 left-4 text-outline hover:text-error transition-colors flex items-center gap-1 font-label-md text-label-md bg-surface-container px-3 py-1.5 rounded-full">
       <span class="material-symbols-outlined text-sm">close</span> إغلاق
@@ -692,204 +692,149 @@
               </button>
             </div>
           </div>
-          <button aria-label="Remove item" class="absolute top-4 left-4 text-outline hover:text-error transition-colors">
-            <span class="material-symbols-outlined">close</span>
-          </button>
-        </article>
-
-        <!-- Item 2 -->
-        <article class="bg-surface border border-outline-variant/20 rounded-lg p-4 flex gap-4 items-start relative">
-          <div class="w-24 h-24 rounded shrink-0 overflow-hidden border border-outline-variant/10 bg-surface-container">
-            <img class="w-full h-full object-cover" alt="Artisanal Linen Shirt" src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"/>
-          </div>
-          <div class="flex-grow flex flex-col gap-1">
-            <h2 class="font-title-lg text-title-lg text-on-surface">قميص صيفي كلاسيكي</h2>
-            <p class="font-body-md text-body-md text-on-surface-variant">اللون: أزرق فاتح | المقاس: M</p>
-            <p class="font-title-lg text-title-lg text-on-tertiary-container mt-1">2,600 د.ج</p>
-            <div class="flex items-center gap-3 mt-2">
-              <button aria-label="Decrease quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
-                <span class="material-symbols-outlined text-[16px]">remove</span>
-              </button>
-              <span class="font-label-md text-label-md w-4 text-center">2</span>
-              <button aria-label="Increase quantity" class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
-                <span class="material-symbols-outlined text-[16px]">add</span>
-              </button>
-            </div>
-          </div>
-          <button aria-label="Remove item" class="absolute top-4 left-4 text-outline hover:text-error transition-colors">
-            <span class="material-symbols-outlined">close</span>
+          <button class="text-outline hover:text-error transition-colors p-1" title="حذف">
+            <span class="material-symbols-outlined text-lg">delete</span>
           </button>
         </article>
       </div>
 
-      <!-- Order Summary -->
-      <section class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10 flex flex-col gap-4 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1 stitch-border opacity-50"></div>
-        <h3 class="font-title-lg text-title-lg text-on-surface mb-2">ملخص الطلب</h3>
-        <div class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
-          <div class="flex justify-between items-center">
-            <span>المجموع الفرعي</span>
-            <span class="font-label-md text-label-md">8,000 د.ج</span>
+      <!-- Cart Summary -->
+      <div class="bg-surface border border-outline-variant/20 rounded-xl p-6 space-y-4">
+        <h3 class="font-headline-md text-headline-md text-primary">ملخص الطلب</h3>
+        <div class="space-y-2 border-b border-outline-variant/20 pb-4">
+          <div class="flex justify-between font-body-md">
+            <span class="text-on-surface-variant">المجموع الفرعي</span>
+            <span>2,800 د.ج</span>
           </div>
-          <div class="flex justify-between items-center">
-            <span>توصيل (58 ولاية)</span>
-            <span class="font-label-md text-label-md text-secondary">يتم تحديده لاحقاً</span>
+          <div class="flex justify-between font-body-md">
+            <span class="text-on-surface-variant">الشحن (تقديري)</span>
+            <span>600 د.ج</span>
           </div>
         </div>
-        <div class="stitch-border my-2 opacity-50"></div>
-        <div class="flex justify-between items-center font-title-lg text-title-lg text-on-surface">
-          <span>المجموع الكلي</span>
-          <span class="text-on-tertiary-container">8,000 د.ج</span>
+        <div class="flex justify-between font-title-lg font-bold text-primary">
+          <span>الإجمالي</span>
+          <span>3,400 د.ج</span>
         </div>
-        <a href="https://ig.me/m/rahim._.abod" target="_blank" class="mt-4 w-full bg-primary-container text-on-primary rounded-[14px] py-4 font-label-md text-label-md flex justify-center items-center gap-2 hover:opacity-90 active:scale-98 transition-all">
-          <span class="material-symbols-outlined">send</span>
-          تأكيد الطلب عبر إنستغرام
-        </a>
-        <p class="text-center font-label-sm text-label-sm text-outline mt-2">سيتم تحويلك إلى إنستغرام لإكمال عملية الدفع والتوصيل.</p>
-      </section>
+        <button class="w-full bg-secondary text-on-secondary py-3.5 rounded-lg font-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
+          متابعة الشراء
+        </button>
+      </div>
     </div>
   </section>
 
-  <!-- ===== LOCAL PAYMENT & SHIPPING ===== -->
+  <!-- ===== PAYMENT & SHIPPING BADGE ===== -->
   <section class="payments-section">
     <div class="pay-item">
-      <span class="icon">📸</span>
-      <div><b>تواصل مباشر</b><span>عبر Instagram: rahim._.abod</span></div>
-    </div>
-    <div class="pay-item">
-      <span class="icon">🤝</span>
-      <div><b>دفع عند الاستلام</b><span>مع ضمان المعاينة</span></div>
-    </div>
-    <div class="pay-item">
       <span class="icon">🚚</span>
-      <div><b>توصيل لكافة الـ 58 ولاية</b><span>توصيل للمنزل أو المكتب</span></div>
+      <div><b>توصيل لكافة 58 ولاية</b><span>سريع وموثوق حتى باب المنزل</span></div>
+    </div>
+    <div class="pay-item">
+      <span class="icon">💵</span>
+      <div><b>الدفع عند الاستلام</b><span>ادفع بعد معاينة واستلام القطعة</span></div>
+    </div>
+    <div class="pay-item">
+      <span class="icon">🛡️</span>
+      <div><b>ضمان المعاينة</b><span>حق الفحص والتأكد قبل الدفع</span></div>
     </div>
   </section>
 
-  <div class="stitch my-6"></div>
-
   <!-- ===== SELL CTA ===== -->
-  <section class="section" id="sell">
-    <div class="sell">
-      <div>
-        <h2>عوّض وتسوّق مع أدم وباهي</h2>
-        <p>ارفع صور القطعة، حدّد السعر، وسنتكفّل نحن بربطك بمشترٍ موثوق ونقل المبلغ بأمان.</p>
-        <button class="btn btn-primary" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
-      </div>
-      <div class="steps">
-        <div class="step"><b>1</b><span>صوّر القطعة وأضف المقاس والحالة والولاية</span></div>
-        <div class="step"><b>2</b><span>حدّد السعر المطلوب</span></div>
-        <div class="step"><b>3</b><span>سيتم التواصل معك عبر الانستغرام بعد المراجعة</span></div>
-      </div>
+  <section class="sell" id="sell">
+    <div>
+      <h2>تريد بيع ملابسك أو تيشرتاتك الخاصة؟</h2>
+      <p>انضم لآلاف البائعين عبر منصة أدم وباهي. اعرض قطعتك بسهولة وتواصل المشتري معك مباشرة.</p>
+      <button class="btn btn-primary" onclick="openModal('uploadModal')">اعرض قطعة جديدة الآن</button>
+    </div>
+    <div class="steps">
+      <div class="step"><b>1</b><span>صوّر القطعة بوضوح وحدد سعرها ومقاسها.</span></div>
+      <div class="step"><b>2</b><span>اضغط "أضف قطعة" واملأ تفاصيل التواصل.</span></div>
+      <div class="step"><b>3</b><span>تلقَّ الطلبات مباشرة وبِعْ بكل سهولة!</span></div>
     </div>
   </section>
 
 </main>
 
-<!-- Floating Button for Mobile -->
-<button onclick="openModal('uploadModal')" class="btn btn-primary mobile-sticky-btn">➕ أضف قطعة للبيع الآن</button>
+<button class="btn btn-primary mobile-sticky-btn" onclick="openModal('uploadModal')">
+  ➕ إضافة قطعة للبيع
+</button>
 
-<!-- BottomNavBar (Mobile Only) -->
-<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant/10 bg-surface flex justify-around items-center pt-2 pb-safe px-4 h-20 shadow-[0_-4px_20px_rgba(0,0,0,0.02)]">
-  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors w-16 h-full rounded-xl" href="#">
-    <span class="material-symbols-outlined mb-1">storefront</span>
-    <span class="font-label-sm text-label-sm">Shop</span>
-  </a>
-  <a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-2 hover:bg-surface-container-high active:scale-98 transition-all" href="#cats">
-    <span class="material-symbols-outlined mb-1">grid_view</span>
-    <span class="font-label-sm text-label-sm">Categories</span>
-  </a>
-  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors w-16 h-full rounded-xl" href="#cart">
-    <span class="material-symbols-outlined mb-1">shopping_bag</span>
-    <span class="font-label-sm text-label-sm">Cart</span>
-  </a>
-  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors w-16 h-full rounded-xl" href="#" onclick="openModal('loginModal')">
-    <span class="material-symbols-outlined mb-1">person</span>
-    <span class="font-label-sm text-label-sm">Profile</span>
-  </a>
-</nav>
+<!-- ===== MODALS ===== -->
 
-<!-- ===== MODAL 1: LOGIN / REGISTER ===== -->
-<div class="modal-overlay" id="loginModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3 id="authTitle">تسجيل الدخول</h3>
-      <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
-    </div>
-    <div class="modal-body">
-      <form id="authForm" onsubmit="handleAuth(event)">
-        <div class="form-group" id="nameGroup" style="display:none;">
-          <label>الاسم الكامل</label>
-          <input type="text" id="authName" class="form-control" placeholder="أدخل اسمك الكامل">
-        </div>
-        <div class="form-group">
-          <label>اسم المستخدم أو البريد الإلكتروني</label>
-          <input type="text" id="authEmail" class="form-control" placeholder="مثال: rahim._.abod" required>
-        </div>
-        <div class="form-group">
-          <label>كلمة المرور</label>
-          <input type="password" id="authPassword" class="form-control" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;" id="authBtn">دخول</button>
-      </form>
-      <div style="text-align:center; margin-top:15px; font-size:13px; color:var(--ink-soft);">
-        <span id="authToggleText">ليس لديك حساب؟</span>
-        <a href="#" onclick="toggleAuthMode(event)" style="color:var(--green-deep); font-weight:bold; text-decoration:underline;">إنشاء حساب جديد</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== MODAL 2: UPLOAD PRODUCT ===== -->
+<!-- Upload Modal -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal-card">
     <div class="modal-head">
-      <h3>إضافة قطعة جديدة للموقع</h3>
+      <h3>إضافة قطعة جديدة للبيع</h3>
       <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
     </div>
     <div class="modal-body">
-      <form onsubmit="handleProductUpload(event)">
+      <form onsubmit="event.preventDefault(); alert('تم إرسال القطعة للمراجعة بنجاح!'); closeModal('uploadModal');">
         <div class="form-group">
           <label>عنوان القطعة</label>
-          <input type="text" id="pTitle" class="form-control" placeholder="مثال: قميص مخطط أزرق Oversize" required>
+          <input type="text" class="form-control" placeholder="مثال: تيشرت قطني أسود Oversize" required>
         </div>
         <div class="form-grid">
           <div class="form-group">
-            <label>القسم</label>
-            <select id="pCat" class="form-control" required>
-              <option value="تيشرتات Oversize">تيشرتات Oversize</option>
-              <option value="قُمصان كاجوال">قُمصان كاجوال</option>
-              <option value="تيشرتات بولو">تيشرتات بولو</option>
-              <option value="تيشرتات كلاسيك">تيشرتات كلاسيك</option>
-            </select>
+            <label>السعر (د.ج)</label>
+            <input type="number" class="form-control" placeholder="2500" required>
           </div>
           <div class="form-group">
             <label>المقاس</label>
-            <select id="pSize" class="form-control" required>
-              <option value="S">Small (S)</option>
-              <option value="M">Medium (M)</option>
-              <option value="L">Large (L)</option>
-              <option value="XL">X-Large (XL)</option>
+
+            <select class="form-control" required>
+              <option value="">اختر المقاس</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
             </select>
           </div>
         </div>
         <div class="form-grid">
           <div class="form-group">
             <label>الولاية</label>
-            <select id="pWilaya" class="form-control wilaya-select" required>
+            <select class="form-control wilaya-select" required>
               <option value="">اختر الولاية</option>
             </select>
           </div>
           <div class="form-group">
-            <label>السعر (د.ج)</label>
-            <input type="number" id="pPrice" class="form-control" placeholder="2500" required>
+            <label>حالة القطعة</label>
+            <select class="form-control" required>
+              <option>جديد بالبطاقة</option>
+              <option>مستعمل كالجديد</option>
+              <option>مستعمل بحالة جيدة</option>
+            </select>
           </div>
         </div>
         <div class="form-group">
-          <label>رابط أو مسار صورة القطعة</label>
-          <input type="text" id="pImg" class="form-control" placeholder="ضع رابط الصورة هنا (اختياري)">
+          <label>رابط حساب الانستغرام أو الهاتف</label>
+          <input type="text" class="form-control" placeholder="rahim._.abod" required>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;">إضافة القطعة للموقع</button>
+        <button class="btn btn-primary w-full mt-4" style="width:100%">نشر القطعة الآن</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>تسجيل الدخول</h3>
+      <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form onsubmit="event.preventDefault(); alert('تم تسجيل الدخول بنجاح!'); closeModal('loginModal');">
+        <div class="form-group">
+          <label>رقم الهاتف أو البريد الإلكتروني</label>
+          <input type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور</label>
+          <input type="password" class="form-control" required>
+        </div>
+        <button class="btn btn-primary w-full mt-2" style="width:100%">دخول</button>
       </form>
     </div>
   </div>
@@ -897,56 +842,47 @@
 
 <footer>
   <div class="wrap">
-    <div class="stitch" style="margin-bottom:24px;"></div>
     <div class="foot-top">
-      <div class="logo" style="font-size:18px;">👕 <span>أدم وباهي للتيشرتات | EL-ASIL</span></div>
+      <div class="logo">👕 <span>رحيم | EL-ASIL</span></div>
       <div class="foot-links">
-        <a href="https://instagram.com/rahim._.abod" target="_blank">Instagram: @rahim._.abod</a>
-        <a href="#">الشروط والأحكام</a>
-        <a href="#">تواصل معنا</a>
+        <a href="#">الرئيسية</a>
+        <a href="#products">المنتجات</a>
+        <a href="https://ig.me/m/rahim._.abod" target="_blank">الانستغرام</a>
       </div>
     </div>
-    <div>© 2026 أدم وباهي للتيشرتات. جميع الحقوق محفوظة.</div>
+    <div class="text-center pt-4 border-t border-outline-variant/20" style="border-top: 1px solid var(--line); text-align: center; padding-top: 16px;">
+      جميع الحقوق محفوظة © 2026 متجر رحيم - أدم وباهي للتيشرتات والأقمشة.
+    </div>
   </div>
 </footer>
 
 <script>
+  // Populate Wilayas dropdowns
   const wilayas = [
     "01 - أدرار", "02 - الشلف", "03 - الأغواط", "04 - أم البواقي", "05 - باتنة",
     "06 - بجاية", "07 - بسكرة", "08 - بشار", "09 - البليدة", "10 - البويرة",
     "11 - تمنراست", "12 - تبسة", "13 - تلمسان", "14 - تيارت", "15 - تيزي وزو",
-    "16 - الجزائر العاصمة", "17 - الجلفة", "18 - جيجل", "19 - سطيف", "20 - سعيدة",
+    "16 - الجزائر", "17 - الجلفة", "18 - جيجل", "19 - سطيف", "20 - سعيدة",
     "21 - سكيكدة", "22 - سيدي بلعباس", "23 - عنابة", "24 - قالمة", "25 - قسنطينة",
     "26 - المدية", "27 - مستغانم", "28 - المسيلة", "29 - معسكر", "30 - ورقلة",
     "31 - وهران", "32 - البيض", "33 - إليزي", "34 - برج بوعريريج", "35 - بومرداس",
     "36 - الطارف", "37 - تندوف", "38 - تسمسيلت", "39 - الوادي", "40 - خنشلة",
     "41 - سوق أهراس", "42 - تيبازة", "43 - ميلة", "44 - عين الدفلى", "45 - النعامة",
     "46 - عين تموشنت", "47 - غرداية", "48 - غليزان", "49 - تيميمون", "50 - برج باجي مختار",
-    "51 - أولاد جلال", "52 - بني عباس", "53 - إن صالح", "54 - إن قزام", "55 - توقرت",
-    "56 - جانيت", "57 - المغير", "58 - المنيعة"
+    "51 - أولاد جلال", "52 - بني عباس", "53 - عين صالح", "54 - عين قزام", "55 - تقرت",
+    "56 - المغير", "57 - المنيعة", "58 - أولاد يعيش"
   ];
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const selects = document.querySelectorAll('.wilaya-select');
-    selects.forEach(select => {
-      wilayas.forEach(w => {
-        const opt = document.createElement('option');
-        opt.value = w;
-        opt.textContent = w;
-        select.appendChild(opt);
-      });
+  document.querySelectorAll('.wilaya-select').forEach(select => {
+    wilayas.forEach(w => {
+      const opt = document.createElement('option');
+      opt.value = w;
+      opt.textContent = w;
+      select.appendChild(opt);
     });
   });
 
-  function showProductDetails(title, price, img) {
-    document.getElementById('detail-title').innerText = title;
-    document.getElementById('detail-price').innerText = price;
-    document.getElementById('detail-main-img').src = img;
-    document.getElementById('product-details').scrollIntoView({ behavior: 'smooth' });
-  }
-
-  let isSignUp = false;
-
+  // Modal Functions
   function openModal(id) {
     document.getElementById(id).classList.add('active');
   }
@@ -954,65 +890,12 @@
     document.getElementById(id).classList.remove('active');
   }
 
-  function toggleAuthMode(e) {
-    e.preventDefault();
-    isSignUp = !isSignUp;
-    document.getElementById('authTitle').innerText = isSignUp ? 'إنشاء حساب جديد' : 'تسجيل الدخول';
-    document.getElementById('authBtn').innerText = isSignUp ? 'تسجيل' : 'دخول';
-    document.getElementById('nameGroup').style.display = isSignUp ? 'block' : 'none';
-    document.getElementById('authToggleText').innerText = isSignUp ? 'لديك حساب بالفعل؟' : 'ليس لديك حساب؟';
-  }
-
-  function handleAuth(e) {
-    e.preventDefault();
-    const email = document.getElementById('authEmail').value;
-    alert((isSignUp ? 'تم إنشاء الحساب بنجاح! مرحباً بك ' : 'تم تسجيل الدخول بنجاح! مرحباً ') + email);
-    closeModal('loginModal');
-  }
-
-  function handleProductUpload(e) {
-    e.preventDefault();
-    const title = document.getElementById('pTitle').value;
-    const price = document.getElementById('pPrice').value + ' د.ج';
-    const wilaya = document.getElementById('pWilaya').value;
-    const size = document.getElementById('pSize').value;
-    let img = document.getElementById('pImg').value;
-
-    if (!img) {
-      img = 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80';
-    }
-
-    const container = document.getElementById('productsContainer');
-    const newCard = document.createElement('div');
-    newCard.className = 'card';
-    newCard.onclick = function() { showProductDetails(title, price, img); };
-    newCard.innerHTML = `
-      <div class="fav-btn" title="حفظ للمفضلة">♡</div>
-      <div class="badge-container">
-        <span class="badge badge-wilaya">${wilaya}</span>
-        <span class="badge badge-condition">جديد</span>
-      </div>
-      <div class="card-media">
-        <img src="${img}" alt="${title}" onerror="this.src='https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80'">
-      </div>
-      <div class="card-body">
-        <b>${title}</b>
-        <div class="seller">مقاس ${size}</div>
-        <div class="card-foot">
-          <span class="price">${price}</span>
-          <a class="btn btn-insta btn-sm" href="https://ig.me/m/rahim._.abod" target="_blank" onclick="event.stopPropagation();">طلب عبر الانستغرام 📩</a>
-        </div>
-      </div>
-    `;
-    container.prepend(newCard);
-    alert('تمت إضافة القطعة بنجاح إلى المعرض!');
-    closeModal('uploadModal');
-  }
-
-  window.onclick = function(e) {
-    if (e.target.classList.contains('modal-overlay')) {
-      e.target.classList.remove('active');
-    }
+  // Dynamic Product Details Loader
+  function showProductDetails(title, price, img) {
+    document.getElementById('detail-title').innerText = title;
+    document.getElementById('detail-price').innerText = price;
+    document.getElementById('detail-main-img').src = img;
+    document.getElementById('product-details').scrollIntoView({ behavior: 'smooth' });
   }
 </script>
 
