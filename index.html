@@ -88,9 +88,6 @@
     height:0;border-top:2px dashed var(--thread);
     opacity:.55; margin:0;
   }
-  .stitch-border { border-bottom: 1.5px dashed #B5875A; }
-  .tactile-outline { border: 1px solid rgba(46, 44, 41, 0.1); }
-  .tactile-outline-sage { border: 1px solid rgba(107, 127, 106, 0.1); }
 
   /* Header */
   header{
@@ -115,10 +112,10 @@
   }
   .btn-primary{background:var(--green);color:var(--white);}
   .btn-primary:hover{background:var(--green-deep);}
+  .btn-whatsapp{background:#25D366;color:#ffffff;}
+  .btn-whatsapp:hover{background:#1EBE57;}
   .btn-outline{border-color:var(--ink);color:var(--ink);background:transparent;}
   .btn-outline:hover{background:var(--ink);color:var(--white);}
-  .btn-insta{background:#E1306C;color:var(--white);}
-  .btn-insta:hover{background:#C13584;}
   .btn-sm{padding:8px 16px;font-size:13px;}
 
   /* Hero */
@@ -135,9 +132,6 @@
   .hero h1 em{font-style:normal;color:var(--green-deep);}
   .hero p{color:var(--ink-soft);font-size:17px;max-width:480px;margin-bottom:26px;}
   .hero-actions{display:flex;gap:14px;margin-bottom:34px;}
-  .hero-stats{display:flex;gap:34px;}
-  .hero-stats div b{display:block;font-family:'Cairo',sans-serif;font-size:22px;font-weight:800;}
-  .hero-stats div span{color:var(--ink-soft);font-size:13px;}
 
   .rail{position:relative;height:340px;}
   .rail-bar{
@@ -373,9 +367,7 @@
     <div class="section-head">
       <div><h2>القطع المعروضة</h2><p>تصفح وحمّل أو أضف قطعك الخاصة فوراً</p></div>
     </div>
-    <div class="products" id="productsContainer">
-      <!-- يتم تحميل وتوليد المنتجات ديناميكياً هنا -->
-    </div>
+    <div class="products" id="productsContainer"></div>
   </section>
 
   <div class="stitch my-6"></div>
@@ -383,14 +375,25 @@
   <!-- CART SECTION -->
   <section class="section" id="cart">
     <div class="section-head">
-      <div><h2>سلة التسوق</h2><p>القطع الجاهزة للشراء والتوصيل</p></div>
+      <div><h2>سلة التسوق</h2><p>القطع الجاهزة للشراء والتوصيل عبر الواتساب</p></div>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-      <div class="lg:col-span-2 flex flex-col gap-4" id="cartItemsContainer">
-        <!-- عناصر السلة تُضاف هنا تلقائياً -->
-      </div>
+      <div class="lg:col-span-2 flex flex-col gap-4" id="cartItemsContainer"></div>
       <div class="bg-surface border border-outline-variant/20 rounded-xl p-6 space-y-4">
         <h3 class="font-headline-md text-headline-md text-primary">ملخص الطلب</h3>
+        
+        <!-- مدخلات معلومات المشتري للتوصيل -->
+        <div class="space-y-3 pt-2 pb-2 border-b border-outline-variant/20">
+          <div>
+            <label class="block text-xs font-bold mb-1 text-gray-700">الاسم الكامل:</label>
+            <input type="text" id="custName" class="form-control text-xs" placeholder="مثال: محمد علي">
+          </div>
+          <div>
+            <label class="block text-xs font-bold mb-1 text-gray-700">العنوان والولاية:</label>
+            <input type="text" id="custAddress" class="form-control text-xs" placeholder="مثال: باتنة - حي الزهور">
+          </div>
+        </div>
+
         <div class="space-y-2 border-b border-outline-variant/20 pb-4">
           <div class="flex justify-between font-body-md">
             <span class="text-on-surface-variant">المجموع الفرعي</span>
@@ -405,7 +408,9 @@
           <span>الإجمالي الكلي</span>
           <span id="total-price">0 د.ج</span>
         </div>
-        <button onclick="checkout()" class="w-full bg-secondary text-on-secondary py-3.5 rounded-lg font-label-md hover:bg-secondary-container transition">تأكيد ومتابعة الشراء</button>
+        <button onclick="checkoutWhatsApp()" class="w-full btn-whatsapp py-3.5 rounded-lg font-label-md font-bold flex items-center justify-center gap-2 transition shadow-md">
+          📱 إرسال الطلب عبر WhatsApp
+        </button>
       </div>
     </div>
   </section>
@@ -489,14 +494,15 @@
 <button class="btn btn-primary mobile-sticky-btn" onclick="openModal('uploadModal')">➕ إضافة قطعة للبيع</button>
 
 <script>
-  // قائمة الولايات الـ 58
+  // رقم الواتساب الخاص بك
+  const WHATSAPP_NUMBER = "213655979457"; 
+
   const wilayas = [
     "01 - أدرار", "02 - الشلف", "03 - الأغواط", "04 - أم البواقي", "05 - باتنة",
     "06 - بجاية", "07 - بسكرة", "08 - بشار", "09 - البليدة", "10 - البويرة",
     "16 - الجزائر", "19 - سطيف", "31 - وهران", "58 - أولاد يعيش"
   ];
 
-  // قاعدة بيانات القطع في الصفحة (يمكن الإضافة عليها)
   let productsData = [
     {
       id: 1,
@@ -530,10 +536,8 @@
     }
   ];
 
-  // سلة التسوق
   let cart = [];
 
-  // ملء القوائم المنسدلة للولايات
   document.querySelectorAll('.wilaya-select').forEach(select => {
     wilayas.forEach(w => {
       const opt = document.createElement('option');
@@ -543,7 +547,6 @@
     });
   });
 
-  // عرض المنتجات في الواجهة
   function renderProducts(items) {
     const container = document.getElementById('productsContainer');
     container.innerHTML = '';
@@ -580,7 +583,6 @@
     });
   }
 
-  // فلترة وتصفية المنتجات
   function filterProducts() {
     const query = document.getElementById('searchInput').value.toLowerCase();
     const wilaya = document.getElementById('filterWilaya').value;
@@ -598,7 +600,6 @@
     renderProducts(filtered);
   }
 
-  // إضافة قطعة جديدة من قبل المستخدم
   function handleAddNewProduct(e) {
     e.preventDefault();
     const newProduct = {
@@ -619,7 +620,6 @@
     alert('تم إضافة قطعتك بنجاح للبيع والمعرض!');
   }
 
-  // تفاصيل المنتج
   function showProductDetails(item) {
     document.getElementById('detail-title').innerText = item.title;
     document.getElementById('detail-price').innerText = item.price.toLocaleString() + ' د.ج';
@@ -637,7 +637,6 @@
     document.getElementById('product-details').classList.add('hidden');
   }
 
-  // السلة والمفضلة
   function toggleFav(e, btn) {
     e.stopPropagation();
     btn.classList.toggle('active');
@@ -710,21 +709,48 @@
     document.getElementById('total-price').innerText = (subtotal + shipping).toLocaleString() + ' د.ج';
   }
 
-  function checkout() {
+  // دالة إرسال الطلب عبر الواتساب
+  function checkoutWhatsApp() {
     if(cart.length === 0) {
-      alert('سلة التسوق فارغة!');
+      alert('سلة التسوق فارغة! الرجاء اختيار منتج أولاً.');
       return;
     }
-    alert('تم استلام طلبك بنجاح! سيتم التواصل معك عبر الرمز الخاص للولاية والدفع عند الاستلام.');
-    cart = [];
-    updateCartUI();
+
+    const name = document.getElementById('custName').value.trim() || "غير محدد";
+    const address = document.getElementById('custAddress').value.trim() || "غير محدد";
+
+    let message = `🛒 *طلب جديد من الموقع*\n`;
+    message += `-------------------------\n`;
+    message += `👤 *الزبون:* ${name}\n`;
+    message += `📍 *العنوان والولاية:* ${address}\n\n`;
+    message += `📦 *القطع المطلوبة:*\n`;
+
+    let subtotal = 0;
+    cart.forEach((item, index) => {
+      const itemTotal = item.price * item.qty;
+      subtotal += itemTotal;
+      message += `${index + 1}. *${item.title}*\n   - المقاس: ${item.size}\n   - العدد: ${item.qty}\n   - السعر: ${itemTotal} د.ج\n`;
+    });
+
+    const shipping = 600;
+    const total = subtotal + shipping;
+
+    message += `\n-------------------------\n`;
+    message += `💵 *المجموع الفرعي:* ${subtotal} د.ج\n`;
+    message += `🚚 *الشحن:* ${shipping} د.ج\n`;
+    message += `💰 *الإجمالي الكلي:* ${total} د.ج\n`;
+    message += `-------------------------\n`;
+    message += `يرجى تأكيد الطلب وبدء عملية التوصيل.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank');
   }
 
-  // Modals Control
   function openModal(id) { document.getElementById(id).classList.add('active'); }
   function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-  // Initial Render
   renderProducts(productsData);
   updateCartUI();
 </script>
