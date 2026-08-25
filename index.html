@@ -47,6 +47,8 @@
   }
   .btn-primary{background:var(--green);color:var(--white);}
   .btn-primary:hover{background:var(--green-deep);}
+  .btn-danger{background:#E53935;color:var(--white);}
+  .btn-danger:hover{background:#C62828;}
   .btn-whatsapp{background:#25D366;color:#ffffff;width:100%;}
   .btn-whatsapp:hover{background:#1EBE57;}
   .btn-outline{border-color:var(--ink);color:var(--ink);background:transparent;}
@@ -121,6 +123,10 @@
   .form-group label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 14px; }
   .form-control { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); font-family: inherit; font-size: 14px; color: var(--ink); }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .confirm-box { text-align: center; padding: 10px 0; }
+  .confirm-icon { font-size: 48px; color: #E53935; margin-bottom: 12px; }
+  .confirm-actions { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
 
   .mobile-sticky-btn{ display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%); z-index:99;width:calc(100% - 32px);max-width:400px; }
 
@@ -323,6 +329,22 @@
   </div>
 </div>
 
+<!-- DELETE CONFIRMATION MODAL -->
+<div class="modal-overlay" id="deleteConfirmModal">
+  <div class="modal-card" style="max-width: 400px;">
+    <div class="modal-body confirm-box">
+      <div class="confirm-icon">⚠️</div>
+      <h3 style="font-size:20px; font-weight:800; margin-bottom:8px;">تأكيد حذف القطعة</h3>
+      <p style="color:var(--ink-soft); font-size:14px;">هل أنت تأكد حقاً من رغبتك في حذف هذه القطعة؟ لا يمكن التراجع عن هذا الإجراء.</p>
+      
+      <div class="confirm-actions">
+        <button id="confirmDeleteBtn" class="btn btn-danger" style="flex:1;">نعم، احذف القطعة</button>
+        <button onclick="closeModal('deleteConfirmModal')" class="btn btn-outline" style="flex:1;">لا، إلغاء</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <button class="btn btn-primary mobile-sticky-btn" onclick="openModal('uploadModal')">➕ إضافة قطعة للبيع</button>
 
 <!-- Firebase SDKs -->
@@ -346,6 +368,7 @@
   const db = firebase.firestore();
 
   const WHATSAPP_NUMBER = "213655979457"; 
+  let pendingDeleteId = null; // تخزين معرف المنتج المراد حذفه
 
   const wilayas = [
     "01 - أدرار", "02 - الشلف", "03 - الأغواط", "04 - أم البواقي", "05 - باتنة",
@@ -393,7 +416,6 @@
     const currentUser = auth.currentUser;
 
     items.forEach(item => {
-      // التحقق مما إذا كان الزائر الحرفي هو صاحب هذه القطعة
       const isOwner = currentUser && item.userId && (item.userId === currentUser.uid);
 
       const card = document.createElement('div');
@@ -413,7 +435,7 @@
           <div class="card-foot">
             <span class="price">${Number(item.price).toLocaleString()} د.ج</span>
             <div style="display:flex; gap:6px;">
-              ${isOwner ? `<button class="btn btn-sm" style="background:#E53935; color:#fff;" onclick="deleteProduct(event, '${item.id}', '${item.userId}')">🗑️ حذف</button>` : ''}
+              ${isOwner ? `<button class="btn btn-sm" style="background:#E53935; color:#fff;" onclick="promptDeleteProduct(event, '${item.id}', '${item.userId}')">🗑️ حذف</button>` : ''}
               <button class="btn btn-primary btn-sm" onclick="addToCart(event, '${item.id}')">إضافة للسلة 🛒</button>
             </div>
           </div>
@@ -482,7 +504,7 @@
         title: document.getElementById('newTitle').value,
         price: parseFloat(document.getElementById('newPrice').value),
         seller: sellerName,
-        userId: currentUser.uid, // 👈 ربط القطعة بالبائع للتحقق لاحقاً
+        userId: currentUser.uid,
         size: document.getElementById('newSize').value,
         wilaya: document.getElementById('newWilaya').value,
         condition: document.getElementById('newCondition').value,
@@ -508,7 +530,8 @@
     }
   }
 
-  async function deleteProduct(e, productId, ownerId) {
+  // فتح نافذة التأكيد قبل الحذف
+  function promptDeleteProduct(e, productId, ownerId) {
     e.stopPropagation();
     
     const currentUser = auth.currentUser;
@@ -517,17 +540,25 @@
       return;
     }
 
-    if (confirm("هل أنت تأكد من رغبتك في حذف هذه القطعة نهائياً؟")) {
-      try {
-        await db.collection("products").doc(productId).delete();
-        alert("تم حذف القطعة بنجاح!");
-        loadProductsFromFirebase();
-      } catch (error) {
-        console.error("خطأ أثناء الحذف:", error);
-        alert("حدث خطأ أثناء محاولة الحذف.");
-      }
-    }
+    pendingDeleteId = productId;
+    openModal('deleteConfirmModal');
   }
+
+  // تنفيذ الحذف الفعلي بعد موافقة المستخدم في النافذة
+  document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+    if (!pendingDeleteId) return;
+
+    try {
+      await db.collection("products").doc(pendingDeleteId).delete();
+      closeModal('deleteConfirmModal');
+      pendingDeleteId = null;
+      alert("تم حذف القطعة بنجاح!");
+      loadProductsFromFirebase();
+    } catch (error) {
+      console.error("خطأ أثناء الحذف:", error);
+      alert("حدث خطأ أثناء محاولة الحذف.");
+    }
+  });
 
   function loadProductsFromFirebase() {
     db.collection("products").orderBy("createdAt", "desc").get().then((querySnapshot) => {
