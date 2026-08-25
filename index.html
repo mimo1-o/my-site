@@ -20,7 +20,7 @@
 
 <style>
   :root{
-    --bg:#F7F5F1; --bg-card):#EDE8DF; --ink:#2E2C29; --ink-soft:#6B685F;
+    --bg:#F7F5F1; --bg-card:#EDE8DF; --ink:#2E2C29; --ink-soft:#6B685F;
     --green:#6B7F6A; --green-deep:#516153; --indigo:#4A5F72; --thread:#B5875A;
     --line:#DAD3C6; --white:#FFFDFB; --radius:14px;
   }
@@ -293,7 +293,7 @@
           <label>اختيار صورة من الجهاز</label>
           <input type="file" id="newImgFile" class="form-control" accept="image/*" required>
         </div>
-        <button class="btn btn-primary" style="width:100%;margin-top:12px;">نشر القطعة سحابياً للجميع</button>
+        <button class="btn btn-primary" type="submit" style="width:100%;margin-top:12px;">نشر القطعة سحابياً للجميع</button>
       </form>
     </div>
   </div>
@@ -345,7 +345,6 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
 
-  const IMGBB_API_KEY = "6d257f2c1d5423f77d3f017d6f41e0fe";
   const WHATSAPP_NUMBER = "213655979457"; 
 
   const wilayas = [
@@ -432,6 +431,16 @@
     renderProducts(filtered);
   }
 
+  // تحويل ملف الصورة إلى نص Base64
+  function convertFileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
   async function handleAddNewProduct(e) {
     e.preventDefault();
     const fileInput = document.getElementById('newImgFile');
@@ -444,24 +453,11 @@
 
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerText;
-    submitBtn.innerText = "جاري رفع الصورة والمنتج...";
+    submitBtn.innerText = "جاري النشر والحفظ...";
     submitBtn.disabled = true;
 
     try {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-        method: "POST",
-        body: formData
-      });
-      const data = await res.json();
-
-      if(!data.success) {
-        throw new Error("فشل رفع الصورة");
-      }
-
-      const imageUrl = data.data.url;
+      const base64Image = await convertFileToBase64(file);
       const currentUser = auth.currentUser;
       const sellerName = currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "بائع محلي";
 
@@ -472,7 +468,7 @@
         size: document.getElementById('newSize').value,
         wilaya: document.getElementById('newWilaya').value,
         condition: document.getElementById('newCondition').value,
-        img: imageUrl,
+        img: base64Image,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
@@ -480,12 +476,12 @@
 
       closeModal('uploadModal');
       document.getElementById('addProductForm').reset();
-      alert('تم إضافة قطعة جديدة بنجاح!');
+      alert('تم نشر القطعة بنجاح وظهرت للجميع!');
       loadProductsFromFirebase();
 
     } catch (error) {
       console.error("خطأ:", error);
-      alert("حدث خطأ أثناء رفع الصورة، حاول اختيار صورة أصغر حجماً.");
+      alert("حدث خطأ أثناء حفظ القطعة، يرجى اختيار صورة بأبعاد أو حجم أصغر.");
     } finally {
       submitBtn.innerText = originalText;
       submitBtn.disabled = false;
