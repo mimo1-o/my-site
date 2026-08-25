@@ -14,46 +14,13 @@
   gtag('config', 'G-RX2WP2K1ES');
 </script>
 
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet" />
 
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "on-surface": "#1b1c1a",
-          "surface-variant": "#e4e2de",
-          "outline": "#7b766f",
-          "secondary": "#506350",
-          "on-secondary": "#ffffff",
-          "surface-container": "#efeeea",
-          "tertiary": "#271300",
-          "surface": "#fbf9f5",
-          "on-background": "#1b1c1a",
-          "surface-container-high": "#eae8e4",
-          "surface-container-low": "#f5f3ef",
-          "primary-fixed": "#e7e1dd",
-          "on-surface-variant": "#4a463f",
-          "error": "#ba1a1a",
-          "primary": "#191815",
-          "background": "#fbf9f5",
-          "outline-variant": "#ccc6bc"
-        },
-        borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-        spacing: { "gutter": "24px", "stack-md": "16px", "stack-lg": "32px", "stack-sm": "8px" },
-        fontFamily: { "headline-md": ["Cairo"], "title-lg": ["Cairo"], "body-md": ["Tajawal"], "label-md": ["Tajawal"] }
-      }
-    }
-  }
-</script>
-
 <style>
   :root{
-    --bg:#F7F5F1; var(--bg-card):#EDE8DF; --ink:#2E2C29; --ink-soft:#6B685F;
+    --bg:#F7F5F1; --bg-card):#EDE8DF; --ink:#2E2C29; --ink-soft:#6B685F;
     --green:#6B7F6A; --green-deep:#516153; --indigo:#4A5F72; --thread:#B5875A;
     --line:#DAD3C6; --white:#FFFDFB; --radius:14px;
   }
@@ -63,7 +30,7 @@
   a{color:inherit;text-decoration:none;}
   img{max-width:100%;display:block;}
   .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
-  .stitch{ height:0;border-top:2px dashed var(--thread); opacity:.55; margin:0; }
+  .stitch{ height:0;border-top:2px dashed var(--thread); opacity:.55; margin:24px 0; }
 
   header{ position:sticky;top:0;z-index:50; background:rgba(247,245,241,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
   .nav{ display:flex;align-items:center;justify-content:space-between; padding:18px 0; }
@@ -80,11 +47,11 @@
   }
   .btn-primary{background:var(--green);color:var(--white);}
   .btn-primary:hover{background:var(--green-deep);}
-  .btn-whatsapp{background:#25D366;color:#ffffff;}
+  .btn-whatsapp{background:#25D366;color:#ffffff;width:100%;}
   .btn-whatsapp:hover{background:#1EBE57;}
   .btn-outline{border-color:var(--ink);color:var(--ink);background:transparent;}
   .btn-outline:hover{background:var(--ink);color:var(--white);}
-  .btn-google{background:#ffffff;color:#333;border:1px solid var(--line);}
+  .btn-google{background:#ffffff;color:#333;border:1px solid var(--line);width:100%;}
   .btn-google:hover{background:#f1f1f1;}
   .btn-sm{padding:8px 16px;font-size:13px;}
 
@@ -114,7 +81,7 @@
   .filters-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
   .filter-select{ width:100%;padding:10px 14px;border-radius:10px; border:1px solid var(--line);background:var(--bg); font-family:inherit;font-size:13.5px;color:var(--ink); cursor:pointer; }
 
-  .section{padding:48px 0;}
+  .section{padding:32px 0;}
   .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;}
   .section-head h2{font-size:26px;font-weight:800;}
   .section-head p{color:var(--ink-soft);font-size:14px;margin-top:4px;}
@@ -138,6 +105,11 @@
   .card-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);padding-top:10px;}
   .price{font-family:'Cairo',sans-serif;font-weight:800;color:var(--green-deep);font-size:16px;}
 
+  .cart-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start;}
+  .cart-box{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px;}
+  .cart-item{display:flex;gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
+  .cart-item img{width:70px;height:70px;border-radius:8px;object-fit:cover;}
+
   .modal-overlay { position: fixed;top: 0;left: 0;right: 0;bottom: 0; background: rgba(0,0,0,0.5);backdrop-filter: blur(4px); display: none;align-items: center;justify-content: center; z-index: 1000;padding: 20px; }
   .modal-overlay.active { display: flex; }
   .modal-card { background: var(--white);border-radius: var(--radius); width: 100%;max-width: 480px;max-height: 90vh;overflow-y: auto; border: 1px solid var(--line);box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
@@ -157,6 +129,7 @@
     .rail{display:none;}
     .products{grid-template-columns:repeat(2,1fr);}
     .filters-grid{grid-template-columns:repeat(2,1fr);}
+    .cart-grid{grid-template-columns:1fr;}
     .nav-links{display:none;}
     .mobile-sticky-btn{display:flex;}
   }
@@ -228,30 +201,7 @@
     </div>
   </section>
 
-  <div class="stitch my-6"></div>
-
-  <section id="product-details" class="py-10 my-6 bg-surface rounded-2xl border border-outline-variant/20 p-6 relative hidden">
-    <button onclick="closeDetails()" class="absolute top-4 left-4 text-outline hover:text-error flex items-center gap-1 font-label-md bg-surface-container px-3 py-1.5 rounded-full">
-      <span class="material-symbols-outlined text-sm">close</span> إغلاق
-    </button>
-    <div class="max-w-[1200px] mx-auto md:grid md:grid-cols-12 md:gap-gutter items-start">
-      <div class="md:col-span-6">
-        <div class="rounded-xl overflow-hidden aspect-[3/4] bg-surface-container-low">
-          <img id="detail-img" class="w-full h-full object-cover" src="" alt="Detail Image">
-        </div>
-      </div>
-      <div class="md:col-span-6 flex flex-col gap-4 mt-4 md:mt-0">
-        <h2 id="detail-title" class="text-2xl font-bold text-primary"></h2>
-        <p id="detail-price" class="text-xl font-bold text-green-700"></p>
-        <p id="detail-seller" class="text-sm text-gray-500"></p>
-        <div class="flex gap-2">
-          <span id="detail-size" class="px-3 py-1 bg-gray-200 rounded-md text-sm font-bold"></span>
-          <span id="detail-wilaya" class="px-3 py-1 bg-green-100 text-green-800 rounded-md text-sm font-bold"></span>
-        </div>
-        <button id="detail-add-btn" class="w-full bg-green-800 text-white py-3 rounded-xl font-bold hover:bg-green-900 transition">إضافة إلى السلة</button>
-      </div>
-    </div>
-  </section>
+  <div class="stitch"></div>
 
   <section class="section" id="products">
     <div class="section-head">
@@ -260,42 +210,37 @@
     <div class="products" id="productsContainer"></div>
   </section>
 
-  <div class="stitch my-6"></div>
+  <div class="stitch"></div>
 
   <section class="section" id="cart">
     <div class="section-head">
       <div><h2>سلة التسوق</h2><p>القطع الجاهزة للشراء والتوصيل عبر الواتساب</p></div>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-      <div class="lg:col-span-2 flex flex-col gap-4" id="cartItemsContainer"></div>
-      <div class="bg-surface border border-outline-variant/20 rounded-xl p-6 space-y-4">
-        <h3 class="font-headline-md text-headline-md text-primary">ملخص الطلب</h3>
-        <div class="space-y-3 pt-2 pb-2 border-b border-outline-variant/20">
-          <div>
-            <label class="block text-xs font-bold mb-1 text-gray-700">الاسم الكامل:</label>
-            <input type="text" id="custName" class="form-control text-xs" placeholder="مثال: محمد علي">
-          </div>
-          <div>
-            <label class="block text-xs font-bold mb-1 text-gray-700">العنوان والولاية:</label>
-            <input type="text" id="custAddress" class="form-control text-xs" placeholder="مثال: باتنة - حي الزهور">
-          </div>
+    <div class="cart-grid">
+      <div class="cart-box" id="cartItemsContainer"></div>
+      <div class="cart-box">
+        <h3 style="margin-bottom:12px;">ملخص الطلب</h3>
+        <div class="form-group">
+          <label>الاسم الكامل:</label>
+          <input type="text" id="custName" class="form-control" placeholder="مثال: محمد علي">
+        </div>
+        <div class="form-group">
+          <label>العنوان والولاية:</label>
+          <input type="text" id="custAddress" class="form-control" placeholder="مثال: باتنة - حي الزهور">
         </div>
 
-        <div class="space-y-2 border-b border-outline-variant/20 pb-4">
-          <div class="flex justify-between font-body-md">
-            <span class="text-on-surface-variant">المجموع الفرعي</span>
-            <span id="subtotal-price">0 د.ج</span>
+        <div style="border-top:1px dashed var(--line);padding-top:12px;margin-top:12px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span>المجموع الفرعي</span><span id="subtotal-price">0 د.ج</span>
           </div>
-          <div class="flex justify-between font-body-md">
-            <span class="text-on-surface-variant">مصاريف الشحن</span>
-            <span id="shipping-price">600 د.ج</span>
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span>مصاريف الشحن</span><span id="shipping-price">600 د.ج</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-weight:bold;font-size:18px;margin-top:12px;">
+            <span>الإجمالي الكلي</span><span id="total-price">0 د.ج</span>
           </div>
         </div>
-        <div class="flex justify-between font-title-lg font-bold text-primary">
-          <span>الإجمالي الكلي</span>
-          <span id="total-price">0 د.ج</span>
-        </div>
-        <button onclick="checkoutWhatsApp()" class="w-full btn-whatsapp py-3.5 rounded-lg font-label-md font-bold flex items-center justify-center gap-2 transition shadow-md">
+        <button onclick="checkoutWhatsApp()" class="btn btn-whatsapp" style="margin-top:16px;">
           📱 إرسال الطلب عبر WhatsApp
         </button>
       </div>
@@ -348,7 +293,7 @@
           <label>اختيار صورة من الجهاز</label>
           <input type="file" id="newImgFile" class="form-control" accept="image/*" required>
         </div>
-        <button class="btn btn-primary w-full mt-4" style="width:100%">نشر القطعة سحابياً للجميع</button>
+        <button class="btn btn-primary" style="width:100%;margin-top:12px;">نشر القطعة سحابياً للجميع</button>
       </form>
     </div>
   </div>
@@ -361,24 +306,9 @@
       <h3>تسجيل الدخول / حساب جديد</h3>
       <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
     </div>
-    <div class="modal-body space-y-4">
-      <button onclick="handleGoogleLogin()" class="btn btn-google w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border shadow-sm font-bold text-gray-700 hover:bg-gray-50 transition" style="width: 100%;">
-        <svg class="w-5 h-5" viewBox="0 0 24 24">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-        </svg>
-        تسجيل الدخول باستخدام Google
-      </button>
-
-      <div class="flex items-center my-3">
-        <div class="flex-grow border-t border-gray-300"></div>
-        <span class="px-3 text-xs text-gray-500">أو عبر البريد</span>
-        <div class="flex-grow border-t border-gray-300"></div>
-      </div>
-
-      <form id="firebaseLoginForm" onsubmit="handleFirebaseLogin(event)">
+    <div class="modal-body">
+      <button onclick="handleGoogleLogin()" class="btn btn-google">تسجيل الدخول باستخدام Google</button>
+      <form id="firebaseLoginForm" onsubmit="handleFirebaseLogin(event)" style="margin-top:16px;">
         <div class="form-group">
           <label>البريد الإلكتروني</label>
           <input type="email" id="loginEmail" class="form-control" placeholder="example@email.com" required>
@@ -387,7 +317,7 @@
           <label>كلمة المرور</label>
           <input type="password" id="loginPassword" class="form-control" placeholder="******" required>
         </div>
-        <button class="btn btn-primary w-full" style="width:100%">دخول / إنشاء حساب</button>
+        <button class="btn btn-primary" style="width:100%">دخول / إنشاء حساب</button>
       </form>
     </div>
   </div>
@@ -395,7 +325,7 @@
 
 <button class="btn btn-primary mobile-sticky-btn" onclick="openModal('uploadModal')">➕ إضافة قطعة للبيع</button>
 
-<!-- مكتبات Firebase الأساسية فقط (Firestore و Auth) -->
+<!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -415,7 +345,7 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
 
-  const IMGBB_API_KEY = "6d257f2c1d5423f77d3f017d6f41e0fe"; // مفتاح الرفع المجاني الفوري
+  const IMGBB_API_KEY = "6d257f2c1d5423f77d3f017d6f41e0fe";
   const WHATSAPP_NUMBER = "213655979457"; 
 
   const wilayas = [
@@ -456,15 +386,13 @@
     container.innerHTML = '';
 
     if(items.length === 0) {
-      container.innerHTML = '<p class="col-span-3 text-center py-8 text-gray-500">لا توجد قطع تطابق خيارات البحث.</p>';
+      container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:32px; color:var(--ink-soft);">لا توجد قطع تطابق خيارات البحث.</p>';
       return;
     }
 
     items.forEach(item => {
       const card = document.createElement('div');
       card.className = 'card';
-      card.onclick = () => showProductDetails(item);
-
       card.innerHTML = `
         <div class="fav-btn" onclick="toggleFav(event, this)">♡</div>
         <div class="badge-container">
@@ -504,7 +432,6 @@
     renderProducts(filtered);
   }
 
-  // الرفع السحابي عبر ImgBB وحفظ البيانات في Firestore مجاناً
   async function handleAddNewProduct(e) {
     e.preventDefault();
     const fileInput = document.getElementById('newImgFile');
@@ -521,7 +448,6 @@
     submitBtn.disabled = true;
 
     try {
-      // 1. رفع الصورة عبر ImgBB API بدلاً من Firebase Storage
       const formData = new FormData();
       formData.append("image", file);
 
@@ -536,8 +462,6 @@
       }
 
       const imageUrl = data.data.url;
-
-      // 2. تجميع البيانات
       const currentUser = auth.currentUser;
       const sellerName = currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "بائع محلي";
 
@@ -552,18 +476,16 @@
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
-      // 3. حفظ بيانات المنتج في Firestore
       await db.collection("products").add(newProduct);
 
       closeModal('uploadModal');
       document.getElementById('addProductForm').reset();
-      alert('تم إضافة قطعة جديدة بنجاح وتوفير صورتها لكل الزوار!');
-
+      alert('تم إضافة قطعة جديدة بنجاح!');
       loadProductsFromFirebase();
 
     } catch (error) {
       console.error("خطأ:", error);
-      alert("حدث خطأ أثناء رفع الصورة، حاول اختيار صورة بأبعاد أو حجم أصغر.");
+      alert("حدث خطأ أثناء رفع الصورة، حاول اختيار صورة أصغر حجماً.");
     } finally {
       submitBtn.innerText = originalText;
       submitBtn.disabled = false;
@@ -583,23 +505,6 @@
     }).catch(err => {
       renderProducts(productsData);
     });
-  }
-
-  function showProductDetails(item) {
-    document.getElementById('detail-title').innerText = item.title;
-    document.getElementById('detail-price').innerText = Number(item.price).toLocaleString() + ' د.ج';
-    document.getElementById('detail-seller').innerText = 'البائع: ' + item.seller;
-    document.getElementById('detail-size').innerText = 'المقاس: ' + item.size;
-    document.getElementById('detail-wilaya').innerText = item.wilaya;
-    document.getElementById('detail-img').src = item.img;
-    document.getElementById('detail-add-btn').onclick = (e) => addToCart(e, item.id);
-    
-    document.getElementById('product-details').classList.remove('hidden');
-    document.getElementById('product-details').scrollIntoView({ behavior: 'smooth' });
-  }
-
-  function closeDetails() {
-    document.getElementById('product-details').classList.add('hidden');
   }
 
   function toggleFav(e, btn) {
@@ -644,25 +549,25 @@
     let totalItems = 0;
 
     if(cart.length === 0) {
-      container.innerHTML = '<p class="text-center text-gray-500 py-6">سلة التسوق فارغة حالياً.</p>';
+      container.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:16px;">سلة التسوق فارغة حالياً.</p>';
     } else {
       cart.forEach(item => {
         subtotal += item.price * item.qty;
         totalItems += item.qty;
         const div = document.createElement('div');
-        div.className = "bg-surface border border-outline-variant/20 rounded-lg p-4 flex gap-4 items-center";
+        div.className = "cart-item";
         div.innerHTML = `
-          <img class="w-20 h-20 rounded object-cover" src="${item.img}" alt="${item.title}"/>
-          <div class="flex-grow">
-            <h4 class="font-bold text-base">${item.title}</h4>
-            <p class="text-sm text-gray-500">المقاس: ${item.size} | ${item.price} د.ج</p>
-            <div class="flex items-center gap-2 mt-2">
-              <button onclick="updateQty('${item.id}', -1)" class="w-6 h-6 rounded border font-bold flex items-center justify-center">-</button>
+          <img src="${item.img}" alt="${item.title}"/>
+          <div style="flex:1;">
+            <b>${item.title}</b>
+            <p style="font-size:12px;color:var(--ink-soft);">المقاس: ${item.size} | ${item.price} د.ج</p>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:6px;">
+              <button onclick="updateQty('${item.id}', -1)" style="width:24px;height:24px;">-</button>
               <span>${item.qty}</span>
-              <button onclick="updateQty('${item.id}', 1)" class="w-6 h-6 rounded border font-bold flex items-center justify-center">+</button>
+              <button onclick="updateQty('${item.id}', 1)" style="width:24px;height:24px;">+</button>
             </div>
           </div>
-          <button onclick="removeFromCart('${item.id}')" class="text-red-600 hover:text-red-800">حذف</button>
+          <button onclick="removeFromCart('${item.id}')" style="color:red;background:none;border:none;cursor:pointer;">حذف</button>
         `;
         container.appendChild(div);
       });
@@ -677,38 +582,25 @@
 
   function checkoutWhatsApp() {
     if(cart.length === 0) {
-      alert('سلة التسوق فارغة! الرجاء اختيار منتج أولاً.');
+      alert('سلة التسوق فارغة!');
       return;
     }
 
     const name = document.getElementById('custName').value.trim() || "غير محدد";
     const address = document.getElementById('custAddress').value.trim() || "غير محدد";
 
-    let message = `🛒 *طلب جديد من الموقع*\n`;
-    message += `-------------------------\n`;
-    message += `👤 *الزبون:* ${name}\n`;
-    message += `📍 *العنوان والولاية:* ${address}\n\n`;
-    message += `📦 *القطع المطلوبة:*\n`;
-
+    let message = `🛒 *طلب جديد من الموقع*\n-------------------------\n👤 *الزبون:* ${name}\n📍 *العنوان:* ${address}\n\n📦 *القطع المطلوبة:*\n`;
     let subtotal = 0;
     cart.forEach((item, index) => {
       const itemTotal = item.price * item.qty;
       subtotal += itemTotal;
-      message += `${index + 1}. *${item.title}*\n   - المقاس: ${item.size}\n   - العدد: ${item.qty}\n   - السعر: ${itemTotal} د.ج\n`;
+      message += `${index + 1}. *${item.title}* (المقاس: ${item.size}) - العدد: ${item.qty} - ${itemTotal} د.ج\n`;
     });
 
-    const shipping = 600;
-    const total = subtotal + shipping;
+    const total = subtotal + 600;
+    message += `\n💰 *الإجمالي الكلي:* ${total} د.ج\n-------------------------`;
 
-    message += `\n-------------------------\n`;
-    message += `💵 *المجموع الفرعي:* ${subtotal} د.ج\n`;
-    message += `🚚 *الشحن:* ${shipping} د.ج\n`;
-    message += `💰 *الإجمالي الكلي:* ${total} د.ج\n`;
-    message += `-------------------------\n`;
-    message += `يرجى تأكيد الطلب وبدء عملية التوصيل.`;
-
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`, '_blank');
   }
 
   function handleGoogleLogin() {
@@ -718,9 +610,7 @@
         alert(`مرحباً بك ${result.user.displayName || result.user.email}`);
         closeModal('loginModal');
       })
-      .catch((err) => {
-        alert("خطأ أثناء تسجيل الدخول عبر Google: " + err.message);
-      });
+      .catch((err) => alert("خطأ: " + err.message));
   }
 
   function handleFirebaseLogin(e) {
@@ -729,17 +619,11 @@
     const password = document.getElementById('loginPassword').value;
 
     auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        alert('تم تسجيل الدخول بنجاح!');
-        closeModal('loginModal');
-      })
+      .then(() => { alert('تم تسجيل الدخول!'); closeModal('loginModal'); })
       .catch(() => {
         auth.createUserWithEmailAndPassword(email, password)
-          .then(() => {
-            alert('تم إنشاء الحساب بنجاح!');
-            closeModal('loginModal');
-          })
-          .catch((err) => alert('حدث خطأ: ' + err.message));
+          .then(() => { alert('تم إنشاء الحساب!'); closeModal('loginModal'); })
+          .catch((err) => alert('خطأ: ' + err.message));
       });
   }
 
