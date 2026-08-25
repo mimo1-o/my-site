@@ -293,7 +293,7 @@
           <label>اختيار صورة من الجهاز</label>
           <input type="file" id="newImgFile" class="form-control" accept="image/*" required>
         </div>
-        <button class="btn btn-primary" type="submit" style="width:100%;margin-top:12px;">نشر القطعة سحابياً للجميع</button>
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:12px;">نشر القطعة سحابياً للجميع</button>
       </form>
     </div>
   </div>
@@ -317,7 +317,7 @@
           <label>كلمة المرور</label>
           <input type="password" id="loginPassword" class="form-control" placeholder="******" required>
         </div>
-        <button class="btn btn-primary" style="width:100%">دخول / إنشاء حساب</button>
+        <button type="submit" class="btn btn-primary" style="width:100%">دخول / إنشاء حساب</button>
       </form>
     </div>
   </div>
@@ -451,10 +451,13 @@
       return;
     }
 
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerText;
-    submitBtn.innerText = "جاري النشر والحفظ...";
-    submitBtn.disabled = true;
+    // البحث المحصن عن الزر
+    const submitBtn = e.target.querySelector('button[type="submit"]') || e.target.querySelector('button');
+    const originalText = submitBtn ? submitBtn.innerText : "";
+    if (submitBtn) {
+      submitBtn.innerText = "جاري النشر والحفظ...";
+      submitBtn.disabled = true;
+    }
 
     try {
       const base64Image = await convertFileToBase64(file);
@@ -483,8 +486,10 @@
       console.error("خطأ:", error);
       alert("حدث خطأ أثناء حفظ القطعة، يرجى اختيار صورة بأبعاد أو حجم أصغر.");
     } finally {
-      submitBtn.innerText = originalText;
-      submitBtn.disabled = false;
+      if (submitBtn) {
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
+      }
     }
   }
 
