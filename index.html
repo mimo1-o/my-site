@@ -124,8 +124,10 @@
   .form-control { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); font-family: inherit; font-size: 14px; color: var(--ink); }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
+  /* تصميم النوافذ المنبثقة للتأكيد والإشعارات */
   .confirm-box { text-align: center; padding: 10px 0; }
   .confirm-icon { font-size: 48px; color: #E53935; margin-bottom: 12px; }
+  .success-icon { font-size: 48px; color: #4CAF50; margin-bottom: 12px; }
   .confirm-actions { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
 
   .mobile-sticky-btn{ display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%); z-index:99;width:calc(100% - 32px);max-width:400px; }
@@ -329,7 +331,7 @@
   </div>
 </div>
 
-<!-- DELETE CONFIRMATION MODAL -->
+<!-- DELETE CONFIRMATION MODAL (طلب التأكيد) -->
 <div class="modal-overlay" id="deleteConfirmModal">
   <div class="modal-card" style="max-width: 400px;">
     <div class="modal-body confirm-box">
@@ -340,6 +342,21 @@
       <div class="confirm-actions">
         <button id="confirmDeleteBtn" class="btn btn-danger" style="flex:1;">نعم، احذف القطعة</button>
         <button onclick="closeModal('deleteConfirmModal')" class="btn btn-outline" style="flex:1;">لا، إلغاء</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE SUCCESS MODAL (تصميم تم الحذف) -->
+<div class="modal-overlay" id="deleteSuccessModal">
+  <div class="modal-card" style="max-width: 380px;">
+    <div class="modal-body confirm-box">
+      <div class="success-icon">✅</div>
+      <h3 style="font-size:20px; font-weight:800; margin-bottom:8px;">تم حذف القطعة</h3>
+      <p style="color:var(--ink-soft); font-size:14px;">لقد تم إزالة القطعة بنجاح من قائمة المعروضات.</p>
+      
+      <div class="confirm-actions">
+        <button onclick="closeModal('deleteSuccessModal')" class="btn btn-primary" style="width: 100%;">حسناً</button>
       </div>
     </div>
   </div>
@@ -368,7 +385,7 @@
   const db = firebase.firestore();
 
   const WHATSAPP_NUMBER = "213655979457"; 
-  let pendingDeleteId = null; // تخزين معرف المنتج المراد حذفه
+  let pendingDeleteId = null;
 
   const wilayas = [
     "01 - أدرار", "02 - الشلف", "03 - الأغواط", "04 - أم البواقي", "05 - باتنة",
@@ -376,19 +393,8 @@
     "16 - الجزائر", "19 - سطيف", "31 - وهران", "58 - أولاد يعيش"
   ];
 
-  let productsData = [
-    {
-      id: "1",
-      title: "قميص مخطط أزرق كاجوال Oversize",
-      price: 2800,
-      seller: "أدم وباهي",
-      userId: "demo_admin",
-      size: "L",
-      wilaya: "16 - الجزائر",
-      condition: "جديد",
-      img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"
-    }
-  ];
+  // تم تفريغ القائمة من القطعة التجريبية الأولى بناءً على طلبك
+  let productsData = [];
 
   let cart = [];
 
@@ -409,7 +415,7 @@
     container.innerHTML = '';
 
     if(items.length === 0) {
-      container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:32px; color:var(--ink-soft);">لا توجد قطع تطابق خيارات البحث.</p>';
+      container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:32px; color:var(--ink-soft);">لا توجد قطع معروضة حالياً. كُن أول من يضيف قطعة!</p>';
       return;
     }
 
@@ -516,7 +522,6 @@
 
       closeModal('uploadModal');
       document.getElementById('addProductForm').reset();
-      alert('تم نشر القطعة بنجاح وظهرت للجميع!');
       loadProductsFromFirebase();
 
     } catch (error) {
@@ -544,7 +549,7 @@
     openModal('deleteConfirmModal');
   }
 
-  // تنفيذ الحذف الفعلي بعد موافقة المستخدم في النافذة
+  // تنفيذ الحذف الفعلي وإظهار نافذة تم الحذف الراقية
   document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
     if (!pendingDeleteId) return;
 
@@ -552,7 +557,10 @@
       await db.collection("products").doc(pendingDeleteId).delete();
       closeModal('deleteConfirmModal');
       pendingDeleteId = null;
-      alert("تم حذف القطعة بنجاح!");
+      
+      // فتح نافذة تم الحذف التصميمية
+      openModal('deleteSuccessModal');
+      
       loadProductsFromFirebase();
     } catch (error) {
       console.error("خطأ أثناء الحذف:", error);
@@ -566,10 +574,8 @@
       querySnapshot.forEach((doc) => {
         firebaseProducts.push({ id: doc.id, ...doc.data() });
       });
-      if (firebaseProducts.length > 0) {
-        productsData = firebaseProducts;
-        renderProducts(productsData);
-      }
+      productsData = firebaseProducts;
+      renderProducts(productsData);
     }).catch(err => {
       renderProducts(productsData);
     });
@@ -675,7 +681,6 @@
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
       .then((result) => {
-        alert(`مرحباً بك ${result.user.displayName || result.user.email}`);
         closeModal('loginModal');
       })
       .catch((err) => alert("خطأ: " + err.message));
@@ -687,10 +692,10 @@
     const password = document.getElementById('loginPassword').value;
 
     auth.signInWithEmailAndPassword(email, password)
-      .then(() => { alert('تم تسجيل الدخول!'); closeModal('loginModal'); })
+      .then(() => { closeModal('loginModal'); })
       .catch(() => {
         auth.createUserWithEmailAndPassword(email, password)
-          .then(() => { alert('تم إنشاء الحساب!'); closeModal('loginModal'); })
+          .then(() => { closeModal('loginModal'); })
           .catch((err) => alert('خطأ: ' + err.message));
       });
   }
