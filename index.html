@@ -359,6 +359,7 @@
       title: "قميص مخطط أزرق كاجوال Oversize",
       price: 2800,
       seller: "أدم وباهي",
+      userId: "demo_admin",
       size: "L",
       wilaya: "16 - الجزائر",
       condition: "جديد",
@@ -389,7 +390,12 @@
       return;
     }
 
+    const currentUser = auth.currentUser;
+
     items.forEach(item => {
+      // التحقق مما إذا كان الزائر الحرفي هو صاحب هذه القطعة
+      const isOwner = currentUser && item.userId && (item.userId === currentUser.uid);
+
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
@@ -406,7 +412,10 @@
           <div class="seller">من: ${item.seller} • مقاس ${item.size}</div>
           <div class="card-foot">
             <span class="price">${Number(item.price).toLocaleString()} د.ج</span>
-            <button class="btn btn-primary btn-sm" onclick="addToCart(event, '${item.id}')">إضافة للسلة 🛒</button>
+            <div style="display:flex; gap:6px;">
+              ${isOwner ? `<button class="btn btn-sm" style="background:#E53935; color:#fff;" onclick="deleteProduct(event, '${item.id}', '${item.userId}')">🗑️ حذف</button>` : ''}
+              <button class="btn btn-primary btn-sm" onclick="addToCart(event, '${item.id}')">إضافة للسلة 🛒</button>
+            </div>
           </div>
         </div>
       `;
@@ -431,7 +440,6 @@
     renderProducts(filtered);
   }
 
-  // تحويل ملف الصورة إلى نص Base64
   function convertFileToBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -443,15 +451,22 @@
 
   async function handleAddNewProduct(e) {
     e.preventDefault();
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      alert("يرجى تسجيل الدخول أولاً لتتمكن من نشر القطعة ولتكون الوحيد القادر على حذفها لاحقاً!");
+      openModal('loginModal');
+      return;
+    }
+
     const fileInput = document.getElementById('newImgFile');
-    const file = fileInput.files[0];
+    const file = fileInput ? fileInput.files[0] : null;
 
     if (!file) {
       alert("يرجى اختيار صورة أولاً!");
       return;
     }
 
-    // البحث المحصن عن الزر
     const submitBtn = e.target.querySelector('button[type="submit"]') || e.target.querySelector('button');
     const originalText = submitBtn ? submitBtn.innerText : "";
     if (submitBtn) {
@@ -461,13 +476,13 @@
 
     try {
       const base64Image = await convertFileToBase64(file);
-      const currentUser = auth.currentUser;
-      const sellerName = currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "بائع محلي";
+      const sellerName = currentUser.displayName || currentUser.email.split('@')[0];
 
       const newProduct = {
         title: document.getElementById('newTitle').value,
         price: parseFloat(document.getElementById('newPrice').value),
         seller: sellerName,
+        userId: currentUser.uid, // 👈 ربط القطعة بالبائع للتحقق لاحقاً
         size: document.getElementById('newSize').value,
         wilaya: document.getElementById('newWilaya').value,
         condition: document.getElementById('newCondition').value,
@@ -484,11 +499,32 @@
 
     } catch (error) {
       console.error("خطأ:", error);
-      alert("حدث خطأ أثناء حفظ القطعة، يرجى اختيار صورة بأبعاد أو حجم أصغر.");
+      alert("حدث خطأ أثناء حفظ القطعة.");
     } finally {
       if (submitBtn) {
         submitBtn.innerText = originalText;
         submitBtn.disabled = false;
+      }
+    }
+  }
+
+  async function deleteProduct(e, productId, ownerId) {
+    e.stopPropagation();
+    
+    const currentUser = auth.currentUser;
+    if (!currentUser || currentUser.uid !== ownerId) {
+      alert("عذراً، يمكنك حذف القطع التي قمت بنشرها فقط!");
+      return;
+    }
+
+    if (confirm("هل أنت تأكد من رغبتك في حذف هذه القطعة نهائياً؟")) {
+      try {
+        await db.collection("products").doc(productId).delete();
+        alert("تم حذف القطعة بنجاح!");
+        loadProductsFromFirebase();
+      } catch (error) {
+        console.error("خطأ أثناء الحذف:", error);
+        alert("حدث خطأ أثناء محاولة الحذف.");
       }
     }
   }
@@ -628,7 +664,20 @@
       });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  auth.onAuthStateChanged((user) => {
+    const userAuthActions = document.getElementById('userAuthActions');
+    if(user) {
+      userAuthActions.innerHTML = `
+        <span style="font-size:13px; font-weight:bold;">👤 ${user.displayName || user.email.split('@')[0]}</span>
+        <button class="btn btn-outline btn-sm" onclick="auth.signOut()">خروج</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
+      `;
+    } else {
+      userAuthActions.innerHTML = `
+        <button class="btn btn-outline btn-sm" onclick="openModal('loginModal')">تسجيل الدخول</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
+      `;
+    }
     loadProductsFromFirebase();
   });
 </script>
