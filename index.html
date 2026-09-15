@@ -755,6 +755,20 @@
   // التشغيل المبدئي
   updateCartUI();
 </script>
+<button class="btn btn-outline btn-sm" onclick="auth.signOut()">تسجيل الخروج</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
+      `;
+    } else {
+      userAuthActions.innerHTML = `
+        <button class="btn btn-outline btn-sm" onclick="openModal('loginModal')">تسجيل الدخول</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
+      `;
+    }
+    loadProductsFromFirebase();
+  });
 
+  // التحميل الأولي للقطع عند فتح الصفحة
+  loadProductsFromFirebase();
+</script>
 </body>
 </html>
