@@ -7,14 +7,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// الاتصال بقاعدة البيانات باستعمال رابط الاتصال أو متغير البيئة
+// رابط الاتصال بقاعدة البيانات
 const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://overg0090_db_user:hhsz7BlUpzsOz5Gm@cluster0.xxxxxx.mongodb.net/luxury_store?retryWrites=true&w=majority';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB Atlas! 🚀'))
   .catch(err => console.error('Connection error:', err));
 
-// 1. تحديد شكل بيانات المنتج (Product Schema)
+// تحديد شكل المنتج في قاعدة البيانات
 const ProductSchema = new mongoose.Schema({
   title: String,
   price: Number,
@@ -27,22 +27,22 @@ const ProductSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', ProductSchema);
 
-// 2. رابط لإضافة منتج جديد وتخزينه (POST)
-app.post('/api/products', async (req, res) => {
+// مسار لجلب المنتجات من MongoDB
+app.get('/api/products', async (req, res) => {
   try {
-    const newProduct = new Product(req.body);
-    await newProduct.save();
-    res.json({ success: true, message: 'Saved to database!', product: newProduct });
+    const products = await Product.find().sort({ date: -1 });
+    res.json(products);
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// 3. رابط لجلب وعرض جميع المنتجات (GET)
-app.get('/api/products', async (req, res) => {
+// مسار لإضافة منتج جديد لـ MongoDB
+app.post('/api/products', async (req, res) => {
   try {
-    const products = await Product.find().sort({ date: -1 }); // ترتبيها من الأحدث للأقدم
-    res.json(products);
+    const newProduct = new Product(req.body);
+    await newProduct.save();
+    res.json({ success: true, product: newProduct });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
