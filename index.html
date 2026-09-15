@@ -393,7 +393,6 @@
     "16 - الجزائر", "19 - سطيف", "31 - وهران", "58 - أولاد يعيش"
   ];
 
-  // قطع تجريبية افتراضية تظهر دائماً حتى يكتمل المتجر
   const demoProducts = [
     {
       id: "demo_1",
@@ -608,7 +607,6 @@
       querySnapshot.forEach((doc) => {
         firebaseProducts.push({ id: doc.id, ...doc.data() });
       });
-      // ندمج القطع القادمة من الفايربيس مع البيانات التجريبية
       productsData = [...firebaseProducts, ...demoProducts];
       renderProducts(productsData);
     }).catch(err => {
@@ -740,22 +738,7 @@
     if(user) {
       userAuthActions.innerHTML = `
         <span style="font-size:13px; font-weight:bold;">👤 ${user.displayName || user.email.split('@')[0]}</span>
-        <button class="btn btn-outline btn-sm" onclick="auth.signOut()">خروج</button>
-        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
-      `;
-    } else {
-      userAuthActions.innerHTML = `
-        <button class="btn btn-outline btn-sm" onclick="openModal('loginModal')">تسجيل الدخول</button>
-        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
-      `;
-    }
-    loadProductsFromFirebase();
-  });
-
-  // التشغيل المبدئي
-  updateCartUI();
-</script>
-<button class="btn btn-outline btn-sm" onclick="auth.signOut()">تسجيل الخروج</button>
+        <button class="btn btn-outline btn-sm" onclick="auth.signOut()">تسجيل الخروج</button>
         <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة للبيع</button>
       `;
     } else {
