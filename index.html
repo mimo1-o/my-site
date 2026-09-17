@@ -347,6 +347,22 @@
   </div>
 </div>
 
+<!-- ORDER SUCCESS MODAL -->
+<div class="modal-overlay" id="orderSuccessModal">
+  <div class="modal-card" style="max-width: 400px; text-align: center;">
+    <div class="modal-body confirm-box">
+      <div class="success-icon" style="font-size: 56px; margin-bottom: 12px;">🎉</div>
+      <h3 style="font-size: 22px; font-weight: 800; color: var(--green-deep); margin-bottom: 8px;">تم إرسال طلبك بنجاح!</h3>
+      <p style="color: var(--ink-soft); font-size: 14.5px; line-height: 1.5; margin-bottom: 20px;">
+        شكراً لتسوقك معنا. تم تسجيل طلبك بنجاح وسنتصل بك قريباً عبر الهاتف لتأكيد الشحن.
+      </p>      
+      <div class="confirm-actions">
+        <button onclick="closeModal('orderSuccessModal')" class="btn btn-primary" style="width: 100%; font-size: 15px; padding: 12px;">حسناً، فهمت</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- WISHLIST MODAL -->
 <div class="modal-overlay" id="wishlistModal">
   <div class="modal-card">
@@ -473,7 +489,7 @@
       <p style="color:var(--ink-soft); font-size:14px;">هل أنت تأكد حقاً من رغبتك في حذف هذه القطعة؟ لا يمكن التراجع عن هذا الإجراء.</p>
       
       <div class="confirm-actions">
-        <button id="confirmDeleteBtn" class="btn btn-danger" style="flex:1;">نعم، احذف القطعة</button>
+        <button id="confirmDeleteBtn" class="btn btn-danger" style="flex:1;" onclick="executeDeleteProduct()">نعم، احذف القطعة</button>
         <button onclick="closeModal('deleteConfirmModal')" class="btn btn-outline" style="flex:1;">لا، إلغاء</button>
       </div>
     </div>
@@ -641,7 +657,7 @@
           <div class="card-foot">
             <span class="price">${Number(item.price).toLocaleString()} د.ج</span>
             <div style="display:flex; gap:6px;">
-              ${isOwner ? `<button class="btn btn-sm btn-danger" onclick="promptDeleteProduct(event, '${item.id}', '${item.userId}')">🗑️</button>` : ''}
+              ${isOwner ? `<button class="btn btn-sm btn-danger" onclick="promptDeleteProduct(event, '${item.id}')">🗑️</button>` : ''}
               <button class="btn btn-primary btn-sm" onclick="addToCart(event, '${item.id}')">إضافة 🛒</button>
             </div>
           </div>
@@ -676,58 +692,10 @@
     renderProducts(filtered);
   }
 
-  // Wishlist Functions
-  function toggleFav(e, id) {
+  // Cart Management
+  function addToCart(e, productId) {
     if(e) e.stopPropagation();
-    const index = wishlist.indexOf(id);
-    if(index > -1) {
-      wishlist.splice(index, 1);
-    } else {
-      wishlist.push(id);
-    }
-    localStorage.setItem('luxury_wishlist', JSON.stringify(wishlist));
-    updateWishlistUI();
-    filterProducts();
-  }
-
-  function updateWishlistUI() {
-    document.getElementById('wishlist-count').innerText = wishlist.length;
-    const container = document.getElementById('wishlistItemsContainer');
-    if(!container) return;
-    container.innerHTML = '';
-    
-    if(wishlist.length === 0) {
-      container.innerHTML = '<p style="text-align:center; color:var(--ink-soft); padding:20px;">قائمة المفضلة فارغة حالياً.</p>';
-      return;
-    }
-
-    wishlist.forEach(id => {
-      const product = productsData.find(p => p.id === id);
-      if(product) {
-        const item = document.createElement('div');
-        item.className = 'cart-item';
-        item.innerHTML = `
-          <img src="${product.img}">
-          <div style="flex:1;">
-            <b>${product.title}</b>
-            <div style="font-size:12px; color:var(--ink-soft);">${product.price} د.ج</div>
-          </div>
-          <button class="btn btn-sm btn-danger" onclick="toggleFav(event, '${product.id}')">إزالة</button>
-        `;
-        container.appendChild(item);
-      }
-    });
-  }
-
-  function openWishlistModal() {
-    updateWishlistUI();
-    openModal('wishlistModal');
-  }
-
-  // Cart Functions
-  function addToCart(e, id) {
-    if(e) e.stopPropagation();
-    const product = productsData.find(p => p.id === id);
+    const product = productsData.find(p => p.id === productId);
     if(product) {
       cart.push(product);
       localStorage.setItem('luxury_cart', JSON.stringify(cart));
@@ -747,28 +715,32 @@
     const container = document.getElementById('drawerCartItems');
     container.innerHTML = '';
 
+    if(cart.length === 0) {
+      container.innerHTML = '<p style="text-align:center; color:var(--ink-soft); padding:20px;">السلة فارغة حالياً.</p>';
+      document.getElementById('drawer-subtotal').innerText = '0 د.ج';
+      document.getElementById('drawer-total').innerText = '0 د.ج';
+      return;
+    }
+
     let subtotal = 0;
     cart.forEach((item, index) => {
       subtotal += Number(item.price);
-      const cartEl = document.createElement('div');
-      cartEl.className = 'cart-item';
-      cartEl.innerHTML = `
-        <img src="${item.img}">
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <img src="${item.img}" alt="${item.title}">
         <div style="flex:1;">
-          <b style="font-size:14px;">${item.title}</b>
-          <div style="font-size:12px; color:var(--ink-soft);">مقاس: ${item.size} • ${item.price} د.ج</div>
+          <div style="font-weight:bold; font-size:14px;">${item.title}</div>
+          <div style="font-size:12px; color:var(--ink-soft);">مقاس: ${item.size} | ${Number(item.price).toLocaleString()} د.ج</div>
         </div>
-        <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">✕</button>
+        <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">&times;</button>
       `;
-      container.appendChild(cartEl);
+      container.appendChild(div);
     });
 
-    const shipping = cart.length > 0 ? 600 : 0;
-    const total = subtotal + shipping;
-
-    document.getElementById('drawer-subtotal').innerText = `${subtotal.toLocaleString()} د.ج`;
-    document.getElementById('drawer-shipping').innerText = `${shipping.toLocaleString()} د.ج`;
-    document.getElementById('drawer-total').innerText = `${total.toLocaleString()} د.ج`;
+    const shipping = 600;
+    document.getElementById('drawer-subtotal').innerText = subtotal.toLocaleString() + ' د.ج';
+    document.getElementById('drawer-total').innerText = (subtotal + shipping).toLocaleString() + ' د.ج';
   }
 
   // Checkout and Send Order to Google Sheets
@@ -791,7 +763,6 @@
     btn.disabled = true;
     btn.innerText = 'جاري إرسال الطلب...';
 
-    // Summary of products
     const productTitles = cart.map(p => p.title).join(' | ');
     const productSizes = cart.map(p => p.size).join(' | ');
 
@@ -812,7 +783,6 @@
       body: JSON.stringify(payload)
     })
     .then(() => {
-      alert('تم إرسال طلبك بنجاح! سنتصل بك قريباً للتأكيد.');
       cart = [];
       localStorage.removeItem('luxury_cart');
       updateCartUI();
@@ -821,6 +791,8 @@
       document.getElementById('custName').value = '';
       document.getElementById('custPhone').value = '';
       document.getElementById('custAddress').value = '';
+
+      openModal('orderSuccessModal');
     })
     .catch(error => {
       console.error('Error sending order:', error);
@@ -832,12 +804,134 @@
     });
   }
 
-  // Auth Functions
+  // Wishlist Functions
+  function toggleFav(e, id) {
+    if(e) e.stopPropagation();
+    const idx = wishlist.indexOf(id);
+    if(idx > -1) {
+      wishlist.splice(idx, 1);
+    } else {
+      wishlist.push(id);
+    }
+    localStorage.setItem('luxury_wishlist', JSON.stringify(wishlist));
+    document.getElementById('wishlist-count').innerText = wishlist.length;
+    filterProducts();
+  }
+
+  function openWishlistModal() {
+    const container = document.getElementById('wishlistItemsContainer');
+    container.innerHTML = '';
+    const favProducts = productsData.filter(p => wishlist.includes(p.id));
+
+    if(favProducts.length === 0) {
+      container.innerHTML = '<p style="text-align:center; color:var(--ink-soft); padding:20px;">لا توجد قطع في المفضلة حالياً.</p>';
+    } else {
+      favProducts.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <img src="${item.img}" alt="${item.title}">
+          <div style="flex:1;">
+            <div style="font-weight:bold; font-size:14px;">${item.title}</div>
+            <div style="font-size:12px; color:var(--ink-soft);">${Number(item.price).toLocaleString()} د.ج</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="addToCart(event, '${item.id}'); closeModal('wishlistModal');">إضافة 🛒</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+    openModal('wishlistModal');
+  }
+
+  // Firebase Firestore Realtime Loading
+  function loadCloudProducts() {
+    db.collection('products').onSnapshot(snapshot => {
+      const cloudItems = [];
+      snapshot.forEach(doc => {
+        cloudItems.push({ id: doc.id, ...doc.data() });
+      });
+      productsData = [...demoProducts, ...cloudItems];
+      filterProducts();
+    });
+  }
+
+  // Add Product (Upload)
+  function handleAddNewProduct(e) {
+    e.preventDefault();
+    const fileInput = document.getElementById('newImgFile');
+    const file = fileInput.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const imgBase64 = event.target.result;
+      const currentUser = auth.currentUser;
+
+      const newProd = {
+        title: document.getElementById('newTitle').value,
+        price: Number(document.getElementById('newPrice').value),
+        size: document.getElementById('newSize').value,
+        wilaya: document.getElementById('newWilaya').value,
+        condition: document.getElementById('newCondition').value,
+        seller: currentUser ? (currentUser.displayName || currentUser.email) : "مستخدم ناشر",
+        userId: currentUser ? currentUser.uid : null,
+        img: imgBase64,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      db.collection('products').add(newProd)
+      .then(() => {
+        closeModal('uploadModal');
+        document.getElementById('addProductForm').reset();
+      })
+      .catch(err => alert("حدث خطأ في النشر: " + err.message));
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  // Delete Product Logic
+  function promptDeleteProduct(e, id) {
+    if(e) e.stopPropagation();
+    pendingDeleteId = id;
+    openModal('deleteConfirmModal');
+  }
+
+  function executeDeleteProduct() {
+    if(!pendingDeleteId) return;
+    db.collection('products').doc(pendingDeleteId).delete()
+    .then(() => {
+      closeModal('deleteConfirmModal');
+      openModal('deleteSuccessModal');
+      pendingDeleteId = null;
+    })
+    .catch(err => alert("حدث خطأ أثناء الحذف: " + err.message));
+  }
+
+  // Auth Handling
+  auth.onAuthStateChanged(user => {
+    const userAuthActions = document.getElementById('userAuthActions');
+    if(user) {
+      userAuthActions.innerHTML = `
+        <span style="font-size:12px; font-weight:bold;">${user.displayName || user.email.split('@')[0]}</span>
+        <button class="btn btn-outline btn-sm" onclick="auth.signOut()">خروج</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة</button>
+      `;
+    } else {
+      userAuthActions.innerHTML = `
+        <button class="btn btn-outline btn-sm" onclick="openModal('loginModal')">دخول</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة</button>
+      `;
+    }
+    filterProducts();
+  });
+
   function handleGoogleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
-      .then(() => closeModal('loginModal'))
-      .catch(err => alert('خطأ في تسجيل الدخول: ' + err.message));
+    .then(() => closeModal('loginModal'))
+    .catch(err => alert("خطأ في الدخول: " + err.message));
   }
 
   function handleFirebaseLogin(e) {
@@ -846,105 +940,41 @@
     const pass = document.getElementById('loginPassword').value;
 
     auth.signInWithEmailAndPassword(email, pass)
-      .then(() => closeModal('loginModal'))
-      .catch(() => {
+    .then(() => closeModal('loginModal'))
+    .catch(error => {
+      if(error.code === 'auth/user-not-found') {
         auth.createUserWithEmailAndPassword(email, pass)
-          .then(() => closeModal('loginModal'))
-          .catch(err => alert('حدث خطأ: ' + err.message));
-      });
+        .then(() => closeModal('loginModal'))
+        .catch(err => alert("خطأ: " + err.message));
+      } else {
+        alert("خطأ: " + error.message);
+      }
+    });
   }
 
-  auth.onAuthStateChanged(user => {
-    const actions = document.getElementById('userAuthActions');
-    if(user) {
-      actions.innerHTML = `
-        <span style="font-size:13px; align-self:center;">أهلاً، ${user.displayName || user.email.split('@')[0]}</span>
-        <button class="btn btn-outline btn-sm" onclick="auth.signOut()">خروج</button>
-        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة</button>
-      `;
-    } else {
-      actions.innerHTML = `
-        <button class="btn btn-outline btn-sm" onclick="openModal('loginModal')">دخول</button>
-        <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة</button>
-      `;
-    }
-    filterProducts();
-  });
+  // Countdown Timer Simulation
+  function startTimer(durationInSeconds) {
+    let timer = durationInSeconds;
+    setInterval(() => {
+      const hours = Math.floor(timer / 3600);
+      const minutes = Math.floor((timer % 3600) / 60);
+      const seconds = Math.floor(timer % 60);
 
-  // Product Deletion
-  function promptDeleteProduct(e, id, userId) {
-    e.stopPropagation();
-    pendingDeleteId = id;
-    openModal('deleteConfirmModal');
-    
-    document.getElementById('confirmDeleteBtn').onclick = function() {
-      db.collection('products').doc(pendingDeleteId).delete()
-        .then(() => {
-          closeModal('deleteConfirmModal');
-          openModal('deleteSuccessModal');
-          fetchProductsFromFirebase();
-        })
-        .catch(err => alert('خطأ أثناء الحذف: ' + err.message));
-    };
+      document.getElementById('timer-hours').innerText = hours < 10 ? '0' + hours : hours;
+      document.getElementById('timer-minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+      document.getElementById('timer-seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+
+      if (--timer < 0) timer = durationInSeconds;
+    }, 1000);
   }
 
-  // Upload Product
-  function handleAddNewProduct(e) {
-    e.preventDefault();
-    const title = document.getElementById('newTitle').value;
-    const price = Number(document.getElementById('newPrice').value);
-    const size = document.getElementById('newSize').value;
-    const wilaya = document.getElementById('newWilaya').value;
-    const condition = document.getElementById('newCondition').value;
-    const file = document.getElementById('newImgFile').files[0];
-
-    if(!file) return alert('يرجى اختيار صورة');
-
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-      const imgData = evt.target.result;
-      const currentUser = auth.currentUser;
-
-      const newProd = {
-        title,
-        price,
-        size,
-        wilaya,
-        condition,
-        img: imgData,
-        seller: currentUser ? (currentUser.displayName || currentUser.email) : 'زائر',
-        userId: currentUser ? currentUser.uid : 'guest',
-        createdAt: new Date().toISOString()
-      };
-
-      db.collection('products').add(newProd)
-        .then(() => {
-          closeModal('uploadModal');
-          document.getElementById('addProductForm').reset();
-          fetchProductsFromFirebase();
-        })
-        .catch(err => alert('خطأ أثناء الإضافة: ' + err.message));
-    };
-    reader.readAsDataURL(file);
-  }
-
-  // Fetch Firebase Data
-  function fetchProductsFromFirebase() {
-    db.collection('products').get().then(snapshot => {
-      const fbProducts = [];
-      snapshot.forEach(doc => {
-        fbProducts.push({ id: doc.id, ...doc.data() });
-      });
-      productsData = [...demoProducts, ...fbProducts];
-      filterProducts();
-    }).catch(err => console.log('Error fetching:', err));
-  }
-
-  // Initial Setup
-  updateCartUI();
-  updateWishlistUI();
-  fetchProductsFromFirebase();
-  filterProducts();
+  // Initializations
+  window.onload = function() {
+    document.getElementById('wishlist-count').innerText = wishlist.length;
+    updateCartUI();
+    loadCloudProducts();
+    startTimer(31530); // 8 Hours 45 Mins 30 Secs
+  };
 </script>
 </body>
 </html>
