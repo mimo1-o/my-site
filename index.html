@@ -150,6 +150,12 @@
   .card-foot { display:flex; justify-content:space-between; align-items:center; border-top:1px dashed var(--line); padding-top:12px; }
   .price { font-family:'Cairo',sans-serif; font-weight:800; color:var(--green-deep); font-size:17px; }
 
+  /* Gallery and Product View Styles */
+  .gallery-main-img { width: 100%; height: 320px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 12px; }
+  .gallery-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+  .gallery-thumb { width: 65px; height: 65px; border-radius: 8px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
+  .gallery-thumb.active { border-color: var(--green-deep); transform: scale(1.05); }
+
   /* Sliding Drawer Cart */
   .cart-drawer-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s ease; }
   .cart-drawer-overlay.active { opacity: 1; visibility: visible; }
@@ -164,7 +170,7 @@
   /* Modals */
   .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
   .modal-overlay.active { display: flex; }
-  .modal-card { background: var(--white); border-radius: var(--radius); width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--line); box-shadow: var(--shadow); }
+  .modal-card { background: var(--white); border-radius: var(--radius); width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--line); box-shadow: var(--shadow); }
   .modal-head { padding: 20px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
   .modal-head h3 { font-size: 20px; font-weight: 800; color: var(--green-deep); }
   .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--ink-soft); }
@@ -306,6 +312,33 @@
   </section>
 </main>
 
+<!-- PRODUCT VIEW MODAL (معرض الصور والتفاصيل) -->
+<div class="modal-overlay" id="productViewModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="viewTitle">تفاصيل القطعة</h3>
+      <button class="modal-close" onclick="closeModal('productViewModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <img id="viewMainImg" class="gallery-main-img" src="" alt="صورة المنتج">
+      <div id="viewThumbs" class="gallery-thumbs"></div>
+      
+      <div style="margin-top: 16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+          <span class="price" id="viewPrice" style="font-size: 22px;">0 د.ج</span>
+          <span class="badge badge-wilaya" id="viewWilaya">الولاية</span>
+        </div>
+        <p style="color: var(--ink-soft); font-size: 14px; margin-bottom: 8px;" id="viewSeller">الناشر: -</p>
+        <p style="color: var(--ink-soft); font-size: 14px; margin-bottom: 16px;" id="viewDetails">المقاس: - | الحالة: -</p>
+        
+        <button id="viewAddToCartBtn" class="btn btn-primary" style="width: 100%; font-size: 16px; padding: 12px;">
+          إضافة إلى سلة التسوق 🛒
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- SLIDING DRAWER CART -->
 <div class="cart-drawer-overlay" id="cartDrawerOverlay" onclick="toggleDrawerCart(false)">
   <div class="cart-drawer" onclick="event.stopPropagation()">
@@ -405,7 +438,7 @@
   </div>
 </div>
 
-<!-- UPLOAD MODAL -->
+<!-- UPLOAD MODAL (مع دعم صور متعددة) -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -447,8 +480,8 @@
           </div>
         </div>
         <div class="form-group">
-          <label>اختيار صورة من الجهاز</label>
-          <input type="file" id="newImgFile" class="form-control" accept="image/*" required>
+          <label>اختيار صور من الجهاز (يمكنك تحديد صور متعددة)</label>
+          <input type="file" id="newImgFile" class="form-control" accept="image/*" multiple required>
         </div>
         <button type="submit" class="btn btn-primary" style="width:100%; margin-top:12px;">نشر القطعة سحابياً للجميع</button>
       </form>
@@ -518,7 +551,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
-  // Google Apps Script API URL
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAVf-pRaZqpqpvoUgNXnaf0RqKYuSX2mqDJqwc0hhhToIYxo2tX4plZMhf_C-gduqikQ/exec';
 
   const firebaseConfig = {
@@ -535,7 +567,6 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
 
-  const WHATSAPP_NUMBER = "213655979457"; 
   let pendingDeleteId = null;
 
   const wilayas = [
@@ -544,7 +575,6 @@
     "16 - الجزائر", "19 - سطيف", "31 - وهران", "58 - أولاد يعيش"
   ];
 
-  // تم تفريغ قائمة القطع المبدئية بنجاح
   const demoProducts = [];
 
   let productsData = [...demoProducts];
@@ -609,9 +639,11 @@
     items.forEach(item => {
       const isOwner = currentUser && item.userId && (item.userId === currentUser.uid);
       const isFav = wishlist.includes(item.id);
+      const mainImg = (item.images && item.images.length > 0) ? item.images[0] : item.img;
 
       const card = document.createElement('div');
       card.className = 'card';
+      card.onclick = () => viewProductDetails(item.id);
       card.innerHTML = `
         <div class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav(event, '${item.id}')">${isFav ? '♥' : '♡'}</div>
         <div class="badge-container">
@@ -619,7 +651,7 @@
           <span class="badge badge-condition">${item.condition}</span>
         </div>
         <div class="card-media">
-          <img src="${item.img}" alt="${item.title}">
+          <img src="${mainImg}" alt="${item.title}">
         </div>
         <div class="card-body">
           <b>${item.title}</b>
@@ -635,6 +667,45 @@
       `;
       container.appendChild(card);
     });
+  }
+
+  // View Product Details & Image Gallery Modal
+  function viewProductDetails(productId) {
+    const item = productsData.find(p => p.id === productId);
+    if (!item) return;
+
+    const images = (item.images && item.images.length > 0) ? item.images : [item.img];
+
+    document.getElementById('viewTitle').innerText = item.title;
+    document.getElementById('viewPrice').innerText = Number(item.price).toLocaleString() + ' د.ج';
+    document.getElementById('viewWilaya').innerText = item.wilaya;
+    document.getElementById('viewSeller').innerText = 'الناشر: ' + item.seller;
+    document.getElementById('viewDetails').innerText = `المقاس: ${item.size} | الحالة: ${item.condition}`;
+    
+    const mainImg = document.getElementById('viewMainImg');
+    mainImg.src = images[0];
+
+    const thumbsContainer = document.getElementById('viewThumbs');
+    thumbsContainer.innerHTML = '';
+
+    images.forEach((imgSrc, index) => {
+      const thumb = document.createElement('img');
+      thumb.className = `gallery-thumb ${index === 0 ? 'active' : ''}`;
+      thumb.src = imgSrc;
+      thumb.onclick = () => {
+        mainImg.src = imgSrc;
+        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+      };
+      thumbsContainer.appendChild(thumb);
+    });
+
+    document.getElementById('viewAddToCartBtn').onclick = () => {
+      addToCart(null, item.id);
+      closeModal('productViewModal');
+    };
+
+    openModal('productViewModal');
   }
 
   // Filter & Search & Sort
@@ -695,10 +766,11 @@
     let subtotal = 0;
     cart.forEach((item, index) => {
       subtotal += Number(item.price);
+      const mainImg = (item.images && item.images.length > 0) ? item.images[0] : item.img;
       const div = document.createElement('div');
       div.className = 'cart-item';
       div.innerHTML = `
-        <img src="${item.img}" alt="${item.title}">
+        <img src="${mainImg}" alt="${item.title}">
         <div style="flex:1;">
           <div style="font-weight:bold; font-size:14px;">${item.title}</div>
           <div style="font-size:12px; color:var(--ink-soft);">مقاس: ${item.size} | ${Number(item.price).toLocaleString()} د.ج</div>
@@ -797,10 +869,11 @@
       container.innerHTML = '<p style="text-align:center; color:var(--ink-soft); padding:20px;">لا توجد قطع في المفضلة حالياً.</p>';
     } else {
       favProducts.forEach(item => {
+        const mainImg = (item.images && item.images.length > 0) ? item.images[0] : item.img;
         const div = document.createElement('div');
         div.className = 'cart-item';
         div.innerHTML = `
-          <img src="${item.img}" alt="${item.title}">
+          <img src="${mainImg}" alt="${item.title}">
           <div style="flex:1;">
             <div style="font-weight:bold; font-size:14px;">${item.title}</div>
             <div style="font-size:12px; color:var(--ink-soft);">${Number(item.price).toLocaleString()} د.ج</div>
@@ -825,17 +898,23 @@
     });
   }
 
-  // Add Product (Upload)
+  // Add Product (Multiple Image Upload Support)
   function handleAddNewProduct(e) {
     e.preventDefault();
     const fileInput = document.getElementById('newImgFile');
-    const file = fileInput.files[0];
+    const files = Array.from(fileInput.files);
 
-    if(!file) return;
+    if(files.length === 0) return alert("يرجى اختيار صورة واحدة على الأقل");
 
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      const imgBase64 = event.target.result;
+    const imagePromises = files.map(file => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (evt) => resolve(evt.target.result);
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(imagePromises).then(imagesBase64 => {
       const currentUser = auth.currentUser;
 
       const newProd = {
@@ -846,7 +925,8 @@
         condition: document.getElementById('newCondition').value,
         seller: currentUser ? (currentUser.displayName || currentUser.email) : "مستخدم ناشر",
         userId: currentUser ? currentUser.uid : null,
-        img: imgBase64,
+        images: imagesBase64,
+        img: imagesBase64[0],
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
@@ -856,9 +936,7 @@
         document.getElementById('addProductForm').reset();
       })
       .catch(err => alert("حدث خطأ في النشر: " + err.message));
-    };
-
-    reader.readAsDataURL(file);
+    });
   }
 
   // Delete Product Logic
