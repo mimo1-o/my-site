@@ -544,38 +544,8 @@
     "16 - الجزائر", "19 - سطيف", "31 - وهران", "58 - أولاد يعيش"
   ];
 
-  const demoProducts = [
-    {
-      id: "demo_1",
-      title: "تيشرت قطني أسود Oversize",
-      price: 2800,
-      seller: "متجر الأصيل",
-      size: "L",
-      wilaya: "05 - باتنة",
-      condition: "جديد",
-      img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop"
-    },
-    {
-      id: "demo_2",
-      title: "قميص صيفي كاجوال زيتوني",
-      price: 3400,
-      seller: "رحيم",
-      size: "M",
-      wilaya: "16 - الجزائر",
-      condition: "جديد",
-      img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&auto=format&fit=crop"
-    },
-    {
-      id: "demo_3",
-      title: "تيشرت رياضي بني فاتح",
-      price: 2200,
-      seller: "أدم وباهي",
-      size: "XL",
-      wilaya: "31 - وهران",
-      condition: "كالجديد",
-      img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&auto=format&fit=crop"
-    }
-  ];
+  // تم تفريغ قائمة القطع المبدئية بنجاح
+  const demoProducts = [];
 
   let productsData = [...demoProducts];
   let cart = JSON.parse(localStorage.getItem('luxury_cart')) || [];
@@ -630,7 +600,7 @@
     container.innerHTML = '';
 
     if(items.length === 0) {
-      container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:32px; color:var(--ink-soft);">لا توجد قطع معروضة تطابق بحثك حالياً.</p>';
+      container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:32px; color:var(--ink-soft);">لا توجد قطع معروضة حالياً.</p>';
       return;
     }
 
