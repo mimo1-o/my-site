@@ -319,11 +319,15 @@
     <div class="drawer-foot">
       <div class="form-group">
         <label>الاسم الكامل:</label>
-        <input type="text" id="custName" class="form-control" placeholder="مثال: محمد علي">
+        <input type="text" id="custName" class="form-control" placeholder="مثال: محمد علي" required>
+      </div>
+      <div class="form-group">
+        <label>رقم الهاتف:</label>
+        <input type="tel" id="custPhone" class="form-control" placeholder="مثال: 0655979457" required>
       </div>
       <div class="form-group">
         <label>العنوان والولاية:</label>
-        <input type="text" id="custAddress" class="form-control" placeholder="مثال: باتنة - حي الزهور">
+        <input type="text" id="custAddress" class="form-control" placeholder="مثال: باتنة - حي الزهور" required>
       </div>
       <div style="border-top:1px dashed var(--line); padding-top:10px; margin-top:10px;">
         <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
@@ -336,8 +340,8 @@
           <span>الإجمالي الكلي</span><span id="drawer-total">0 د.ج</span>
         </div>
       </div>
-      <button onclick="checkoutWhatsApp()" class="btn btn-whatsapp" style="margin-top:14px;">
-        📱 تأكيد الطلب عبر WhatsApp
+      <button id="checkoutBtn" onclick="checkoutOrder()" class="btn btn-whatsapp" style="margin-top:14px;">
+        🛍️ تأكيد إرسال الطلب
       </button>
     </div>
   </div>
@@ -498,6 +502,9 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
+  // Google Apps Script API URL
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAVf-pRaZqpqpvoUgNXnaf0RqKYuSX2mqDJqwc0hhhToIYxo2tX4plZMhf_C-gduqikQ/exec';
+
   const firebaseConfig = {
     apiKey: "AIzaSyCCvSPTLHfL7wz_FnhE3zfTMxAiIzLIfrI",
     authDomain: "adambahi.firebaseapp.com",
@@ -685,295 +692,259 @@
 
   function updateWishlistUI() {
     document.getElementById('wishlist-count').innerText = wishlist.length;
+    const container = document.getElementById('wishlistItemsContainer');
+    if(!container) return;
+    container.innerHTML = '';
+    
+    if(wishlist.length === 0) {
+      container.innerHTML = '<p style="text-align:center; color:var(--ink-soft); padding:20px;">قائمة المفضلة فارغة حالياً.</p>';
+      return;
+    }
+
+    wishlist.forEach(id => {
+      const product = productsData.find(p => p.id === id);
+      if(product) {
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+          <img src="${product.img}">
+          <div style="flex:1;">
+            <b>${product.title}</b>
+            <div style="font-size:12px; color:var(--ink-soft);">${product.price} د.ج</div>
+          </div>
+          <button class="btn btn-sm btn-danger" onclick="toggleFav(event, '${product.id}')">إزالة</button>
+        `;
+        container.appendChild(item);
+      }
+    });
   }
 
   function openWishlistModal() {
-    const container = document.getElementById('wishlistItemsContainer');
-    container.innerHTML = '';
-    const favItems = productsData.filter(p => wishlist.includes(p.id));
-
-    if(favItems.length === 0) {
-      container.innerHTML = '<p style="text-align:center; color:var(--ink-soft); padding:20px;">لا توجد قطع في المفضلة حالياً.</p>';
-    } else {
-      favItems.forEach(item => {
-        const div = document.createElement('div');
-        div.className = "cart-item";
-        div.innerHTML = `
-          <img src="${item.img}" alt="${item.title}"/>
-          <div style="flex:1;">
-            <b>${item.title}</b>
-            <p style="font-size:12px; color:var(--ink-soft);">${item.price} د.ج | مقاس: ${item.size}</p>
-          </div>
-          <button class="btn btn-primary btn-sm" onclick="addToCart(event, '${item.id}')">إضافة للسلة 🛒</button>
-        `;
-        container.appendChild(div);
-      });
-    }
+    updateWishlistUI();
     openModal('wishlistModal');
   }
 
   // Cart Functions
   function addToCart(e, id) {
     if(e) e.stopPropagation();
-    const product = productsData.find(p => p.id == id);
-    if(!product) return;
-    const existing = cart.find(c => c.id == id);
-    if(existing) {
-      existing.qty++;
-    } else {
-      cart.push({ ...product, qty: 1 });
+    const product = productsData.find(p => p.id === id);
+    if(product) {
+      cart.push(product);
+      localStorage.setItem('luxury_cart', JSON.stringify(cart));
+      updateCartUI();
+      toggleDrawerCart(true);
     }
-    saveCart();
-    toggleDrawerCart(true);
   }
 
-  function updateQty(id, delta) {
-    const item = cart.find(c => c.id == id);
-    if(item) {
-      item.qty += delta;
-      if(item.qty <= 0) {
-        cart = cart.filter(c => c.id != id);
-      }
-    }
-    saveCart();
-  }
-
-  function removeFromCart(id) {
-    cart = cart.filter(c => c.id != id);
-    saveCart();
-  }
-
-  function saveCart() {
+  function removeFromCart(index) {
+    cart.splice(index, 1);
     localStorage.setItem('luxury_cart', JSON.stringify(cart));
     updateCartUI();
   }
 
   function updateCartUI() {
+    document.getElementById('cart-count').innerText = cart.length;
     const container = document.getElementById('drawerCartItems');
     container.innerHTML = '';
-    let subtotal = 0;
-    let totalItems = 0;
 
-    if(cart.length === 0) {
-      container.innerHTML = '<p style="text-align:center; color:var(--ink-soft); padding:20px;">سلة التسوق فارغة حالياً.</p>';
-    } else {
-      cart.forEach(item => {
-        subtotal += item.price * item.qty;
-        totalItems += item.qty;
-        const div = document.createElement('div');
-        div.className = "cart-item";
-        div.innerHTML = `
-          <img src="${item.img}" alt="${item.title}"/>
-          <div style="flex:1;">
-            <b>${item.title}</b>
-            <p style="font-size:12px; color:var(--ink-soft);">المقاس: ${item.size} | ${item.price} د.ج</p>
-            <div style="display:flex; gap:8px; align-items:center; margin-top:6px;">
-              <button onclick="updateQty('${item.id}', -1)" style="width:22px; height:22px; border-radius:4px; border:1px solid var(--line); cursor:pointer;">-</button>
-              <span>${item.qty}</span>
-              <button onclick="updateQty('${item.id}', 1)" style="width:22px; height:22px; border-radius:4px; border:1px solid var(--line); cursor:pointer;">+</button>
-            </div>
-          </div>
-          <button onclick="removeFromCart('${item.id}')" style="color:red; background:none; border:none; cursor:pointer; font-size:16px;">🗑️</button>
-        `;
-        container.appendChild(div);
-      });
-    }
+    let subtotal = 0;
+    cart.forEach((item, index) => {
+      subtotal += Number(item.price);
+      const cartEl = document.createElement('div');
+      cartEl.className = 'cart-item';
+      cartEl.innerHTML = `
+        <img src="${item.img}">
+        <div style="flex:1;">
+          <b style="font-size:14px;">${item.title}</b>
+          <div style="font-size:12px; color:var(--ink-soft);">مقاس: ${item.size} • ${item.price} د.ج</div>
+        </div>
+        <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">✕</button>
+      `;
+      container.appendChild(cartEl);
+    });
 
     const shipping = cart.length > 0 ? 600 : 0;
-    document.getElementById('cart-count').innerText = totalItems;
-    document.getElementById('drawer-subtotal').innerText = subtotal.toLocaleString() + ' د.ج';
-    document.getElementById('drawer-shipping').innerText = shipping.toLocaleString() + ' د.ج';
-    document.getElementById('drawer-total').innerText = (subtotal + shipping).toLocaleString() + ' د.ج';
+    const total = subtotal + shipping;
+
+    document.getElementById('drawer-subtotal').innerText = `${subtotal.toLocaleString()} د.ج`;
+    document.getElementById('drawer-shipping').innerText = `${shipping.toLocaleString()} د.ج`;
+    document.getElementById('drawer-total').innerText = `${total.toLocaleString()} د.ج`;
   }
 
-  function checkoutWhatsApp() {
-    if(cart.length === 0) {
+  // Checkout and Send Order to Google Sheets
+  function checkoutOrder() {
+    const name = document.getElementById('custName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+    const address = document.getElementById('custAddress').value.trim();
+
+    if (!name || !phone || !address) {
+      alert('يرجى تعبئة كافة البيانات (الاسم، الهاتف، والعنوان) لإكمال الطلب.');
+      return;
+    }
+
+    if (cart.length === 0) {
       alert('سلة التسوق فارغة!');
       return;
     }
 
-    const name = document.getElementById('custName').value.trim() || "غير محدد";
-    const address = document.getElementById('custAddress').value.trim() || "غير محدد";
+    const btn = document.getElementById('checkoutBtn');
+    btn.disabled = true;
+    btn.innerText = 'جاري إرسال الطلب...';
 
-    let message = `🛒 *طلب جديد من المتجر الفاخر*\n-------------------------\n👤 *الزبون:* ${name}\n📍 *العنوان:* ${address}\n\n📦 *القطع المطلوبة:*\n`;
-    let subtotal = 0;
-    cart.forEach((item, index) => {
-      const itemTotal = item.price * item.qty;
-      subtotal += itemTotal;
-      message += `${index + 1}. *${item.title}* (المقاس: ${item.size}) - العدد: ${item.qty} - ${itemTotal} د.ج\n`;
-    });
+    // Summary of products
+    const productTitles = cart.map(p => p.title).join(' | ');
+    const productSizes = cart.map(p => p.size).join(' | ');
 
-    const total = subtotal + 600;
-    message += `\n💰 *الإجمالي الكلي مع الشحن:* ${total} د.ج\n-------------------------`;
+    const payload = {
+      name: name,
+      phone: phone,
+      wilaya: address,
+      product: productTitles,
+      size: productSizes
+    };
 
-    window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`, '_blank');
-  }
-
-  // Firebase Operations
-  function convertFileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
-
-  async function handleAddNewProduct(e) {
-    e.preventDefault();
-    const currentUser = auth.currentUser;
-
-    if (!currentUser) {
-      alert("يرجى تسجيل الدخول أولاً لتتمكن من نشر القطعة ولتكون الوحيد القادر على حذفها لاحقاً!");
-      openModal('loginModal');
-      return;
-    }
-
-    const fileInput = document.getElementById('newImgFile');
-    const file = fileInput ? fileInput.files[0] : null;
-
-    if (!file) {
-      alert("يرجى اختيار صورة أولاً!");
-      return;
-    }
-
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerText;
-    submitBtn.innerText = "جاري النشر والحفظ...";
-    submitBtn.disabled = true;
-
-    try {
-      const base64Image = await convertFileToBase64(file);
-      const sellerName = currentUser.displayName || currentUser.email.split('@')[0];
-
-      const newProduct = {
-        title: document.getElementById('newTitle').value,
-        price: parseFloat(document.getElementById('newPrice').value),
-        seller: sellerName,
-        userId: currentUser.uid,
-        size: document.getElementById('newSize').value,
-        wilaya: document.getElementById('newWilaya').value,
-        condition: document.getElementById('newCondition').value,
-        img: base64Image,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-
-      await db.collection("products").add(newProduct);
-
-      closeModal('uploadModal');
-      document.getElementById('addProductForm').reset();
-      loadProductsFromFirebase();
-
-    } catch (error) {
-      console.error("خطأ:", error);
-      alert("حدث خطأ أثناء حفظ القطعة.");
-    } finally {
-      submitBtn.innerText = originalText;
-      submitBtn.disabled = false;
-    }
-  }
-
-  function promptDeleteProduct(e, productId, ownerId) {
-    e.stopPropagation();
-    const currentUser = auth.currentUser;
-    if (!currentUser || currentUser.uid !== ownerId) {
-      alert("عذراً، يمكنك حذف القطع التي قمت بنشرها فقط!");
-      return;
-    }
-    pendingDeleteId = productId;
-    openModal('deleteConfirmModal');
-  }
-
-  document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
-    if (!pendingDeleteId) return;
-    try {
-      await db.collection("products").doc(pendingDeleteId).delete();
-      closeModal('deleteConfirmModal');
-      pendingDeleteId = null;
-      openModal('deleteSuccessModal');
-      loadProductsFromFirebase();
-    } catch (error) {
-      console.error("خطأ أثناء الحذف:", error);
-      alert("حدث خطأ أثناء محاولة الحذف.");
-    }
-  });
-
-  function loadProductsFromFirebase() {
-    db.collection("products").orderBy("createdAt", "desc").get().then((querySnapshot) => {
-      let firebaseProducts = [];
-      querySnapshot.forEach((doc) => {
-        firebaseProducts.push({ id: doc.id, ...doc.data() });
-      });
-      productsData = [...firebaseProducts, ...demoProducts];
-      filterProducts();
-    }).catch(() => {
-      filterProducts();
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      alert('تم إرسال طلبك بنجاح! سنتصل بك قريباً للتأكيد.');
+      cart = [];
+      localStorage.removeItem('luxury_cart');
+      updateCartUI();
+      toggleDrawerCart(false);
+      
+      document.getElementById('custName').value = '';
+      document.getElementById('custPhone').value = '';
+      document.getElementById('custAddress').value = '';
+    })
+    .catch(error => {
+      console.error('Error sending order:', error);
+      alert('حدث خطأ أثناء الإرسال، حاول مرة أخرى.');
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.innerText = '🛍️ تأكيد إرسال الطلب';
     });
   }
 
+  // Auth Functions
   function handleGoogleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
       .then(() => closeModal('loginModal'))
-      .catch((err) => alert("خطأ: " + err.message));
+      .catch(err => alert('خطأ في تسجيل الدخول: ' + err.message));
   }
 
   function handleFirebaseLogin(e) {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
+    const pass = document.getElementById('loginPassword').value;
 
-    auth.signInWithEmailAndPassword(email, password)
+    auth.signInWithEmailAndPassword(email, pass)
       .then(() => closeModal('loginModal'))
       .catch(() => {
-        auth.createUserWithEmailAndPassword(email, password)
+        auth.createUserWithEmailAndPassword(email, pass)
           .then(() => closeModal('loginModal'))
-          .catch((err) => alert('خطأ: ' + err.message));
+          .catch(err => alert('حدث خطأ: ' + err.message));
       });
   }
 
-  // Countdown Timer Script
-  function startCountdown() {
-    let hours = 8, minutes = 45, seconds = 30;
-    setInterval(() => {
-      if (seconds > 0) seconds--;
-      else {
-        seconds = 59;
-        if (minutes > 0) minutes--;
-        else {
-          minutes = 59;
-          if (hours > 0) hours--;
-        }
-      }
-      document.getElementById('timer-hours').innerText = String(hours).padStart(2, '0');
-      document.getElementById('timer-minutes').innerText = String(minutes).padStart(2, '0');
-      document.getElementById('timer-seconds').innerText = String(seconds).padStart(2, '0');
-    }, 1000);
-  }
-
-  // Auth Observer
-  auth.onAuthStateChanged((user) => {
-    const userAuthActions = document.getElementById('userAuthActions');
+  auth.onAuthStateChanged(user => {
+    const actions = document.getElementById('userAuthActions');
     if(user) {
-      userAuthActions.innerHTML = `
-        <span style="font-size:13px; font-weight:bold; align-self:center;">👤 ${user.displayName || user.email.split('@')[0]}</span>
+      actions.innerHTML = `
+        <span style="font-size:13px; align-self:center;">أهلاً، ${user.displayName || user.email.split('@')[0]}</span>
         <button class="btn btn-outline btn-sm" onclick="auth.signOut()">خروج</button>
         <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة</button>
       `;
     } else {
-      userAuthActions.innerHTML = `
+      actions.innerHTML = `
         <button class="btn btn-outline btn-sm" onclick="openModal('loginModal')">دخول</button>
         <button class="btn btn-primary btn-sm" onclick="openModal('uploadModal')">أضف قطعة</button>
       `;
     }
-    loadProductsFromFirebase();
+    filterProducts();
   });
 
-  // Initialization
+  // Product Deletion
+  function promptDeleteProduct(e, id, userId) {
+    e.stopPropagation();
+    pendingDeleteId = id;
+    openModal('deleteConfirmModal');
+    
+    document.getElementById('confirmDeleteBtn').onclick = function() {
+      db.collection('products').doc(pendingDeleteId).delete()
+        .then(() => {
+          closeModal('deleteConfirmModal');
+          openModal('deleteSuccessModal');
+          fetchProductsFromFirebase();
+        })
+        .catch(err => alert('خطأ أثناء الحذف: ' + err.message));
+    };
+  }
+
+  // Upload Product
+  function handleAddNewProduct(e) {
+    e.preventDefault();
+    const title = document.getElementById('newTitle').value;
+    const price = Number(document.getElementById('newPrice').value);
+    const size = document.getElementById('newSize').value;
+    const wilaya = document.getElementById('newWilaya').value;
+    const condition = document.getElementById('newCondition').value;
+    const file = document.getElementById('newImgFile').files[0];
+
+    if(!file) return alert('يرجى اختيار صورة');
+
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const imgData = evt.target.result;
+      const currentUser = auth.currentUser;
+
+      const newProd = {
+        title,
+        price,
+        size,
+        wilaya,
+        condition,
+        img: imgData,
+        seller: currentUser ? (currentUser.displayName || currentUser.email) : 'زائر',
+        userId: currentUser ? currentUser.uid : 'guest',
+        createdAt: new Date().toISOString()
+      };
+
+      db.collection('products').add(newProd)
+        .then(() => {
+          closeModal('uploadModal');
+          document.getElementById('addProductForm').reset();
+          fetchProductsFromFirebase();
+        })
+        .catch(err => alert('خطأ أثناء الإضافة: ' + err.message));
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Fetch Firebase Data
+  function fetchProductsFromFirebase() {
+    db.collection('products').get().then(snapshot => {
+      const fbProducts = [];
+      snapshot.forEach(doc => {
+        fbProducts.push({ id: doc.id, ...doc.data() });
+      });
+      productsData = [...demoProducts, ...fbProducts];
+      filterProducts();
+    }).catch(err => console.log('Error fetching:', err));
+  }
+
+  // Initial Setup
   updateCartUI();
   updateWishlistUI();
-  startCountdown();
-  loadProductsFromFirebase();
+  fetchProductsFromFirebase();
+  filterProducts();
 </script>
 </body>
 </html>
