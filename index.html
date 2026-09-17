@@ -133,9 +133,9 @@
   .products { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
   .card { background:var(--white); border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); transition:.25s; position:relative; cursor: pointer; box-shadow: var(--shadow); }
   .card:hover { transform:translateY(-6px); }
-  .card-media { height:340px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background:#f0f0f0; }
-  .card-media img { width:100%; height:100%; object-fit:cover; object-position:top center; transition:transform 0.4s ease; }
-  .card:hover .card-media img { transform:scale(1.08); }
+  .card-media { height:360px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background:#f9f9f9; padding: 10px; }
+  .card-media img { width:100%; height:100%; object-fit:contain; object-position:center; transition:transform 0.4s ease; }
+  .card:hover .card-media img { transform:scale(1.04); }
   .badge-container { position:absolute; top:12px; right:12px; display:flex; flex-direction:column; gap:6px; align-items:flex-end; z-index:2; }
   .badge { font-size:11px; font-weight:700; padding:4px 10px; border-radius:6px; }
   .badge-condition { background:rgba(255,255,255,.9); color:#222; border:1px solid var(--line); }
@@ -151,10 +151,28 @@
   .price { font-family:'Cairo',sans-serif; font-weight:800; color:var(--green-deep); font-size:17px; }
 
   /* Gallery and Product View Styles */
-  .gallery-main-img { width: 100%; height: 320px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 12px; }
+  .gallery-main-img { width: 100%; height: 380px; object-fit: contain; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 12px; background: #fafafa; padding: 8px; }
   .gallery-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
-  .gallery-thumb { width: 65px; height: 65px; border-radius: 8px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
+  .gallery-thumb { width: 65px; height: 65px; border-radius: 8px; object-fit: contain; cursor: pointer; border: 2px solid transparent; transition: 0.2s; background: #fff; padding: 2px; }
   .gallery-thumb.active { border-color: var(--green-deep); transform: scale(1.05); }
+
+  /* Size Selector Component */
+  .size-selector-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+  .sizes-container { display: flex; gap: 8px; margin-bottom: 16px; }
+  .size-btn {
+    width: 44px; height: 44px; border-radius: 10px; border: 1.5px solid var(--line);
+    background: var(--bg); color: var(--ink); font-weight: 800; font-size: 14px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    position: relative; transition: 0.2s;
+  }
+  .size-btn.selected { border-color: var(--green-deep); background: var(--green); color: #fff; }
+  .size-btn.out-of-stock {
+    opacity: 0.4; cursor: not-allowed; background: var(--bg-card); color: var(--ink-soft);
+  }
+  .size-btn.out-of-stock::after {
+    content: ''; position: absolute; width: 100%; height: 2px; background: #E53935;
+    transform: rotate(-45deg); border-radius: 2px;
+  }
 
   /* Sliding Drawer Cart */
   .cart-drawer-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s ease; }
@@ -165,7 +183,7 @@
   .drawer-body { padding: 20px; flex: 1; overflow-y: auto; }
   .drawer-foot { padding: 20px; border-top: 1px solid var(--line); background: var(--bg); }
   .cart-item { display:flex; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); }
-  .cart-item img { width:65px; height:65px; border-radius:8px; object-fit:cover; }
+  .cart-item img { width:65px; height:65px; border-radius:8px; object-fit:contain; background: #fff; border: 1px solid var(--line); }
 
   /* Modals */
   .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
@@ -312,7 +330,7 @@
   </section>
 </main>
 
-<!-- PRODUCT VIEW MODAL (معرض الصور والتفاصيل) -->
+<!-- PRODUCT VIEW MODAL (معرض الصور والتفاصيل واختيار المقاس) -->
 <div class="modal-overlay" id="productViewModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -329,8 +347,14 @@
           <span class="badge badge-wilaya" id="viewWilaya">الولاية</span>
         </div>
         <p style="color: var(--ink-soft); font-size: 14px; margin-bottom: 8px;" id="viewSeller">الناشر: -</p>
-        <p style="color: var(--ink-soft); font-size: 14px; margin-bottom: 16px;" id="viewDetails">المقاس: - | الحالة: -</p>
+        <p style="color: var(--ink-soft); font-size: 14px; margin-bottom: 12px;" id="viewCondition">الحالة: -</p>
         
+        <!-- Size Selection Section -->
+        <div class="size-selector-title">المقاسات المتوفرة:</div>
+        <div class="sizes-container" id="viewSizesContainer">
+          <!-- Dynamically populated sizes -->
+        </div>
+
         <button id="viewAddToCartBtn" class="btn btn-primary" style="width: 100%; font-size: 16px; padding: 12px;">
           إضافة إلى سلة التسوق 🛒
         </button>
@@ -438,7 +462,7 @@
   </div>
 </div>
 
-<!-- UPLOAD MODAL (مع دعم صور متعددة) -->
+<!-- UPLOAD MODAL -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -457,7 +481,7 @@
             <input type="number" id="newPrice" class="form-control" placeholder="2500" required>
           </div>
           <div class="form-group">
-            <label>المقاس</label>
+            <label>المقاس المتوفر الأساسي</label>
             <select id="newSize" class="form-control" required>
               <option value="S">S</option>
               <option value="M">M</option>
@@ -568,6 +592,7 @@
   const db = firebase.firestore();
 
   let pendingDeleteId = null;
+  let selectedSizeForOrder = null;
 
   const wilayas = [
     "01 - أدرار", "02 - الشلف", "03 - الأغواط", "04 - أم البواقي", "05 - باتنة",
@@ -669,7 +694,7 @@
     });
   }
 
-  // View Product Details & Image Gallery Modal
+  // View Product Details & Image Gallery Modal with Size Selection
   function viewProductDetails(productId) {
     const item = productsData.find(p => p.id === productId);
     if (!item) return;
@@ -680,7 +705,7 @@
     document.getElementById('viewPrice').innerText = Number(item.price).toLocaleString() + ' د.ج';
     document.getElementById('viewWilaya').innerText = item.wilaya;
     document.getElementById('viewSeller').innerText = 'الناشر: ' + item.seller;
-    document.getElementById('viewDetails').innerText = `المقاس: ${item.size} | الحالة: ${item.condition}`;
+    document.getElementById('viewCondition').innerText = 'الحالة: ' + item.condition;
     
     const mainImg = document.getElementById('viewMainImg');
     mainImg.src = images[0];
@@ -700,8 +725,34 @@
       thumbsContainer.appendChild(thumb);
     });
 
+    // Populate Size Buttons (S, M, L, XL)
+    const sizesContainer = document.getElementById('viewSizesContainer');
+    sizesContainer.innerHTML = '';
+
+    const allSizes = ['S', 'M', 'L', 'XL'];
+    const availableSizes = Array.isArray(item.sizes) ? item.sizes : [item.size];
+    selectedSizeForOrder = availableSizes[0] || 'M';
+
+    allSizes.forEach(sz => {
+      const sizeBtn = document.createElement('div');
+      const isAvailable = availableSizes.includes(sz);
+      
+      sizeBtn.className = `size-btn ${isAvailable ? '' : 'out-of-stock'} ${sz === selectedSizeForOrder ? 'selected' : ''}`;
+      sizeBtn.innerText = sz;
+
+      if (isAvailable) {
+        sizeBtn.onclick = () => {
+          selectedSizeForOrder = sz;
+          document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+          sizeBtn.classList.add('selected');
+        };
+      }
+
+      sizesContainer.appendChild(sizeBtn);
+    });
+
     document.getElementById('viewAddToCartBtn').onclick = () => {
-      addToCart(null, item.id);
+      addToCart(null, item.id, selectedSizeForOrder);
       closeModal('productViewModal');
     };
 
@@ -719,7 +770,8 @@
     let filtered = productsData.filter(item => {
       const matchesSearch = item.title.toLowerCase().includes(query);
       const matchesWilaya = !wilaya || item.wilaya === wilaya;
-      const matchesSize = !size || item.size === size;
+      const itemSizes = Array.isArray(item.sizes) ? item.sizes : [item.size];
+      const matchesSize = !size || itemSizes.includes(size);
       const matchesCondition = !condition || item.condition === condition;
       return matchesSearch && matchesWilaya && matchesSize && matchesCondition;
     });
@@ -734,11 +786,15 @@
   }
 
   // Cart Management
-  function addToCart(e, productId) {
+  function addToCart(e, productId, customSize = null) {
     if(e) e.stopPropagation();
     const product = productsData.find(p => p.id === productId);
     if(product) {
-      cart.push(product);
+      const cartItem = {
+        ...product,
+        size: customSize || product.size
+      };
+      cart.push(cartItem);
       localStorage.setItem('luxury_cart', JSON.stringify(cart));
       updateCartUI();
       toggleDrawerCart(true);
@@ -916,11 +972,13 @@
 
     Promise.all(imagePromises).then(imagesBase64 => {
       const currentUser = auth.currentUser;
+      const primarySize = document.getElementById('newSize').value;
 
       const newProd = {
         title: document.getElementById('newTitle').value,
         price: Number(document.getElementById('newPrice').value),
-        size: document.getElementById('newSize').value,
+        size: primarySize,
+        sizes: [primarySize],
         wilaya: document.getElementById('newWilaya').value,
         condition: document.getElementById('newCondition').value,
         seller: currentUser ? (currentUser.displayName || currentUser.email) : "مستخدم ناشر",
